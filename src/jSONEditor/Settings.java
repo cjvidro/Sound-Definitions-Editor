@@ -6,40 +6,32 @@ public class Settings {
 	boolean lolm = true;
 	boolean web = false;
 	
-	boolean getAuto() {
+	public boolean getAuto() {
 		return auto;
 	}
 	
-	boolean getLOLM() {
+	public boolean getLOLM() {
 		return lolm;
 	}
 	
-	void toggleAutoSave() {
-		
-		if(auto)
-			auto = false;
-		else
-			auto = true;
+	public boolean getWeb() {
+		return web;
 	}
 	
-	void toggleAlternateLoadMem() {
-		
-		if(lolm)
-			lolm = false;
-		else
-			lolm = true;
+	public void toggleAutoSave() {
+		auto = !auto;
 	}
 	
-	void allowWebBackup() {
-		
-		if(web)
-			web = false;
-		else
-			web = true;
+	public void toggleAlternateLoadMem() {
+		lolm = !lolm;
+	}
+	
+	public void allowWebBackup() {
+		web = !web;
 	}
 	
 	//TO DO
-	void help() {
+	public void help() {
 		
 	}
 }

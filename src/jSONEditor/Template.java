@@ -2,7 +2,7 @@ package jSONEditor;
 
 public class Template {
 	
-	//TO DO
+	///TO DO
 	void setDefaultName(String name) {
 		
 	}
