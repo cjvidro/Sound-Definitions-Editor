@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Import" />
+            <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem mnemonicParsing="false" text="Edit Changelog" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Settings" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Template">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Add New Template" />
+            <MenuItem mnemonicParsing="false" text="Edit Template" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help" />
+            <Menu mnemonicParsing="false" text="Settings" />
+      </menus>
+    </MenuBar>
+      <HBox>
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+              <items>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                            <Button mnemonicParsing="false" text="Import" />
+                              <Button mnemonicParsing="false" text="Export" />
+                              <Button mnemonicParsing="false" text="Save" />
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Edit Changelog" />
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Add Playsound" />
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox>
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Add" />
+                              <Button mnemonicParsing="false" text="Edit" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Template" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Log In" />
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+              </items>
+            </ToolBar>
+         </children>
+      </HBox>
+    <SplitPane dividerPositions="0.18262806236080179" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+            <ScrollPane fitToHeight="true" fitToWidth="true" SplitPane.resizableWithParent="false">
+               <content>
+                  <VBox>
+                     <children>
+                        <Label alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" underline="true" VBox.vgrow="NEVER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Accordion>
+                                <panes>
+                                  <TitledPane animated="false" text="Entities">
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Accordion>
+                                                  <panes>
+                                                    <TitledPane animated="false" text="untitled 1">
+                                                         <content>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Label text="Label" />
+                                                               </children>
+                                                            </VBox>
+                                                         </content>
+                                                      </TitledPane>
+                                                  </panes>
+                                                </Accordion>
+                                                <Label text="Label" />
+                                                <Label text="Label" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                  <TitledPane animated="false" text="Custom">
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Accordion>
+                                                   <panes>
+                                                      <TitledPane animated="false" text="untitled 1">
+                                                         <content>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Label text="Label" />
+                                                               </children>
+                                                            </VBox>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                                <Label text="Label" />
+                                                <Label text="Label" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" text="Voiceovers">
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Accordion>
+                                                   <panes>
+                                                      <TitledPane animated="false" text="untitled 1">
+                                                         <content>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Label text="Label" />
+                                                               </children>
+                                                            </VBox>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                                <Label text="Label" />
+                                                <Label text="Label" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane prefHeight="200.0" prefWidth="200.0" text="Music">
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Accordion>
+                                                   <panes>
+                                                      <TitledPane animated="false" text="untitled 1">
+                                                         <content>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Label text="Label" />
+                                                               </children>
+                                                            </VBox>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                                <Label text="Label" />
+                                                <Label text="Label" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+              <children>
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" wrapText="false">
+                           <textFill>
+                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                           </textFill>
+                           <font>
+                      <Font size="18.0" fx:id="x1" />
+                           </font></Label>
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
