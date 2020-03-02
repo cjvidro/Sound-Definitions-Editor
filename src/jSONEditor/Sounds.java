@@ -11,6 +11,18 @@ public class Sounds {
 	Category category;
 	int index = 0;
 	
+	String defaultName = "Sound " + index;
+	double defaultMin = 0;
+	double defaultMax = 0;
+	Category defaultCategory = Category.master;
+	
+	void setDefaults(String name, double min_distance, double max_distance, Category category) {
+		defaultName = name;
+		defaultMin = min_distance;
+		defaultMax = max_distance;
+		defaultCategory = category;
+	}
+	
 	PlaySound getPlaysound(int index) {
 		return sound.get(index);
 	}

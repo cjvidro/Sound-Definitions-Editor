@@ -9,7 +9,18 @@ public class PlaySound {
 	boolean load_on_low_mem;
 	int index;
 	
-	String getDirectory() { 
+	boolean defaultStream = false;
+	double defaultPitch = 0;
+	double defaultVolume = 0;
+	boolean defaultLoad = false;
+	
+	void setDefaults(boolean stream, double pitch, double volume, boolean load_on_load_mem) {
+		defaultStream = stream;
+		defaultPitch = pitch;
+		defaultVolume = volume;
+		defaultLoad = load_on_low_mem;
+	}
+	String getDirectory() {
 		return directory;
 	}
 	
