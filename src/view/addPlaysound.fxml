@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -280,6 +281,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
                                     <ComboBox prefWidth="150.0" promptText="Select Template" />
                                  </children>
                               </HBox>
@@ -290,6 +292,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
                                     <TextField />
                                  </children>
                               </HBox>
@@ -300,6 +303,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
                                     <ComboBox prefWidth="150.0" promptText="Select Category" />
                                  </children>
                               </HBox>
@@ -310,7 +314,8 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextField />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
@@ -320,7 +325,8 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextField />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
                                  </children>
                               </HBox>
                               <Label text="Sounds">
@@ -335,7 +341,7 @@
                                  <children>
                                     <HBox spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="Button" />
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
                                           <VBox spacing="10.0">
                                              <children>
                                                 <HBox spacing="10.0">
@@ -345,7 +351,8 @@
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField />
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <TextField promptText="sounds/" />
                                                    </children>
                                                 </HBox>
                                                 <HBox spacing="10.0">
@@ -355,11 +362,13 @@
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
+                                                      <Region HBox.hgrow="ALWAYS" />
                                                       <CheckBox mnemonicParsing="false">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
                                                       </CheckBox>
+                                                      <Region HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                                 <HBox spacing="10.0">
@@ -369,7 +378,8 @@
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField />
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <TextField promptText="1.0" />
                                                    </children>
                                                 </HBox>
                                                 <HBox spacing="10.0">
@@ -379,29 +389,51 @@
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField />
+                                                      <Region HBox.hgrow="ALWAYS" />
+                                                      <TextField promptText="1.0" />
                                                    </children>
                                                 </HBox>
                                                 <HBox spacing="10.0">
                                                    <children>
-                                                      <Label text="Load On Low Memory">
+                                                      <Label text="Low Memory Load">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
+                                                      <Region HBox.hgrow="ALWAYS" />
                                                       <CheckBox mnemonicParsing="false">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
                                                       </CheckBox>
+                                                      <Region HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
                                        </children>
                                     </HBox>
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
+                              <HBox alignment="TOP_CENTER" spacing="15.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Save">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="Cancel">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets left="20.0" />
