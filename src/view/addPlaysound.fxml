@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -279,7 +280,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefWidth="150.0" />
+                                    <ComboBox prefWidth="150.0" promptText="Select Template" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
@@ -299,7 +300,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefWidth="150.0" />
+                                    <ComboBox prefWidth="150.0" promptText="Select Category" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
@@ -330,6 +331,77 @@
                                     <Insets top="15.0" />
                                  </padding>
                               </Label>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="Button" />
+                                          <VBox spacing="10.0">
+                                             <children>
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Label text="Directory">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField />
+                                                   </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Label text="Stream">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <CheckBox mnemonicParsing="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Label text="Volume">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField />
+                                                   </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Label text="Pitch">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField />
+                                                   </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Label text="Load On Low Memory">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <CheckBox mnemonicParsing="false">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                            <padding>
                               <Insets left="20.0" />
