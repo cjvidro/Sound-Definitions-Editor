@@ -2,43 +2,15 @@ package jSONEditor;
 
 public class Template {
 	
-	//TO DO
-	void setDefaultName(String name) {
+	void setDefaultSounds(String name, double min_distance, double max_distance, Category category) {
+		Sounds obj = new Sounds();
 		
+		obj.setDefaults(name, min_distance, max_distance, category);
 	}
 	
-	//TO DO
-	void setDefaultCategory(Category category) {
+	void setDefaultPlaySounds(boolean stream, double pitch, double volume, boolean load_on_load_mem) {
+		PlaySound obj = new PlaySound();
 		
-	}
-	
-	//TO DO
-	void setDefaultMin(double min_distance) {
-		
-	}
-	
-	//TO DO
-	void setDefaultMax(double max_distance) {
-		
-	}
-	
-	//TO DO
-	void setDefaultStream(boolean stream) {
-		
-	}
-	
-	//TO DO
-	void setDefaultVolume(double volume) {
-		
-	}
-	
-	//TO DO
-	void setDefaultLoad(boolean load_on_low_mem) {
-		
-	}
-	
-	//TO DO
-	void setDefaultPitch(double pitch) {
-		
+		obj.setDefaults(stream, pitch, volume, load_on_load_mem);
 	}
 }
