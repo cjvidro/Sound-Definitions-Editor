@@ -80,13 +80,16 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <CheckBox mnemonicParsing="false">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </CheckBox>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region prefWidth="125.0" />
+                        <HBox>
+                           <children>
+                              <CheckBox mnemonicParsing="false">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -118,7 +121,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region prefWidth="45.0" />
                         <CheckBox mnemonicParsing="false">
                            <font>
                               <Font size="16.0" />
@@ -140,6 +143,12 @@
                            </font>
                         </Button>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
                   </HBox>
                </children>
                <padding>
