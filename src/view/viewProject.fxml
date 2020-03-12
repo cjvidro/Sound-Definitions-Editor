@@ -49,7 +49,7 @@
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help" />
-            <Menu mnemonicParsing="false" text="Settings" />
+            <Menu fx:id="settingsButton" mnemonicParsing="false" text="Settings" />
       </menus>
     </MenuBar>
       <HBox>
@@ -61,7 +61,7 @@
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
                             <Button mnemonicParsing="false" text="Import" />
-                              <Button mnemonicParsing="false" text="Export" />
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
                               <Button mnemonicParsing="false" text="Save" />
                            </children>
                         </HBox>
