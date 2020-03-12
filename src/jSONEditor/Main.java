@@ -10,9 +10,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        // load FXML and set the controller
+        viewProjectController controller = new viewProjectController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
+        loader.setController(controller); // view project controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        primaryStage.setTitle("JSON Sound Definitions Editor");
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
     }
     
