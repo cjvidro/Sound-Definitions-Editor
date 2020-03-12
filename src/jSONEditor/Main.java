@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         // load FXML and set the controller
-        viewProjectController controller = new viewProjectController(); // the controller for the view project GUI
+        ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();
