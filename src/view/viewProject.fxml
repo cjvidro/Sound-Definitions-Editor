@@ -46,8 +46,8 @@
               </Menu>
               <Menu mnemonicParsing="false" text="Template">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="Add New Template" />
-                  <MenuItem mnemonicParsing="false" text="Edit Template" />
+                  <MenuItem fx:id="addTemplate" mnemonicParsing="false" onAction="#showAddTemplate" text="Add New Template" />
+                  <MenuItem fx:id="EditTemplate" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit Template" />
                 </items>
               </Menu>
             </menus>

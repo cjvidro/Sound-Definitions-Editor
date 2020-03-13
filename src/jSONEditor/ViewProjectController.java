@@ -68,7 +68,40 @@ public class ViewProjectController {
     }
 
     @FXML
-    private void showSettings(Event event) throws IOException {
-        showSettings(new ActionEvent());
+    private void showAddTemplate(ActionEvent event) throws IOException {
+        System.out.println("Show Add Template");
+
+        // load FXML and set the controller
+        AddTemplateController controller = new AddTemplateController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addTemplate.fxml")));
+        loader.setController(controller); // addTemplate controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage addTemplateWindow = new Stage();
+        addTemplateWindow.setTitle("JSON Sound Definitions Editor");
+        addTemplateWindow.setScene(new Scene(root, 325, 400));
+        addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
+        addTemplateWindow.setResizable(false);
+        addTemplateWindow.show();
+    }
+
+    @FXML
+    private void showEditTemplate(ActionEvent event) throws IOException {
+        System.out.println("Show Edit Template");
+
+        // load FXML and set the controller
+        EditTemplateController controller = new EditTemplateController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editTemplate.fxml")));
+        loader.setController(controller); // addTemplate controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage addTemplateWindow = new Stage();
+        addTemplateWindow.setTitle("JSON Sound Definitions Editor");
+        addTemplateWindow.setScene(new Scene(root, 325, 400));
+        addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
+        addTemplateWindow.setResizable(false);
+        addTemplateWindow.show();
     }
 }

@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane minHeight="-1.0" minWidth="-1.0">
@@ -132,12 +131,12 @@
                   </HBox>
                   <HBox alignment="TOP_CENTER" spacing="15.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Save">
+                        <Button fx:id="addTemplateSave" mnemonicParsing="false" onAction="#saveAddTemplate" text="Save">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Cancel">
+                        <Button fx:id="addTemplateCancel" mnemonicParsing="false" onAction="#cancelAddTemplate" text="Cancel">
                            <font>
                               <Font size="14.0" />
                            </font>

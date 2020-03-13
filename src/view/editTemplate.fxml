@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane minHeight="-1.0" minWidth="-1.0">
@@ -132,17 +131,17 @@
                   </HBox>
                   <HBox alignment="TOP_CENTER" spacing="15.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Save">
+                        <Button fx:id="SaveEditTemplate" mnemonicParsing="false" onAction="#saveEditTemplate" text="Save">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Cancel">
+                        <Button fx:id="CancelEditTemplate" mnemonicParsing="false" onAction="#cancelEditTemplate" text="Cancel">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Delete">
+                        <Button fx:id="DeleteEditTemplate" mnemonicParsing="false" onAction="#deleteTemplate" text="Delete">
                            <font>
                               <Font size="14.0" />
                            </font>
