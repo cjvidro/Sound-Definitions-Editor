@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="10.0">
@@ -62,12 +61,12 @@
             </HBox>
             <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Export">
+                  <Button fx:id="exportExport" mnemonicParsing="false" onAction="#export" text="Export">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" text="Cancel">
+                  <Button fx:id="exportCancel" mnemonicParsing="false" onAction="#closeExport" text="Cancel">
                      <font>
                         <Font size="14.0" />
                      </font>

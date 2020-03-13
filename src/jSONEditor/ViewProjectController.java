@@ -1,17 +1,14 @@
 package jSONEditor;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class ViewProjectController {
@@ -19,11 +16,6 @@ public class ViewProjectController {
     /*****************************************************
      * FXML Elements
      *****************************************************/
-    @FXML
-    private Menu settingsButton;
-
-    @FXML
-    private VBox topVBox;
 
     @FXML // Needed by FXML to initialize anything
     private void initialize() {
@@ -33,27 +25,6 @@ public class ViewProjectController {
     /*****************************************************
      * Change Scenes
      *****************************************************/
-
-    // view Settings
-    @FXML
-    private void showSettings(ActionEvent event) throws IOException {
-        event.consume();
-        System.out.println("test");
-
-//        // Setup view and controller
-//        SettingsController controller = new SettingsController();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Settings.fxml"));
-//        loader.setController(controller);
-//        Parent loginView = loader.load();
-//        Scene loginScene = new Scene(loginView);
-//
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        window.setWidth(((Node)event.getSource()).getScene().getWidth());
-//        window.setHeight(((Node)event.getSource()).getScene().getHeight());
-//        window.setScene(loginScene);
-//        window.show();
-    }
-
     @FXML
     private void showExport(ActionEvent event) throws IOException {
         System.out.println("Show Export");
@@ -71,5 +42,33 @@ public class ViewProjectController {
         exportWindow.initModality(Modality.APPLICATION_MODAL);
         exportWindow.setResizable(false);
         exportWindow.show();
+    }
+
+    /*****************************************************
+     * Change Scenes
+     *****************************************************/
+
+    @FXML
+    private void showSettings(ActionEvent event) throws IOException {
+        System.out.println("Show Settings");
+
+        // load FXML and set the controller
+        SettingsController controller = new SettingsController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
+        loader.setController(controller); // export controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage settingsWindow = new Stage();
+        settingsWindow.setTitle("JSON Sound Definitions Editor");
+        settingsWindow.setScene(new Scene(root, 400, 200));
+        settingsWindow.initModality(Modality.APPLICATION_MODAL);
+        settingsWindow.setResizable(false);
+        settingsWindow.show();
+    }
+
+    @FXML
+    private void showSettings(Event event) throws IOException {
+        showSettings(new ActionEvent());
     }
 }

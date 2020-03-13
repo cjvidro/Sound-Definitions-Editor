@@ -23,35 +23,39 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Import" />
-            <MenuItem mnemonicParsing="false" text="Export" />
-                  <MenuItem mnemonicParsing="false" text="Edit Changelog" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Template">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Add New Template" />
-            <MenuItem mnemonicParsing="false" text="Edit Template" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help" />
-            <Menu fx:id="settingsButton" mnemonicParsing="false" text="Settings" />
-      </menus>
-    </MenuBar>
+      <HBox VBox.vgrow="NEVER">
+         <children>
+          <MenuBar>
+            <menus>
+              <Menu mnemonicParsing="false" text="File">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open…" />
+                  <Menu mnemonicParsing="false" text="Open Recent" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As…" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
+                        <MenuItem mnemonicParsing="false" text="Edit Changelog" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+                  <MenuItem mnemonicParsing="false" text="Quit" />
+                </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Template">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="Add New Template" />
+                  <MenuItem mnemonicParsing="false" text="Edit Template" />
+                </items>
+              </Menu>
+            </menus>
+          </MenuBar>
+            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+            <Button mnemonicParsing="false" text="Help" />
+         </children>
+      </HBox>
       <HBox>
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
