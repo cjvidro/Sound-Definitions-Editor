@@ -111,8 +111,8 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add" />
-                              <Button mnemonicParsing="false" text="Edit" />
+                              <Button fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
+                              <Button fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER">
