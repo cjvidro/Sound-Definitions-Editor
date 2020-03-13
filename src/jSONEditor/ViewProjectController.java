@@ -38,7 +38,7 @@ public class ViewProjectController {
         // set JavaFX stage details
         Stage exportWindow = new Stage();
         exportWindow.setTitle("JSON Sound Definitions Editor");
-        exportWindow.setScene(new Scene(root, 500, 190));
+        exportWindow.setScene(new Scene(root, 350, 190));
         exportWindow.initModality(Modality.APPLICATION_MODAL);
         exportWindow.setResizable(false);
         exportWindow.show();
