@@ -2,6 +2,7 @@ package jSONEditor;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
  
 import org.json.simple.JSONArray;
@@ -281,6 +282,29 @@ public class Sounds {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+	void writeOutSoundFile() {
+        
+        //JSON Sound file
+        JSONObject soundFile = new JSONObject();
+        
+        //put current variable into JSONObject
+        soundFile.put("category", category);
+        soundFile.put("min_distance", min_distance);
+        soundFile.put("max_distance", max_distance);
+        soundFile.put("sounds", sound);
+		
+        //Write JSON file
+        try (FileWriter file = new FileWriter("soundFile.json")) {
+ 
+            file.write(soundFile.toJSONString());
+            file.flush();
+ 
+        } catch (IOException e) {
             e.printStackTrace();
         }
 		
