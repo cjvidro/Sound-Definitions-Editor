@@ -5,3 +5,5 @@ MHT.iml
 out/
 .classpath
 .project
+src/Test/.classpath
+src/Test/.project
