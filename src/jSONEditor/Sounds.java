@@ -1,5 +1,15 @@
 package jSONEditor;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+ 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.ArrayList;
 
 public class Sounds {
@@ -134,5 +144,232 @@ public class Sounds {
 	void setName(String name) {
 		this.name = name;
 	}
-	//End getters and setters
+  
+	void addPlaySound(String directory, boolean stream, double volume, double pitch, boolean load) {
+		
+		//new playsound to add to the sound arraylist
+		PlaySound newPlaySound = new PlaySound();
+		
+		//setting the values of the new playsounds with the input of the function
+    	newPlaySound.setDirectory(directory);
+    	newPlaySound.setStream(stream);
+    	newPlaySound.setVolume(volume);
+    	newPlaySound.setPitch(pitch);
+    	newPlaySound.setLoad(load);
+    	
+    	//adding the new playound to the sound arraylist
+    	sound.add(newPlaySound);
+		
+	}
+	
+	void readInAndAddPlaySounds(String filename) {
+		
+        try (FileReader reader = new FileReader(filename))
+        {
+            //JSON parser object to parse read file
+            JSONParser jsonParser = new JSONParser();
+            //Read JSON file
+            JSONObject newPlaySound = (JSONObject) jsonParser.parse(reader);
+ 
+            System.out.println(newPlaySound);
+           
+            // get an array from the JSON sound object
+            JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
+            
+            //Create a new arraylist to place the playsounds from the JSON sound array
+            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            
+            // take the elements of the JSON sound array
+            for (int i = 0; i < JSONplaysounds.size(); i++) {
+            	
+            	//temp objects to access functions and store values
+            	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
+            	PlaySound tempPlaySounds = new PlaySound();
+            	
+            	//temp values
+            	String tempDirectory = "";
+            	boolean tempStream = false;
+            	double tempVolume = 1.0;
+            	double tempPitch = 1.0;
+            	boolean tempLoad = true;
+            	
+            	//Pulling values from JSONObject to temp values
+            	tempDirectory = (String) tempJSON.get("name");
+            	tempStream = (boolean) tempJSON.get("stream");
+            	tempVolume = (double) tempJSON.get("volume");
+            	tempPitch = (double) tempJSON.get("pitch");
+            	tempLoad = (boolean) tempJSON.get("load_on_low_mem");
+            	
+            	addPlaySound(tempDirectory, tempStream, tempVolume, tempPitch, tempLoad);
+            }
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+	void readInAndReplacePlaySounds(String filename) {
+		
+        try (FileReader reader = new FileReader(filename))
+        {
+            //JSON parser object to parse read file
+            JSONParser jsonParser = new JSONParser();
+            //Read JSON file
+            JSONObject newPlaySound = (JSONObject) jsonParser.parse(reader);
+ 
+            System.out.println(newPlaySound);
+           
+            // get an array from the JSON sound object
+            JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
+            
+            //Create a new arraylist to place the playsounds from the JSON sound array
+            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            
+            // take the elements of the JSON sound array
+            for (int i = 0; i < JSONplaysounds.size(); i++) {
+            	
+            	//temp objects to access functions and store values
+            	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
+            	PlaySound tempPlaySounds = new PlaySound();
+            	
+            	//temp values
+            	String tempDirectory = "";
+            	boolean tempStream = false;
+            	double tempVolume = 1.0;
+            	double tempPitch = 1.0;
+            	boolean tempLoad = true;
+            	
+            	//Pulling values from JSONObject to temp values
+            	tempDirectory = (String) tempJSON.get("name");
+            	tempStream = (boolean) tempJSON.get("stream");
+            	tempVolume = (double) tempJSON.get("volume");
+            	tempPitch = (double) tempJSON.get("pitch");
+            	tempLoad = (boolean) tempJSON.get("load_on_low_mem");
+            	
+            	//setting temp PlaySound with temp values
+            	tempPlaySounds.setDirectory(tempDirectory);
+            	tempPlaySounds.setStream(tempStream);
+            	tempPlaySounds.setVolume(tempVolume);
+            	tempPlaySounds.setPitch(tempPitch);
+            	tempPlaySounds.setLoad(tempLoad);
+            	
+            	//adding temp playsound to the newPlaySounds arraylist
+            	newPlaySounds.add(tempPlaySounds);
+            }
+            
+            //make the sounds array equal to the new playsounds
+            sound = newPlaySounds;
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+	void readInSoundFile(String filename) {
+         
+        try (FileReader reader = new FileReader(filename))
+        {
+            //JSON parser object to parse read file
+            JSONParser jsonParser = new JSONParser();
+            //Read JSON file
+            JSONObject newSound = (JSONObject) jsonParser.parse(reader);
+ 
+            System.out.println(newSound);
+            
+            // get the category from the JSON sound object
+            category = (Category) newSound.get("category");
+            System.out.println("The category is: " + category);
+ 
+            // get the min_distance from the JSON sound object
+            min_distance = (double) newSound.get("min_distance");
+            System.out.println("The min_distance is: " + min_distance);
+            
+            // get the max_distance from the JSON sound object
+            max_distance = (double) newSound.get("max_distance");
+            System.out.println("The max_distance is: " + max_distance);
+           
+            // get an array from the JSON sound object
+            JSONArray JSONplaysounds = (JSONArray) newSound.get("sounds");
+            
+            //Create a new arraylist to place the playsounds from the JSON sound array
+            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            
+            // take the elements of the JSON sound array
+            for (int i = 0; i < JSONplaysounds.size(); i++) {
+            	
+            	//temp objects to access functions and store values
+            	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
+            	PlaySound tempPlaySounds = new PlaySound();
+            	
+            	//temp values
+            	String tempDirectory = "";
+            	boolean tempStream = false;
+            	double tempVolume = 1.0;
+            	double tempPitch = 1.0;
+            	boolean tempLoad = true;
+            	
+            	//Pulling values from JSONObject to temp values
+            	tempDirectory = (String) tempJSON.get("name");
+            	tempStream = (boolean) tempJSON.get("stream");
+            	tempVolume = (double) tempJSON.get("volume");
+            	tempPitch = (double) tempJSON.get("pitch");
+            	tempLoad = (boolean) tempJSON.get("load_on_low_mem");
+            	
+            	//setting temp PlaySound with temp values
+            	tempPlaySounds.setDirectory(tempDirectory);
+            	tempPlaySounds.setStream(tempStream);
+            	tempPlaySounds.setVolume(tempVolume);
+            	tempPlaySounds.setPitch(tempPitch);
+            	tempPlaySounds.setLoad(tempLoad);
+            	
+            	//adding temp playsound to the newPlaySounds arraylist
+            	newPlaySounds.add(tempPlaySounds);
+            }
+            
+            //make the sounds array equal to the new playsounds
+            sound = newPlaySounds;
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+	void writeOutSoundFile() {
+        
+        //JSON Sound file
+        JSONObject soundFile = new JSONObject();
+        
+        //put current variable into JSONObject
+        soundFile.put("category", category);
+        soundFile.put("min_distance", min_distance);
+        soundFile.put("max_distance", max_distance);
+        soundFile.put("sounds", sound);
+		
+        //Write JSON file
+        try (FileWriter file = new FileWriter("soundFile.json")) {
+ 
+            file.write(soundFile.toJSONString());
+            file.flush();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+	}
+
 }
