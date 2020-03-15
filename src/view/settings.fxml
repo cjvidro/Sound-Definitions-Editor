@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane minHeight="-1.0" minWidth="-1.0">
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" text="Settings" textAlignment="CENTER" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Autosave:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                          <ToggleButton text="On">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Auto_save" />
+                           </toggleGroup>
+                        </ToggleButton>
+                          <ToggleButton selected="true" text="Off" toggleGroup="$Auto_save" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Load On Low Memory:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Region minWidth="25.0" HBox.hgrow="ALWAYS" />
+                        <ToggleButton selected="true" text="Always">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="LOLM" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton text="First" toggleGroup="$LOLM" />
+                        <ToggleButton text="Alternate" toggleGroup="$LOLM" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Web Backups:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <ToggleButton text="On">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Web_Backup" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton selected="true" text="Off" toggleGroup="$Web_Backup" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" spacing="15.0">
+                     <children>
+                        <Button fx:id="settingsBack" mnemonicParsing="false" onAction="#closeSettings" text="Back">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
