@@ -2,3 +2,6 @@
 out/
 MHT.iml
 /bin/
+out/
+.classpath
+.project
