@@ -41,7 +41,7 @@
                         <MenuItem mnemonicParsing="false" text="Edit Changelog" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+                  <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Template">
@@ -96,7 +96,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add Playsound" />
+                              <Button fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
                            </children>
                         </HBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
