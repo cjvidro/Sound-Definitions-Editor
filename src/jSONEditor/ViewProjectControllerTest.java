@@ -1,5 +1,6 @@
 package jSONEditor;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,15 +9,21 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class ViewProjectControllerTest {
 
     private Stage myStage;
+    ViewProjectController controller;
+    ActionEvent event;
 
     @Before
     public void start() throws Exception {
-        ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
+        event = new ActionEvent();
+
+        controller = new ViewProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();
@@ -33,5 +40,103 @@ public class ViewProjectControllerTest {
     public void testSetup() {
         assertNotNull(myStage);
         assertEquals("JSON Sound Definitions Editor", myStage.getTitle());
+    }
+
+    @Test
+    public void testQuit() {
+        ActionEvent event = new ActionEvent();
+
+        try {
+            controller.quit(event);
+            fail();
+        } catch (Exception e) {
+            assertEquals("User exited", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testShowExport() {
+        try {
+            Stage export = controller.showExport(event);
+            assertNotNull(export);
+            assertEquals("JSON Sound Definitions Editor - Export", export.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testShowSettings() {
+        try {
+            Stage settings = controller.showSettings(event);
+            assertNotNull(settings);
+            assertEquals("JSON Sound Definitions Editor - Settings", settings.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testShowAddTemplate() {
+        try {
+            Stage template = controller.showAddTemplate(event);
+            assertNotNull(template);
+            assertEquals("JSON Sound Definitions Editor - Add Template", template.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testShowEditTemplate() {
+        try {
+            Stage template = controller.showEditTemplate(event);
+            assertNotNull(template);
+            assertEquals("JSON Sound Definitions Editor - Edit Template", template.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testShowAddPlaysound() {
+        try {
+            Stage window = controller.showAddPlaysound(myStage);
+            assertNotNull(window);
+            assertEquals("JSON Sound Definitions Editor - Add Playsound", window.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testSaveAddPlaysound() {
+        try {
+            Stage temp = controller.showAddPlaysound(myStage);
+            Stage window = controller.saveAddPlaysound(temp);
+            assertNotNull(window);
+            assertEquals("JSON Sound Definitions Editor", window.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testCancelAddPlaysound() {
+        try {
+            Stage temp = controller.showAddPlaysound(myStage);
+            Stage window = controller.cancelAddPlaysound(temp);
+            assertNotNull(window);
+            assertEquals("JSON Sound Definitions Editor", window.getTitle());
+
+        } catch (IOException e) {
+            fail();
+        }
     }
 }

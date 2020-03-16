@@ -17,18 +17,23 @@ public class ViewProjectController {
      * Change Scenes and Button Functionality
      *****************************************************/
     @FXML
-    private void quit(ActionEvent event) throws IOException {
+    protected boolean quit(ActionEvent event) throws Exception {
         System.out.println("Quit");
 
         /*
         INSERT Prompt Save FUNCTIONALITY HERE
          */
 
-        System.exit(0);
+        class ExpectedQuitException extends Exception {
+            public ExpectedQuitException(String message) {
+                super(message);
+            }
+        }
+        throw new ExpectedQuitException("User exited");
     }
 
     @FXML
-    private void showExport(ActionEvent event) throws IOException {
+    protected Stage showExport(ActionEvent event) throws IOException {
         System.out.println("Show Export");
 
         // load FXML and set the controller
@@ -39,15 +44,17 @@ public class ViewProjectController {
 
         // set JavaFX stage details
         Stage exportWindow = new Stage();
-        exportWindow.setTitle("JSON Sound Definitions Editor");
+        exportWindow.setTitle("JSON Sound Definitions Editor - Export");
         exportWindow.setScene(new Scene(root, 350, 190));
         exportWindow.initModality(Modality.APPLICATION_MODAL);
         exportWindow.setResizable(false);
         exportWindow.show();
+
+        return exportWindow;
     }
 
     @FXML
-    private void showSettings(ActionEvent event) throws IOException {
+    protected Stage showSettings(ActionEvent event) throws IOException {
         System.out.println("Show Settings");
 
         // load FXML and set the controller
@@ -58,15 +65,17 @@ public class ViewProjectController {
 
         // set JavaFX stage details
         Stage settingsWindow = new Stage();
-        settingsWindow.setTitle("JSON Sound Definitions Editor");
+        settingsWindow.setTitle("JSON Sound Definitions Editor - Settings");
         settingsWindow.setScene(new Scene(root, 400, 200));
         settingsWindow.initModality(Modality.APPLICATION_MODAL);
         settingsWindow.setResizable(false);
         settingsWindow.show();
+
+        return settingsWindow;
     }
 
     @FXML
-    private void showAddTemplate(ActionEvent event) throws IOException {
+    protected Stage showAddTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Add Template");
 
         // load FXML and set the controller
@@ -77,15 +86,17 @@ public class ViewProjectController {
 
         // set JavaFX stage details
         Stage addTemplateWindow = new Stage();
-        addTemplateWindow.setTitle("JSON Sound Definitions Editor");
+        addTemplateWindow.setTitle("JSON Sound Definitions Editor - Add Template");
         addTemplateWindow.setScene(new Scene(root, 325, 400));
         addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
         addTemplateWindow.setResizable(false);
         addTemplateWindow.show();
+
+        return addTemplateWindow;
     }
 
     @FXML
-    private void showEditTemplate(ActionEvent event) throws IOException {
+    protected Stage showEditTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Edit Template");
 
         // load FXML and set the controller
@@ -95,16 +106,17 @@ public class ViewProjectController {
         Parent root = loader.load();
 
         // set JavaFX stage details
-        Stage addTemplateWindow = new Stage();
-        addTemplateWindow.setTitle("JSON Sound Definitions Editor");
-        addTemplateWindow.setScene(new Scene(root, 325, 400));
-        addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
-        addTemplateWindow.setResizable(false);
-        addTemplateWindow.show();
+        Stage editTemplateWindow = new Stage();
+        editTemplateWindow.setTitle("JSON Sound Definitions Editor - Edit Template");
+        editTemplateWindow.setScene(new Scene(root, 325, 400));
+        editTemplateWindow.initModality(Modality.APPLICATION_MODAL);
+        editTemplateWindow.setResizable(false);
+        editTemplateWindow.show();
+
+        return editTemplateWindow;
     }
 
-    @FXML
-    private void showAddPlaysound(ActionEvent event) throws IOException {
+    protected Stage showAddPlaysound(Stage addPlaysoundWindow) throws IOException {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
@@ -113,17 +125,23 @@ public class ViewProjectController {
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
 
-        Stage addPlaysoundWindow = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        double width =  ((Button) event.getSource()).getScene().getWidth();
-        double height = ((Button) event.getSource()).getScene().getHeight();
+        double width =  addPlaysoundWindow.getScene().getWidth();
+        double height = addPlaysoundWindow.getScene().getHeight();
 
         // set JavaFX stage details
-        addPlaysoundWindow.setScene(new Scene(root, width, height));
+        addPlaysoundWindow.setScene(new Scene(root, width, height)); // swap scenes
+        addPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Add Playsound");
+
+        return addPlaysoundWindow;
     }
 
     @FXML
-    private void saveAddPlaysound(ActionEvent event) throws IOException {
+    private void showAddPlaysound(ActionEvent event) throws IOException {
+        // Calls the above helper method for testing purposes
+        showAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
         System.out.println("Save Add Playsound");
 
         // load FXML and set the controller
@@ -136,17 +154,23 @@ public class ViewProjectController {
         INSERT Save FUNCTIONALITY HERE
          */
 
-        Stage viewProjectWindow = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        double width =  ((Button) event.getSource()).getScene().getWidth();
-        double height = ((Button) event.getSource()).getScene().getHeight();
+        double width =  viewProjectWindow.getScene().getWidth();
+        double height = viewProjectWindow.getScene().getHeight();
 
         // set JavaFX stage details
-        viewProjectWindow.setScene(new Scene(root, width, height));
+        viewProjectWindow.setScene(new Scene(root, width, height)); // swap scenes
+        viewProjectWindow.setTitle("JSON Sound Definitions Editor");
+
+        return viewProjectWindow;
     }
 
     @FXML
-    private void cancelAddPlaysound(ActionEvent event) throws IOException {
+    private void saveAddPlaysound(ActionEvent event) throws IOException {
+        // Calls the above helper method for testing purposes
+        saveAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    protected Stage cancelAddPlaysound(Stage viewProjectWindow) throws IOException {
         System.out.println("Cancel Add Playsound");
 
         // load FXML and set the controller
@@ -155,16 +179,24 @@ public class ViewProjectController {
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
 
-        /*
+         /*
         INSERT Cancel FUNCTIONALITY HERE
          */
 
-        Stage viewProjectWindow = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
-        double width =  ((Button) event.getSource()).getScene().getWidth();
-        double height = ((Button) event.getSource()).getScene().getHeight();
+        double width =  viewProjectWindow.getScene().getWidth();
+        double height = viewProjectWindow.getScene().getHeight();
 
         // set JavaFX stage details
-        viewProjectWindow.setScene(new Scene(root, width, height));
+        viewProjectWindow.setScene(new Scene(root, width, height)); // swap scenes
+        viewProjectWindow.setTitle("JSON Sound Definitions Editor");
+
+        return viewProjectWindow;
+    }
+
+
+    @FXML
+    private void cancelAddPlaysound(ActionEvent event) throws IOException {
+        // Calls the above helper method for testing purposes
+        cancelAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 }
