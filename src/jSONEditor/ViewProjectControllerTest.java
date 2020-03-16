@@ -44,8 +44,6 @@ public class ViewProjectControllerTest {
 
     @Test
     public void testQuit() {
-        ActionEvent event = new ActionEvent();
-
         try {
             controller.quit(event);
             fail();

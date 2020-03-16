@@ -12,27 +12,40 @@ public class AddTemplateController {
      * Change Scenes
      *****************************************************/
 
-    @FXML
-    private void cancelAddTemplate(ActionEvent event) throws IOException {
+    protected Stage cancelAddTemplate(Stage stage) {
         System.out.println("Cancel Add Template");
 
         /*
         INSERT CANCEL FUNCTIONALITY HERE
          */
 
-        Stage exportStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        exportStage.close();
+        stage.close();
+        stage = null;
+        return stage;
     }
 
     @FXML
-    private void saveAddTemplate(ActionEvent event) throws IOException {
+    private void cancelAddTemplate(ActionEvent event) {
+        // uses the above method for testing purposes
+        cancelAddTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
+
+    }
+
+    protected Stage saveAddTemplate(Stage stage) {
         System.out.println("Save Add Template");
 
         /*
         INSERT SAVE FUNCTIONALITY HERE
          */
 
-        Stage templateStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        templateStage.close();
+        stage.close();
+        stage = null;
+        return stage;
+    }
+
+    @FXML
+    protected void saveAddTemplate(ActionEvent event) {
+        // uses the above method for testing purposes
+        saveAddTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 }
