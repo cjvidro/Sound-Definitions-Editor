@@ -13,22 +13,33 @@ public class ExportController {
      * Change Scenes
      *****************************************************/
 
-    @FXML
-    private void closeExport(ActionEvent event) throws IOException {
+    protected Stage closeExport(Stage stage) {
         System.out.println("Close Export");
 
-        Stage exportStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        exportStage.close();
+        stage.close();
+        stage = null;
+        return stage;
     }
 
     @FXML
-    private void export(ActionEvent event) throws IOException {
+    private Stage closeExport(ActionEvent event) {
+        // Uses the above method for testing purposes
+        return closeExport((Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    protected Stage export (Stage stage) {
         System.out.println("Export");
 
         /*
         INSERT EXPORT FUNCTIONALITY HERE
          */
 
-        closeExport(event);
+        return closeExport(stage);
+    }
+
+    @FXML
+    private void export(ActionEvent event) {
+        // calls the above method for testing purposes
+        export((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 }

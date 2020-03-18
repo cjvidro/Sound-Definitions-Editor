@@ -1,22 +1,28 @@
 package jSONEditor;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.Button;
+        import javafx.stage.Stage;
 
-import java.io.IOException;
+        import java.io.IOException;
 
 public class SettingsController {
     /*****************************************************
      * Change Scenes
      *****************************************************/
 
-    @FXML
-    private void closeSettings(ActionEvent event) throws IOException {
+    protected Stage closeSettings(Stage settingsStage) {
         System.out.println("Close Settings");
 
-        Stage exportStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        exportStage.close();
+        settingsStage.close();
+        settingsStage = null;
+        return settingsStage;
+    }
+
+    @FXML
+    private void closeSettings(ActionEvent event) {
+        // Calls above method for testing purposes
+        closeSettings((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 }

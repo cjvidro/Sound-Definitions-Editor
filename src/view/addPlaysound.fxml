@@ -27,35 +27,39 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Import" />
-            <MenuItem mnemonicParsing="false" text="Export" />
-                  <MenuItem mnemonicParsing="false" text="Edit Changelog" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Template">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Add New Template" />
-            <MenuItem mnemonicParsing="false" text="Edit Template" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help" />
-            <Menu mnemonicParsing="false" text="Settings" />
-      </menus>
-    </MenuBar>
+      <HBox VBox.vgrow="NEVER">
+         <children>
+          <MenuBar>
+            <menus>
+              <Menu mnemonicParsing="false" text="File">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open…" />
+                  <Menu mnemonicParsing="false" text="Open Recent" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As…" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
+                        <MenuItem mnemonicParsing="false" text="Edit Changelog" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+                  <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Template">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="Add New Template" />
+                  <MenuItem mnemonicParsing="false" text="Edit Template" />
+                </items>
+              </Menu>
+            </menus>
+          </MenuBar>
+            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+            <Button mnemonicParsing="false" text="Help" />
+         </children>
+      </HBox>
       <HBox>
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -65,7 +69,7 @@
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
                             <Button mnemonicParsing="false" text="Import" />
-                              <Button mnemonicParsing="false" text="Export" />
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
                               <Button mnemonicParsing="false" text="Save" />
                            </children>
                         </HBox>
@@ -96,7 +100,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add Playsound" />
+                              <Button fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
                            </children>
                         </HBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
@@ -111,8 +115,8 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add" />
-                              <Button mnemonicParsing="false" text="Edit" />
+                              <Button fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
+                              <Button fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER">
@@ -424,12 +428,12 @@
                                     </VBox>
                                     <HBox alignment="TOP_CENTER" spacing="15.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Save">
+                                          <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Cancel">
+                                          <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
