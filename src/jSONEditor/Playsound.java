@@ -34,9 +34,18 @@ public class Playsound {
 		sound.setVolume(volume);
 		sound.setPitch(pitch);
 		sound.setLOLM(lolm);
-		sound.setIndex(numberSounds() - 1); // the index location in the sounds array list
+		sound.setIndex(numberSounds()); // the index location in the sounds array list
+		sound.setPlaysound(this);
 
 		sounds.add(sound);
+	}
+
+	/**
+	 * @param index The index of the sound
+	 * @return the sound
+	 */
+	protected Sound getSound(int index) {
+		return sounds.get(index);
 	}
 
 	/**
@@ -49,8 +58,8 @@ public class Playsound {
 			return;
 		}
 
+		sounds.remove(sound);
 		int index = sound.getIndex();
-		sounds.remove(index);
 		updateIndices(index);
 	}
 

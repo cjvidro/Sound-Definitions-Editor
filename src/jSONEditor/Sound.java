@@ -26,7 +26,7 @@ public class Sound {
 		this.directory = directory; 
 	}
 
-	protected boolean getStream() {
+	protected Boolean getStream() {
 		return stream; 
 	}
 
@@ -34,7 +34,7 @@ public class Sound {
 		this.stream = stream; 
 	}
 
-	protected double getPitch() {
+	protected Double getPitch() {
 		return pitch; 
 	}
 
@@ -42,7 +42,7 @@ public class Sound {
 		this.pitch = pitch;
 	}
 
-	protected double getVolume() {
+	protected Double getVolume() {
 		return volume;
 	}
 
@@ -50,7 +50,7 @@ public class Sound {
 		this.volume = volume;
 	}
 
-	protected boolean getLOLM() {
+	protected Boolean getLOLM() {
 		return lolm;
 	}
 
