@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ViewProjectController {
+public class ProjectController {
 
     /*****************************************************
      * Change Scenes and Button Functionality
@@ -120,7 +120,7 @@ public class ViewProjectController {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
-        ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
+        ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
@@ -145,7 +145,7 @@ public class ViewProjectController {
         System.out.println("Save Add Playsound");
 
         // load FXML and set the controller
-        ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
+        ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
@@ -174,7 +174,7 @@ public class ViewProjectController {
         System.out.println("Cancel Add Playsound");
 
         // load FXML and set the controller
-        ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
+        ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();

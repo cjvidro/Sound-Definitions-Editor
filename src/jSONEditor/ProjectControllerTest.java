@@ -13,17 +13,17 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class ViewProjectControllerTest {
+public class ProjectControllerTest {
 
     private Stage myStage;
-    ViewProjectController controller;
+    ProjectController controller;
     ActionEvent event;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        controller = new ViewProjectController(); // the controller for the view project GUI
+        controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();

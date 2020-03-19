@@ -11,7 +11,7 @@ import javafx.stage.Stage;
         @Override
         public void start(Stage primaryStage) throws Exception{
             // load FXML and set the controller
-            ViewProjectController controller = new ViewProjectController(); // the controller for the view project GUI
+            ProjectController controller = new ProjectController(); // the controller for the view project GUI
             FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
             loader.setController(controller); // view project controller
             Parent root = loader.load();
