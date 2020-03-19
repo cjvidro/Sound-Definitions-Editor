@@ -4,37 +4,20 @@ package jSONEditor;
  * This class is correlated with the sound_definitions "sounds" array for each playsound
  */
 public class Sound {
-	// Properties associated with this sound
-	private String directory; // the directory the sound is located in relative to the sounds folder
+	/*
+	Sound variables
+	 */
+	private Playsound playsound;
+	private String directory; // the directory the sounds is located in relative to the sounds folder
 	private Boolean stream; // stream property
 	private Double pitch; // pitch property
 	private Double volume; // volume property
-	private Boolean load_on_low_mem; // load_on_low_memory property
-	private int index = 0; // the index within the playsound this sound is. Starts with 0.
-	 
-	
-	// Start check null methods
+	private Boolean lolm; // load_on_low_memory property
+	private int index = 0; // the index within the playsound this sounds is. Starts with 0.
+
 	/*
-	 * This will check if the passed in stream and load are null
+	Getters and Setters
 	 */
-	protected boolean checkNullBoolean(Boolean bool) {
-		if(bool == null)
-			return true;
-		return false;
-	}
-	
-	/*
-	 * This will check if the passed in pitch and volume are null
-	 */
-	protected boolean checkNullDoubles(Double sound) {
-		if(sound == null)
-			return true;
-		return false;
-	}
-	//End check null methods
-	
-	
-	//Start getters and setters.
 	protected String getDirectory() {
 		return directory;
 	}
@@ -67,12 +50,12 @@ public class Sound {
 		this.volume = volume;
 	}
 
-	protected boolean getLoad() {
-		return load_on_low_mem;
+	protected boolean getLOLM() {
+		return lolm;
 	}
 
-	protected void setLoad(Boolean load_on_low_mem) {
-		this.load_on_low_mem = load_on_low_mem;
+	protected void setLOLM(Boolean lolm) {
+		this.lolm = lolm;
 	}
 
 	protected int getIndex() {
@@ -82,5 +65,12 @@ public class Sound {
 	protected void setIndex(int index) {
 		this.index = index;
 	}
-	//End getters and setters.
+
+	protected Playsound getPlaysound() {
+		return playsound;
+	}
+
+	protected void setPlaysound(Playsound playsound) {
+		this.playsound = playsound;
+	}
 }

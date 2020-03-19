@@ -9,7 +9,7 @@ public class TemplateTest {
 
 	Template template;
 	
-	Playsound sound;
+	Playsound playsound;
 	String name;
 	Double min_distance;
 	Double max_distance;
@@ -24,12 +24,12 @@ public class TemplateTest {
 	
 	@Before
 	public void start() {
-		sound = new Playsound();
+		playsound = new Playsound();
 		sound = new Sound();
 		template = new Template();
 		
-		sound.setDefaults();
-		sound.setDefaults();
+		playsound.setDefaults();
+		playsound.setDefaults();
 		
 		directory = "sounds/badger/ambient";
 	}
@@ -39,34 +39,34 @@ public class TemplateTest {
 	 */
 	@Test
 	public void testNullName() {
-		if(sound.checkNullString(name)) {
-			name = sound.getDefaultName();
+		if(playsound.checkNullString(name)) {
+			name = playsound.getDefaultName();
 		}
-		assertEquals(name, sound.getName());
+		assertEquals(name, playsound.getName());
 	}
 	
 	@Test
 	public void testNullMin() {
-		if(sound.checkNullDoubles(min_distance)) {
-			min_distance = sound.getDefaultMin();
+		if(playsound.checkNullDoubles(min_distance)) {
+			min_distance = playsound.getDefaultMin();
 		}
-		assertEquals(min_distance, sound.getMin());
+		assertEquals(min_distance, playsound.getMin());
 	}
 	
 	@Test
 	public void testNullMax() {
-		if(sound.checkNullDoubles(max_distance)) {
-			max_distance = sound.getDefaultMin();
+		if(playsound.checkNullDoubles(max_distance)) {
+			max_distance = playsound.getDefaultMin();
 		}
-		assertEquals(max_distance, sound.getMax());
+		assertEquals(max_distance, playsound.getMax());
 	}
 	
 	@Test
 	public void testNullCategory() {
-		if(sound.checkNullCategory(category)) {
-			category = sound.getDefaultCategory();
+		if(playsound.checkNullCategory(category)) {
+			category = playsound.getDefaultCategory();
 		}
-		assertEquals(category, sound.getCategory());
+		assertEquals(category, playsound.getCategory());
 	}
 	/*
 	 * End Test Nulls
