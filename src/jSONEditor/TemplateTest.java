@@ -9,13 +9,13 @@ public class TemplateTest {
 
 	Template template;
 	
-	Sounds sound;
+	Playsound sound;
 	String name;
 	Double min_distance;
 	Double max_distance;
 	Category category;
 	
-	PlaySound playSound;
+	Sound sound;
 	String directory;
 	Boolean stream;
 	Double pitch;
@@ -24,12 +24,12 @@ public class TemplateTest {
 	
 	@Before
 	public void start() {
-		sound = new Sounds();
-		playSound = new PlaySound();
+		sound = new Playsound();
+		sound = new Sound();
 		template = new Template();
 		
 		sound.setDefaults();
-		playSound.setDefaults();
+		sound.setDefaults();
 		
 		directory = "sounds/badger/ambient";
 	}

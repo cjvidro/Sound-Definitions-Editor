@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
-public class Sounds {
+public class Playsound {
 	//Comments like this signal the starts and ends of related methods.
 	
 	/*
@@ -20,13 +20,13 @@ public class Sounds {
 	 */
 	
 	//Variable that the user will see.
-	ArrayList<PlaySound> sound = new ArrayList<>();
+	ArrayList<Sound> sound = new ArrayList<>();
 	String name;
 	Double min_distance;
 	Double max_distance;
 	Category category;
 	int index = 0;
-	
+
 	//Default variables
 	String defaultName = "Sound " + index;
 	Double defaultMin = 0.0;
@@ -57,7 +57,7 @@ public class Sounds {
 		return defaultCategory;
 	}
 	
-	PlaySound getPlaysound(int index) {
+	Sound getPlaysound(int index) {
 		return sound.get(index);
 	}
 	
@@ -100,7 +100,7 @@ public class Sounds {
 	
 	//Start getters and setters
 	void setPlaysound(String directory, Boolean stream, Double volume, Double pitch, Boolean load) {
-		PlaySound play = new PlaySound();
+		Sound play = new Sound();
 		
 		play.setDirectory(directory);
 		play.setStream(stream);
@@ -148,17 +148,17 @@ public class Sounds {
 	void addPlaySound(String directory, boolean stream, double volume, double pitch, boolean load) {
 		
 		//new playsound to add to the sound arraylist
-		PlaySound newPlaySound = new PlaySound();
+		Sound newSound = new Sound();
 		
 		//setting the values of the new playsounds with the input of the function
-    	newPlaySound.setDirectory(directory);
-    	newPlaySound.setStream(stream);
-    	newPlaySound.setVolume(volume);
-    	newPlaySound.setPitch(pitch);
-    	newPlaySound.setLoad(load);
+    	newSound.setDirectory(directory);
+    	newSound.setStream(stream);
+    	newSound.setVolume(volume);
+    	newSound.setPitch(pitch);
+    	newSound.setLoad(load);
     	
     	//adding the new playound to the sound arraylist
-    	sound.add(newPlaySound);
+    	sound.add(newSound);
 		
 	}
 	
@@ -177,14 +177,14 @@ public class Sounds {
             JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
             
             //Create a new arraylist to place the playsounds from the JSON sound array
-            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            ArrayList<Sound> newSounds = new ArrayList<>();
             
             // take the elements of the JSON sound array
             for (int i = 0; i < JSONplaysounds.size(); i++) {
             	
             	//temp objects to access functions and store values
             	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
-            	PlaySound tempPlaySounds = new PlaySound();
+            	Sound tempSounds = new Sound();
             	
             	//temp values
             	String tempDirectory = "";
@@ -228,14 +228,14 @@ public class Sounds {
             JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
             
             //Create a new arraylist to place the playsounds from the JSON sound array
-            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            ArrayList<Sound> newSounds = new ArrayList<>();
             
             // take the elements of the JSON sound array
             for (int i = 0; i < JSONplaysounds.size(); i++) {
             	
             	//temp objects to access functions and store values
             	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
-            	PlaySound tempPlaySounds = new PlaySound();
+            	Sound tempSounds = new Sound();
             	
             	//temp values
             	String tempDirectory = "";
@@ -251,19 +251,19 @@ public class Sounds {
             	tempPitch = (double) tempJSON.get("pitch");
             	tempLoad = (boolean) tempJSON.get("load_on_low_mem");
             	
-            	//setting temp PlaySound with temp values
-            	tempPlaySounds.setDirectory(tempDirectory);
-            	tempPlaySounds.setStream(tempStream);
-            	tempPlaySounds.setVolume(tempVolume);
-            	tempPlaySounds.setPitch(tempPitch);
-            	tempPlaySounds.setLoad(tempLoad);
+            	//setting temp Sound with temp values
+            	tempSounds.setDirectory(tempDirectory);
+            	tempSounds.setStream(tempStream);
+            	tempSounds.setVolume(tempVolume);
+            	tempSounds.setPitch(tempPitch);
+            	tempSounds.setLoad(tempLoad);
             	
-            	//adding temp playsound to the newPlaySounds arraylist
-            	newPlaySounds.add(tempPlaySounds);
+            	//adding temp playsound to the newSounds arraylist
+            	newSounds.add(tempSounds);
             }
             
             //make the sounds array equal to the new playsounds
-            sound = newPlaySounds;
+            sound = newSounds;
  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -302,14 +302,14 @@ public class Sounds {
             JSONArray JSONplaysounds = (JSONArray) newSound.get("sounds");
             
             //Create a new arraylist to place the playsounds from the JSON sound array
-            ArrayList<PlaySound> newPlaySounds = new ArrayList<>();
+            ArrayList<Sound> newSounds = new ArrayList<>();
             
             // take the elements of the JSON sound array
             for (int i = 0; i < JSONplaysounds.size(); i++) {
             	
             	//temp objects to access functions and store values
             	JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
-            	PlaySound tempPlaySounds = new PlaySound();
+            	Sound tempSounds = new Sound();
             	
             	//temp values
             	String tempDirectory = "";
@@ -325,19 +325,19 @@ public class Sounds {
             	tempPitch = (double) tempJSON.get("pitch");
             	tempLoad = (boolean) tempJSON.get("load_on_low_mem");
             	
-            	//setting temp PlaySound with temp values
-            	tempPlaySounds.setDirectory(tempDirectory);
-            	tempPlaySounds.setStream(tempStream);
-            	tempPlaySounds.setVolume(tempVolume);
-            	tempPlaySounds.setPitch(tempPitch);
-            	tempPlaySounds.setLoad(tempLoad);
+            	//setting temp Sound with temp values
+            	tempSounds.setDirectory(tempDirectory);
+            	tempSounds.setStream(tempStream);
+            	tempSounds.setVolume(tempVolume);
+            	tempSounds.setPitch(tempPitch);
+            	tempSounds.setLoad(tempLoad);
             	
-            	//adding temp playsound to the newPlaySounds arraylist
-            	newPlaySounds.add(tempPlaySounds);
+            	//adding temp playsound to the newSounds arraylist
+            	newSounds.add(tempSounds);
             }
             
             //make the sounds array equal to the new playsounds
-            sound = newPlaySounds;
+            sound = newSounds;
  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
