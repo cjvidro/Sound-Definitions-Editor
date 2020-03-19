@@ -2,12 +2,12 @@ package jSONEditor;
 
 public class Settings {
 	
-	boolean auto = true;
+	boolean autoBackup = true;
 	boolean lolm = true;
 	boolean web = false;
 	
-	public boolean getAuto() {
-		return auto;
+	public boolean getAutoBackup() {
+		return autoBackup;
 	}
 	
 	public boolean getLOLM() {
@@ -19,7 +19,7 @@ public class Settings {
 	}
 	
 	public void toggleAutoSave() {
-		auto = !auto;
+		autoBackup = !autoBackup;
 	}
 	
 	public void toggleAlternateLoadMem() {
