@@ -10,11 +10,11 @@ public class SettingsTest {
 	
 	@Test
 	public void testAuto() {
-		assertEquals(true, obj.getAuto());
+		assertEquals(true, obj.getAutoBackup());
 		obj.toggleAutoSave();
-		assertEquals(false, obj.getAuto());
+		assertEquals(false, obj.getAutoBackup());
 		obj.toggleAutoSave();
-		assertEquals(true, obj.getAuto());
+		assertEquals(true, obj.getAutoBackup());
 	}
 	
 	@Test

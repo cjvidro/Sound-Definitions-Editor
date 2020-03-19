@@ -1,22 +1,17 @@
 package jSONEditor;
 
 public class Template {
-	
-	/*
-	 * Sets all of the default variables in the Sounds class.
-	 */
-	void setDefaultSounds(String name, double min_distance, double max_distance, Category category) {
-		Sounds obj = new Sounds();
-		
-		obj.setDefaultVars(name, min_distance, max_distance, category);
-	}
-	
-	/*
-	 * Sets all of the default variables in the PlaySound class.
-	 */
-	void setDefaultPlaySounds(boolean stream, double pitch, double volume, boolean load_on_load_mem) {
-		PlaySound obj = new PlaySound();
-		
-		obj.setDefaultVars(stream, pitch, volume, load_on_load_mem);
-	}
+    // Playsound defaults
+    private Double min_distance; // min_distance property
+    private Double max_distance; // max_distance property
+    private Category category; // category of sound
+
+    // Sound defaults
+    private Boolean stream; // stream property
+    private Double pitch; // pitch property
+    private Double volume; // volume property
+    private Boolean lolm; // load_on_low_memory property
+
+    // Other:
+    private int LOLMSetting = 0; // 0: auto false; 1: auto true; 2: Alternate; 3: First true remaining are false
 }
