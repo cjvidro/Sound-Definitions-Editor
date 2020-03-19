@@ -3,33 +3,77 @@ package jSONEditor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The controller class for the core GUI
+ */
 public class ProjectController {
+    private EditorData editorData = EditorData.getInstance();
+
+    /*****************************************************
+     * FXML fields
+     *****************************************************/
+    @FXML private TextField nameField;
+    @FXML private TextField minField;
+    @FXML private TextField maxField;
+    @FXML private ComboBox categoryBox;
+    @FXML private TextField minDistanceField;
+    @FXML private TextField maxDistanceField;
+    @FXML private VBox soundsVBox;
+
+    @FXML
+    public void initialize() {
+        // populate categories
+        if (categoryBox != null) {
+            for (Category category : Category.values()) {
+                categoryBox.getItems().addAll(category);
+            }
+        }
+
+        /*
+         * INSERT POPULATE CATEGORIES
+         */
+    }
+
 
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
-    @FXML
-    protected boolean quit(ActionEvent event) throws Exception {
-        System.out.println("Quit");
-
-        /*
-        INSERT Prompt Save FUNCTIONALITY HERE
-         */
-
+    protected boolean quit() throws Exception {
         class ExpectedQuitException extends Exception {
             public ExpectedQuitException(String message) {
                 super(message);
             }
         }
         throw new ExpectedQuitException("User exited");
+    }
+
+    @FXML
+    private void quit(ActionEvent event) throws Exception {
+        System.out.println("Quit");
+
+        /*
+        INSERT Prompt Save FUNCTIONALITY HERE
+         */
+
+        try {
+            quit();
+        } catch (Exception e) {
+            System.exit(0);
+        }
     }
 
     @FXML
@@ -141,27 +185,87 @@ public class ProjectController {
         showAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
+    /**
+     * @param overlyingBox - The overlying HBox for a sound
+     * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
+     */
+    private HBox[] getSoundHBoxes(HBox overlyingBox) {
+        HBox[] soundBoxes = new HBox[5];
+
+        if (overlyingBox != null) {
+            VBox containingBox = (VBox) overlyingBox.getChildren().get(1);
+
+            soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // directory box
+            soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // stream box
+            soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // volume box
+            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // pitch box
+            soundBoxes[4] = (HBox) containingBox.getChildren().get(4); // LOLM box
+        }
+
+        return soundBoxes;
+    }
+
+    /**
+     * Checks if the sounds are valid
+     * @return true if valid, false if invalid
+     */
+    protected boolean validateSounds() {
+        if (soundsVBox != null) {
+
+            for (Node soundNode : soundsVBox.getChildren()) {
+                HBox overlyingBox = (HBox) soundNode;
+
+                // check if this is the extra "box" for adding more sounds
+                if (overlyingBox != null) {
+                    try {
+                        overlyingBox.getChildren().get(1);
+                    } catch (IndexOutOfBoundsException e) {
+                        return true;
+                    }
+                }
+
+                HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
+
+                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+//                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
+//                Double volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
+//                Double pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
+//                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
+
+                if (directory.equals("")) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if a playsound is valid
+     * @return true if valid, false if invalid
+     */
+    protected boolean validatePlaysound() {
+
+        // Check if name is null or empty
+        if (nameField == null || nameField.getText().equals("")) {
+            return false;
+        }
+
+        return validateSounds();
+    }
+
     protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
         System.out.println("Save Add Playsound");
 
-        // load FXML and set the controller
-        ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
-        loader.setController(controller); // addPlaysound/viewProject controller
-        Parent root = loader.load();
+        boolean valid = validatePlaysound();
 
-        /*
-        INSERT Save FUNCTIONALITY HERE
-         */
+        if (valid) {
+            System.out.println("Valid playsound");
+            return showViewProject(viewProjectWindow);
+        }
 
-        double width =  viewProjectWindow.getScene().getWidth();
-        double height = viewProjectWindow.getScene().getHeight();
-
-        // set JavaFX stage details
-        viewProjectWindow.setScene(new Scene(root, width, height)); // swap scenes
-        viewProjectWindow.setTitle("JSON Sound Definitions Editor");
-
-        return viewProjectWindow;
+        System.out.println("Invalid playsound");
+        return null;
     }
 
     @FXML
@@ -170,18 +274,18 @@ public class ProjectController {
         saveAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage cancelAddPlaysound(Stage viewProjectWindow) throws IOException {
-        System.out.println("Cancel Add Playsound");
+    @FXML
+    private void cancelAddPlaysound(ActionEvent event) throws IOException {
+        // Calls the above helper method for testing purposes
+        showViewProject((Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
 
+    protected Stage showViewProject(Stage viewProjectWindow) throws IOException {
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
-
-         /*
-        INSERT Cancel FUNCTIONALITY HERE
-         */
 
         double width =  viewProjectWindow.getScene().getWidth();
         double height = viewProjectWindow.getScene().getHeight();
@@ -191,12 +295,5 @@ public class ProjectController {
         viewProjectWindow.setTitle("JSON Sound Definitions Editor");
 
         return viewProjectWindow;
-    }
-
-
-    @FXML
-    private void cancelAddPlaysound(ActionEvent event) throws IOException {
-        // Calls the above helper method for testing purposes
-        cancelAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 }

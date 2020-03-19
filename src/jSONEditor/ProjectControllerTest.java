@@ -45,7 +45,7 @@ public class ProjectControllerTest {
     @Test
     public void testQuit() {
         try {
-            controller.quit(event);
+            controller.quit();
             fail();
         } catch (Exception e) {
             assertEquals("User exited", e.getMessage());
@@ -117,19 +117,6 @@ public class ProjectControllerTest {
         try {
             Stage temp = controller.showAddPlaysound(myStage);
             Stage window = controller.saveAddPlaysound(temp);
-            assertNotNull(window);
-            assertEquals("JSON Sound Definitions Editor", window.getTitle());
-
-        } catch (IOException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testCancelAddPlaysound() {
-        try {
-            Stage temp = controller.showAddPlaysound(myStage);
-            Stage window = controller.cancelAddPlaysound(temp);
             assertNotNull(window);
             assertEquals("JSON Sound Definitions Editor", window.getTitle());
 
