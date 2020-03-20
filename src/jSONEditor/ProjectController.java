@@ -316,9 +316,7 @@ public class ProjectController {
 
     @FXML
     private void addSound() throws IOException{
-        // remove extra button
         int sounds = soundsVBox.getChildren().size();
-        soundsVBox.getChildren().remove(sounds - 1);
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
@@ -326,7 +324,7 @@ public class ProjectController {
         loader.setController(controller); // view project controller
         Node sound = loader.load();
 
-        soundsVBox.getChildren().add(sound);
+        soundsVBox.getChildren().add(sounds - 1, sound);
 
         System.out.println("Add " + soundsVBox.getChildren().size());
     }
