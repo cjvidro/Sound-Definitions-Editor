@@ -21,7 +21,7 @@ import java.io.IOException;
  * The controller class for the core GUI
  */
 public class ProjectController {
-    private EditorData editorData = EditorData.getInstance();
+    EditorData editorData = EditorData.getInstance();
 
     /*****************************************************
      * FXML fields
@@ -254,13 +254,78 @@ public class ProjectController {
         return validateSounds();
     }
 
-    protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
-        System.out.println("Save Add Playsound");
-
+    protected boolean createPlaysound() {
         boolean valid = validatePlaysound();
 
         if (valid) {
-            System.out.println("Valid playsound");
+            Playsound playsound = new Playsound();
+
+            playsound.setName(nameField.getText());
+            playsound.setCategory((Category) categoryBox.getValue());
+
+            // check if min distance is empty
+            if (!minDistanceField.getText().equals("")) {
+                playsound.setMin(Double.parseDouble(minDistanceField.getText()));
+            }
+
+            // check if max distance is empty
+            if (!maxDistanceField.getText().equals("")) {
+                playsound.setMax(Double.parseDouble(maxDistanceField.getText()));
+            }
+
+            // Add all of the individual sounds
+            for (Node soundNode : soundsVBox.getChildren()) {
+                HBox overlyingBox = (HBox) soundNode;
+
+                // check if this is the extra "box" for adding more sounds
+                if (overlyingBox != null) {
+                    try {
+                        overlyingBox.getChildren().get(1);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+
+                HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
+
+                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
+
+                // check if volume, pitch, lolm are empty
+                Double volume = null;
+                Double pitch = null;
+
+                if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
+                    volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
+                }
+
+                if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
+                    pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
+                }
+
+                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
+
+                playsound.addSound(directory, stream, volume, pitch, lolm);
+            }
+
+            // Add the playsound to editorData instance
+            editorData.playsounds.add(playsound);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
+        System.out.println("Save Add Playsound");
+
+        boolean success = createPlaysound();
+
+        if (success) {
+            System.out.print("Added playsound ");
+            System.out.println(editorData.playsounds.get(editorData.playsounds.size() - 1).getName());
+
             return showViewProject(viewProjectWindow);
         }
 
