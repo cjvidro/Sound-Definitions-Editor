@@ -32,7 +32,8 @@ public class ProjectController {
     @FXML private ComboBox categoryBox;
     @FXML private TextField minDistanceField;
     @FXML private TextField maxDistanceField;
-    @FXML private VBox soundsVBox;
+    @FXML private VBox soundsVBox; // This is null to the additional sounds FXML code.
+    private static VBox soundsVBoxReference = null;
 
     @FXML
     public void initialize() {
@@ -41,6 +42,10 @@ public class ProjectController {
             for (Category category : Category.values()) {
                 categoryBox.getItems().addAll(category);
             }
+        }
+
+        if (soundsVBoxReference == null) {
+            soundsVBoxReference = soundsVBox;
         }
 
         /*
@@ -327,6 +332,14 @@ public class ProjectController {
         soundsVBox.getChildren().add(sounds - 1, sound);
 
         System.out.println("Add " + soundsVBox.getChildren().size());
+    }
+
+    @FXML
+    private void removeSound(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        HBox sound = (HBox) button.getParent();
+
+        soundsVBoxReference.getChildren().remove(sound);
     }
 
     protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
