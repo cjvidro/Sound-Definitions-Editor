@@ -44,7 +44,7 @@ public class ProjectController {
         }
 
         /*
-         * INSERT POPULATE CATEGORIES
+         * INSERT POPULATE TEMPLATES
          */
     }
 
