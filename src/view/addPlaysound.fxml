@@ -421,7 +421,7 @@
                                           </HBox>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+                                                <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0" />
                                              </children>
                                           </HBox>
                                        </children>

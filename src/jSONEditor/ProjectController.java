@@ -211,6 +211,7 @@ public class ProjectController {
      */
     protected boolean validateSounds() {
         if (soundsVBox != null) {
+            System.out.println("validate " + soundsVBox.getChildren().size());
 
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
@@ -227,10 +228,6 @@ public class ProjectController {
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
                 String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
-//                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
-//                Double volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
-//                Double pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
-//                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
 
                 if (directory.equals("")) {
                     return false;
@@ -315,6 +312,23 @@ public class ProjectController {
         }
 
         return false;
+    }
+
+    @FXML
+    private void addSound() throws IOException{
+        // remove extra button
+        int sounds = soundsVBox.getChildren().size();
+        soundsVBox.getChildren().remove(sounds - 1);
+
+        // load FXML and set the controller
+        ProjectController controller = new ProjectController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        loader.setController(controller); // view project controller
+        Node sound = loader.load();
+
+        soundsVBox.getChildren().add(sound);
+
+        System.out.println("Add " + soundsVBox.getChildren().size());
     }
 
     protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
