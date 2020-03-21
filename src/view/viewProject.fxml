@@ -53,7 +53,7 @@
             </menus>
           </MenuBar>
             <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-            <Button mnemonicParsing="false" text="Help" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed" text="Help" />
          </children>
       </HBox>
       <HBox>
