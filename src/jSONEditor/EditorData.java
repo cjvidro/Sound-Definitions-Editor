@@ -6,11 +6,11 @@ public class EditorData {
     private static EditorData single_instance = null;
 
     // "Global" variables that should be accessible by ALL classes in the package
-    protected ArrayList<Sound> sounds;
+    protected ArrayList<Playsound> playsounds;
     protected ArrayList<Template> templates;
 
     private EditorData() {
-        sounds = new ArrayList<>();
+        playsounds = new ArrayList<>();
         templates = new ArrayList<>();
     }
 

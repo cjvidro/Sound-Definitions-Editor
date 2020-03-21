@@ -13,17 +13,17 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class ViewProjectControllerTest {
+public class ProjectControllerTest {
 
     private Stage myStage;
-    ViewProjectController controller;
+    ProjectController controller;
     ActionEvent event;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        controller = new ViewProjectController(); // the controller for the view project GUI
+        controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();
@@ -45,7 +45,7 @@ public class ViewProjectControllerTest {
     @Test
     public void testQuit() {
         try {
-            controller.quit(event);
+            controller.quit();
             fail();
         } catch (Exception e) {
             assertEquals("User exited", e.getMessage());
@@ -112,29 +112,19 @@ public class ViewProjectControllerTest {
         }
     }
 
-    @Test
-    public void testSaveAddPlaysound() {
-        try {
-            Stage temp = controller.showAddPlaysound(myStage);
-            Stage window = controller.saveAddPlaysound(temp);
-            assertNotNull(window);
-            assertEquals("JSON Sound Definitions Editor", window.getTitle());
-
-        } catch (IOException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testCancelAddPlaysound() {
-        try {
-            Stage temp = controller.showAddPlaysound(myStage);
-            Stage window = controller.cancelAddPlaysound(temp);
-            assertNotNull(window);
-            assertEquals("JSON Sound Definitions Editor", window.getTitle());
-
-        } catch (IOException e) {
-            fail();
-        }
-    }
+    /*
+    Need to rewrite according to new functionality. . .
+     */
+//    @Test
+//    public void testSaveAddPlaysound() {
+//        try {
+//            Stage temp = controller.showAddPlaysound(myStage);
+//            Stage window = controller.saveAddPlaysound(temp);
+//            assertNotNull(window);
+//            assertEquals("JSON Sound Definitions Editor", window.getTitle());
+//
+//        } catch (IOException e) {
+//            fail();
+//        }
+//    }
 }

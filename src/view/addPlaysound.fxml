@@ -16,6 +16,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -299,7 +301,7 @@
                                              </font>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <TextField />
+                                          <TextField fx:id="nameField" />
                                        </children>
                                     </HBox>
                                     <HBox spacing="10.0">
@@ -310,7 +312,7 @@
                                              </font>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox prefWidth="150.0" promptText="Select Category" />
+                                          <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
                                        </children>
                                     </HBox>
                                     <HBox spacing="10.0">
@@ -321,7 +323,7 @@
                                              </font>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="1.0" />
+                                          <TextField fx:id="minDistanceField" promptText="1.0" />
                                        </children>
                                     </HBox>
                                     <HBox spacing="10.0">
@@ -332,7 +334,7 @@
                                              </font>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="1.0" />
+                                          <TextField fx:id="maxDistanceField" promptText="1.0" />
                                        </children>
                                     </HBox>
                                     <Label text="Sounds">
@@ -343,11 +345,11 @@
                                           <Insets top="15.0" />
                                        </padding>
                                     </Label>
-                                    <VBox spacing="10.0">
+                                    <VBox fx:id="soundsVBox" spacing="10.0">
                                        <children>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" visible="false" />
                                                 <VBox spacing="10.0">
                                                    <children>
                                                       <HBox spacing="10.0">
@@ -421,7 +423,14 @@
                                           </HBox>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+                                                <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@add.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -447,13 +456,13 @@
                               </VBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
                                  <children>
-                                    <TextField prefWidth="40.0" promptText="Min" />
+                                    <TextField fx:id="minField" prefWidth="40.0" promptText="Min" />
                                     <Label text="-">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefWidth="40.0" promptText="Max" />
+                                    <TextField fx:id="maxField" prefWidth="40.0" promptText="Max" />
                                  </children>
                                  <padding>
                                     <Insets left="20.0" top="72.0" />
