@@ -439,8 +439,8 @@ public class ProjectController {
 
             if (expandedPaneName.equals("Playsounds")) {
                 playsounds.setExpanded(true);
+                accordion.setExpandedPane(playsounds);
             }
-            accordion.setExpandedPane(playsounds);
 
             VBox box = new VBox();
             playsounds.setContent(box);
