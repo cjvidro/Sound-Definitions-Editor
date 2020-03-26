@@ -6,12 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,14 +24,24 @@ public class ProjectController {
     /*****************************************************
      * FXML fields
      *****************************************************/
+
+    // Used for adding / editing playsounds
     @FXML private TextField nameField;
     @FXML private TextField minField;
     @FXML private TextField maxField;
     @FXML private ComboBox categoryBox;
     @FXML private TextField minDistanceField;
     @FXML private TextField maxDistanceField;
-    @FXML private VBox soundsVBox; // This is null to the additional sounds FXML code.
+
+    // used in the general project view - These are null to sub-code controller methods
+    @FXML private VBox soundsVBox;
+    @FXML private VBox playsoundsVBox;
+    @FXML private ScrollPane coreScrollPane;
+
+    // references to be used
     private static VBox soundsVBoxReference = null;
+    private static VBox playsoundsVBoxReference = null;
+    private static ScrollPane coreScrollpaneReference = null;
 
     @FXML
     public void initialize() {
@@ -44,13 +52,29 @@ public class ProjectController {
             }
         }
 
+        // Create references if needed
         if (soundsVBoxReference == null) {
             soundsVBoxReference = soundsVBox;
+        }
+
+        if (playsoundsVBoxReference == null) {
+            playsoundsVBoxReference = playsoundsVBox;
+        }
+
+        if (coreScrollpaneReference == null) {
+            coreScrollpaneReference = coreScrollPane;
         }
 
         /*
          * INSERT POPULATE TEMPLATES
          */
+
+        /*
+         * CALL READ IN PLAYSOUNDS
+         */
+
+        // Populate the playsounds on the LHS
+        populatePlaysounds();
     }
 
 
@@ -169,16 +193,14 @@ public class ProjectController {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
-        ProjectController controller = new ProjectController(); // the controller for the view project GUI
+        ProjectController controller = new ProjectController();
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
-        Parent root = loader.load();
+        Node addPlaysound = loader.load();
 
-        double width =  addPlaysoundWindow.getScene().getWidth();
-        double height = addPlaysoundWindow.getScene().getHeight();
+        coreScrollpaneReference.setContent(addPlaysound);
 
         // set JavaFX stage details
-        addPlaysoundWindow.setScene(new Scene(root, width, height)); // swap scenes
         addPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Add Playsound");
 
         return addPlaysoundWindow;
@@ -364,13 +386,15 @@ public class ProjectController {
         saveAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    @FXML
-    private void cancelAddPlaysound(ActionEvent event) throws IOException {
-        // Calls the above helper method for testing purposes
-        showViewProject((Stage) ((Button) event.getSource()).getScene().getWindow());
-    }
-
     protected Stage showViewProject(Stage viewProjectWindow) throws IOException {
+        // save the expanded pane
+        editorData.expandedPane = ((Accordion)playsoundsVBoxReference.getChildren().get(0)).getExpandedPane();
+
+        // reset references
+        soundsVBoxReference = null;
+        playsoundsVBoxReference = null;
+        coreScrollpaneReference = null;
+
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
@@ -381,9 +405,55 @@ public class ProjectController {
         double height = viewProjectWindow.getScene().getHeight();
 
         // set JavaFX stage details
-        viewProjectWindow.setScene(new Scene(root, width, height)); // swap scenes
+        viewProjectWindow.setScene(new Scene(root, width, height));
         viewProjectWindow.setTitle("JSON Sound Definitions Editor");
 
+        populatePlaysounds();
+
         return viewProjectWindow;
+    }
+
+    @FXML
+    private void cancelAddPlaysound(ActionEvent event) throws IOException {
+        // Calls the above helper method for testing purposes
+        showViewProject((Stage) ((Button) event.getSource()).getScene().getWindow());
+    }
+
+    private void populatePlaysounds() {
+        String expandedPaneName = "";
+        if (editorData.expandedPane != null) {
+            expandedPaneName = editorData.expandedPane.getText();
+        }
+
+        if (playsoundsVBox != null) {
+            // remove any current mention of playsounds
+            playsoundsVBox.getChildren().clear();
+
+            // Create new nodes to populate
+            Accordion accordion = new Accordion();
+
+            TitledPane playsounds = new TitledPane();
+            playsounds.setText("Playsounds");
+            playsounds.setFont(new Font(15));
+            accordion.getPanes().add(playsounds);
+
+            if (expandedPaneName.equals("Playsounds")) {
+                playsounds.setExpanded(true);
+            }
+            accordion.setExpandedPane(playsounds);
+
+            VBox box = new VBox();
+            playsounds.setContent(box);
+
+            playsoundsVBox.getChildren().add(accordion);
+
+            // load each of the playsounds
+            for (Playsound playsound : editorData.playsounds) {
+                // single playsound case
+                Label label = new Label(playsound.getName());
+                label.setFont(new Font(15));
+                box.getChildren().add(label);
+            }
+        }
     }
 }
