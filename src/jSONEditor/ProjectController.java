@@ -253,7 +253,25 @@ public class ProjectController {
 
                 String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
 
+                // Check if directory is invalid
                 if (directory.equals("")) {
+                    System.out.println("Empty directory field");
+                    return false;
+                }
+
+                // Check if volume or pitch are invalid
+                try {
+                    String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
+                    String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
+
+                    if (!volumeText.equals("")) {
+                        Double.parseDouble(volumeText);
+                    }
+                    if (!pitchText.equals("")) {
+                        Double.parseDouble(pitchText);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Could not parse volume or pitch fields");
                     return false;
                 }
             }
@@ -272,6 +290,31 @@ public class ProjectController {
             return false;
         }
 
+        // check if increment is an integer
+        try {
+            if (incrementBox != null && !incrementBox.getText().equals("")) {
+                Integer.parseInt(incrementBox.getText());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Could not parse increment");
+            return false;
+        }
+
+        // check if distances are doubles
+        try {
+            if (minDistanceField != null && !minDistanceField.getText().equals("")) {
+                Double.parseDouble(minDistanceField.getText());
+            }
+
+            if (maxDistanceField != null && !maxDistanceField.getText().equals("")) {
+                Double.parseDouble(maxDistanceField.getText());
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("Could not parse Distance Fields");
+            return false;
+        }
+
         return validateSounds();
     }
 
@@ -280,19 +323,14 @@ public class ProjectController {
 
         if (valid) {
             int increment = 1;
-            try {
-                int tempIncrement = Integer.parseInt(incrementBox.getText());
 
-                // validation conditions
-                if (tempIncrement < 1) {
-                    System.out.println("Increment invalid - using default (1 Increment)");
-                    return false;
-                }
+             // Check if to use default
+             if (Integer.parseInt(incrementBox.getText()) < 1) {
+                 System.out.println("Increment invalid - using default (1 Increment)");
+             } else {
+                 increment = Integer.parseInt(incrementBox.getText());
+             }
 
-                increment = tempIncrement;
-            } catch (NumberFormatException e) {
-                System.out.println("Could not parse increment - using default (1 Increment)");
-            }
 
             for (int i = 1; i <= increment; i++) {
 
