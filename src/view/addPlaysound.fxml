@@ -14,206 +14,198 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox>
+      <VBox spacing="10.0">
          <children>
-            <VBox spacing="10.0">
+            <Label text="Add Playsound" underline="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox spacing="10.0">
                <children>
-                  <Label text="Add Playsound" underline="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Template">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <ComboBox prefWidth="150.0" promptText="Select Template" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Name">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="nameField" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Category">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Min Distance">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="minDistanceField" promptText="1.0" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Max Distance">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="maxDistanceField" promptText="1.0" />
-                     </children>
-                  </HBox>
-                  <Label text="Sounds">
+                  <Label text="Template">
                      <font>
                         <Font size="16.0" />
                      </font>
-                     <padding>
-                        <Insets top="15.0" />
-                     </padding>
                   </Label>
-                  <VBox fx:id="soundsVBox" spacing="10.0">
+                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox prefWidth="150.0" promptText="Select Template" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Increment">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="incrementBox" promptText="1" text="1" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="nameField" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Category">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Min Distance">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="minDistanceField" promptText="1.0" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Max Distance">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="maxDistanceField" promptText="1.0" />
+               </children>
+            </HBox>
+            <Label text="Sounds">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="soundsVBox" spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
                      <children>
-                        <HBox spacing="10.0">
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" visible="false" />
+                        <VBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" visible="false" />
-                              <VBox spacing="10.0">
+                              <HBox spacing="10.0">
                                  <children>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Directory">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="sounds/" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Stream">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <CheckBox mnemonicParsing="false">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </CheckBox>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Volume">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="1.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Pitch">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="1.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Low Memory Load">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <CheckBox mnemonicParsing="false">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </CheckBox>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
+                                    <Label text="Directory">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="sounds/" />
                                  </children>
-                              </VBox>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Stream">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <CheckBox mnemonicParsing="false">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Volume">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Pitch">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Low Memory Load">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <CheckBox mnemonicParsing="false">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </HBox>
+                        </VBox>
                      </children>
-                  </VBox>
-                  <HBox alignment="TOP_CENTER" spacing="15.0">
+                  </HBox>
+                  <HBox spacing="10.0">
                      <children>
-                        <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                   </HBox>
                </children>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
+            <HBox alignment="TOP_CENTER" spacing="15.0">
                <children>
-                  <TextField fx:id="minField" prefWidth="40.0" promptText="Min" />
-                  <Label text="-">
+                  <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="14.0" />
                      </font>
-                  </Label>
-                  <TextField fx:id="maxField" prefWidth="40.0" promptText="Max" />
+                  </Button>
+                  <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
-               <padding>
-                  <Insets left="20.0" top="72.0" />
-               </padding>
             </HBox>
          </children>
-      </HBox>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>

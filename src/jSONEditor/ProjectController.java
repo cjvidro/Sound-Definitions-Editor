@@ -27,8 +27,7 @@ public class ProjectController {
 
     // Used for adding / editing playsounds
     @FXML private TextField nameField;
-    @FXML private TextField minField;
-    @FXML private TextField maxField;
+    @FXML private TextField incrementBox;
     @FXML private ComboBox categoryBox;
     @FXML private TextField minDistanceField;
     @FXML private TextField maxDistanceField;
@@ -238,8 +237,6 @@ public class ProjectController {
      */
     protected boolean validateSounds() {
         if (soundsVBox != null) {
-            System.out.println("validate " + soundsVBox.getChildren().size());
-
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
 
@@ -282,59 +279,92 @@ public class ProjectController {
         boolean valid = validatePlaysound();
 
         if (valid) {
-            Playsound playsound = new Playsound();
+            int increment = 1;
+            try {
+                int tempIncrement = Integer.parseInt(incrementBox.getText());
 
-            playsound.setName(nameField.getText());
-            playsound.setCategory((Category) categoryBox.getValue());
+                // validation conditions
+                if (tempIncrement < 1) {
+                    System.out.println("Increment invalid - using default (1 Increment)");
+                    return false;
+                }
 
-            // check if min distance is empty
-            if (!minDistanceField.getText().equals("")) {
-                playsound.setMin(Double.parseDouble(minDistanceField.getText()));
+                increment = tempIncrement;
+            } catch (NumberFormatException e) {
+                System.out.println("Could not parse increment - using default (1 Increment)");
             }
 
-            // check if max distance is empty
-            if (!maxDistanceField.getText().equals("")) {
-                playsound.setMax(Double.parseDouble(maxDistanceField.getText()));
-            }
+            for (int i = 1; i <= increment; i++) {
 
-            // Add all of the individual sounds
-            for (Node soundNode : soundsVBox.getChildren()) {
-                HBox overlyingBox = (HBox) soundNode;
+                Playsound playsound = new Playsound();
 
-                // check if this is the extra "box" for adding more sounds
-                if (overlyingBox != null) {
-                    try {
-                        overlyingBox.getChildren().get(1);
-                    } catch (IndexOutOfBoundsException e) {
-                        break;
+                if (increment == 1) {
+                    // single playsound
+                    playsound.setName(nameField.getText());
+                } else {
+                    // multiple playsounds
+                    playsound.setName(nameField.getText() + i);
+                }
+                playsound.setCategory((Category) categoryBox.getValue());
+
+            /*
+            Playsound Details
+             */
+                // check if min distance is empty
+                if (!minDistanceField.getText().equals("")) {
+                    playsound.setMin(Double.parseDouble(minDistanceField.getText()));
+                }
+
+                // check if max distance is empty
+                if (!maxDistanceField.getText().equals("")) {
+                    playsound.setMax(Double.parseDouble(maxDistanceField.getText()));
+                }
+            /*
+            Sound details
+             */
+                // Add all of the individual sounds
+                for (Node soundNode : soundsVBox.getChildren()) {
+                    HBox overlyingBox = (HBox) soundNode;
+
+                    // check if this is the extra "box" for adding more sounds
+                    if (overlyingBox != null) {
+                        try {
+                            overlyingBox.getChildren().get(1);
+                        } catch (IndexOutOfBoundsException e) {
+                            break;
+                        }
                     }
+
+                    HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
+
+                    String directory;
+                    if (increment == 1) {
+                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+                    } else {
+                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText() + increment;
+                    }
+                    Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
+
+                    // check if volume, pitch, lolm are empty
+                    Double volume = null;
+                    Double pitch = null;
+
+                    if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
+                        volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
+                    }
+
+                    if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
+                        pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
+                    }
+
+                    Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
+
+                    playsound.addSound(directory, stream, volume, pitch, lolm);
                 }
 
-                HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
-
-                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
-                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
-
-                // check if volume, pitch, lolm are empty
-                Double volume = null;
-                Double pitch = null;
-
-                if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
-                    volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
-                }
-
-                if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
-                    pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
-                }
-
-                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
-
-                playsound.addSound(directory, stream, volume, pitch, lolm);
+                // Add the playsound to editorData instance
+                editorData.playsounds.add(playsound);
             }
-
-            // Add the playsound to editorData instance
-            editorData.playsounds.add(playsound);
-
             return true;
         }
 
