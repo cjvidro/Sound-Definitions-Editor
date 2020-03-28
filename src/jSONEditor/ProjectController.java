@@ -292,6 +292,14 @@ public class ProjectController {
             return false;
         }
 
+        // check if the name is already used
+        for (Playsound playsound : editorData.playsounds) {
+            if (nameField.getText().equals(playsound.getName())) {
+                System.out.println("A playsound named " + nameField.getText() + " already exists!");
+                return false;
+            }
+        }
+
         // check if increment is an integer
         try {
             if (incrementBox != null && !incrementBox.getText().equals("")) {
@@ -320,19 +328,41 @@ public class ProjectController {
         return validateSounds();
     }
 
+    private int validateIncrement(String incrementTemp) {
+        int increment = 1;
+
+        // Check if to use default
+        if (Integer.parseInt(incrementBox.getText()) < 1) {
+            System.out.println("Increment invalid - using default (1 Increment)");
+        } else {
+            increment = Integer.parseInt(incrementBox.getText());
+        }
+
+        return increment;
+    }
+
+    private boolean validateIncrementNames(String name, int increment) {
+        for (int i = 1; i <= increment; i++) {
+            for (Playsound playsound : editorData.playsounds) {
+                if ((name + i).equals(playsound.getName())) {
+                    System.out.println("A playsound named " + name + i + " already exists!");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     protected boolean createPlaysound() {
         boolean valid = validatePlaysound();
 
+        int increment = 1;
         if (valid) {
-            int increment = 1;
+            increment = validateIncrement(incrementBox.getText());
+            valid = validateIncrementNames(nameField.getText(), increment);
+        }
 
-             // Check if to use default
-             if (Integer.parseInt(incrementBox.getText()) < 1) {
-                 System.out.println("Increment invalid - using default (1 Increment)");
-             } else {
-                 increment = Integer.parseInt(incrementBox.getText());
-             }
-
+        if (valid) {
              PlaysoundGroup group = new PlaysoundGroup();
              group.setName(nameField.getText());
 
