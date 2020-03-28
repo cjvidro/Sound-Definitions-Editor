@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -11,7 +10,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <HBox VBox.vgrow="NEVER">
          <children>
@@ -159,111 +157,12 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Accordion>
-                                <panes>
-                                  <TitledPane animated="false" text="Entities">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                  <panes>
-                                                    <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                  </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                  <TitledPane animated="false" text="Custom">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                    <TitledPane animated="false" text="Voiceovers">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                    <TitledPane prefHeight="200.0" prefWidth="200.0" text="Music">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                </panes>
-                              </Accordion>
-                           </children>
-                        </VBox>
+                        <VBox fx:id="playsoundsVBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane fx:id="coreScrollPane" prefHeight="-1.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
               <children>

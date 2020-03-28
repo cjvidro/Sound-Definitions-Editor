@@ -8,6 +8,7 @@ public class Playsound {
 	/*
 	Playsound variables
 	 */
+	private PlaysoundGroup group;
 	protected ArrayList<Sound> sounds = new ArrayList<>(); // Contains all of the sounds this playsound is related to
 	private String name; // playsound name
 	private Double min_distance; // min_distance property
@@ -110,5 +111,13 @@ public class Playsound {
 
 	protected void setName(String name) {
 		this.name = name;
+	}
+
+	protected void setGroup(PlaysoundGroup group) {
+		this.group = group;
+	}
+
+	protected PlaysoundGroup getGroup() {
+		return group;
 	}
 }
