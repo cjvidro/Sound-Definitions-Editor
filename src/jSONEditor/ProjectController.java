@@ -14,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The controller class for the core GUI
@@ -331,8 +333,10 @@ public class ProjectController {
                  increment = Integer.parseInt(incrementBox.getText());
              }
 
+             PlaysoundGroup group = new PlaysoundGroup();
+             group.setName(nameField.getText());
 
-            for (int i = 1; i <= increment; i++) {
+             for (int i = 1; i <= increment; i++) {
 
                 Playsound playsound = new Playsound();
 
@@ -342,12 +346,13 @@ public class ProjectController {
                 } else {
                     // multiple playsounds
                     playsound.setName(nameField.getText() + i);
+                    playsound.setGroup(group);
                 }
                 playsound.setCategory((Category) categoryBox.getValue());
 
-            /*
-            Playsound Details
-             */
+                /*
+                Playsound Details
+                */
                 // check if min distance is empty
                 if (!minDistanceField.getText().equals("")) {
                     playsound.setMin(Double.parseDouble(minDistanceField.getText()));
@@ -515,12 +520,44 @@ public class ProjectController {
 
             playsoundsVBox.getChildren().add(accordion);
 
+            HashMap<String, VBox> groupMap = new HashMap<>();
+
             // load each of the playsounds
             for (Playsound playsound : editorData.playsounds) {
-                // single playsound case
-                Label label = new Label(playsound.getName());
-                label.setFont(new Font(15));
-                box.getChildren().add(label);
+                if (playsound.getGroup() == null) {
+                    // single playsound case
+                    Label label = new Label(playsound.getName());
+                    label.setFont(new Font(15));
+                    box.getChildren().add(label);
+                } else {
+                    // multiple playsounds case
+
+                    String groupName = playsound.getGroup().getName();
+
+                    VBox group;
+                    // check if there is already a group with this name
+                    if (groupMap.get(groupName) == null) {
+                        // create a new group
+                        Accordion groupAccordian = new Accordion();
+                        TitledPane groupPane = new TitledPane();
+                        groupPane.setText(groupName);
+                        groupPane.setFont(new Font(15));
+                        groupAccordian.getPanes().add(groupPane);
+                        VBox groupBox = new VBox();
+                        groupPane.setContent(groupBox);
+
+                        groupMap.put(groupName, groupBox);
+                        group = groupBox;
+                        box.getChildren().add(groupAccordian);
+                    } else {
+                        group = groupMap.get(groupName);
+                    }
+
+                    // add the playsound
+                    Label label = new Label(playsound.getName());
+                    label.setFont(new Font(15));
+                    group.getChildren().add(label);
+                }
             }
         }
     }
