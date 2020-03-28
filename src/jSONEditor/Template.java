@@ -42,7 +42,7 @@ public class Template {
     /*
      * This method is to help with the LOLMSetting. This will return the desired result with the inputed setting.
      */
-    private Boolean detectLOLMSetting() {
+    protected Boolean detectLOLMSetting() {
     	if(getLOLMSetting() == 0)
     	{
     		return getDefaultLOLM();
@@ -58,7 +58,11 @@ public class Template {
     	else if(getLOLMSetting() == 3)
     	{
     		if(first)
+    		{
+    			first = false;
+    			
     			return true;
+    		}
     		
     		return false;
     	}
