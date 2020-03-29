@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="943.0">
@@ -62,7 +61,7 @@
                   </VBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="943.0" spacing="15.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                        <Button fx:id="openProjectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
                            <graphic>
                               <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -73,14 +72,14 @@
                         </Button>
                         <HBox prefHeight="125.0" spacing="2.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="Button" />
-                              <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="Button" />
-                              <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="Button" />
-                              <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="Button" />
-                              <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="Button" />
+                              <Button fx:id="project1Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button fx:id="project2Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button fx:id="project3Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button fx:id="project4Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button fx:id="project5Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                        <Button fx:id="NewProjectButton" mnemonicParsing="false" onAction="#newProject" prefHeight="125.0" prefWidth="125.0">
                            <graphic>
                               <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

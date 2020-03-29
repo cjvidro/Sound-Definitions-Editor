@@ -11,13 +11,13 @@ import javafx.stage.Stage;
         @Override
         public void start(Stage primaryStage) throws Exception{
             // load FXML and set the controller
-            ProjectController controller = new ProjectController(); // the controller for the view project GUI
-            FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
-            loader.setController(controller); // view project controller
+            HomeScreenController controller = new HomeScreenController(); // the controller for the home screen
+            FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/homeScreen.fxml")));
+            loader.setController(controller); // home screen controller
             Parent root = loader.load();
 
             // set JavaFX stage details
-            primaryStage.setTitle("JSON Sound Definitions Editor");
+            primaryStage.setTitle("JSON Sound Definitions Editor - Select Project");
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.show();
         }
