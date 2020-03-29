@@ -2,8 +2,12 @@ package jSONEditor;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Rule;
@@ -112,19 +116,67 @@ public class ProjectControllerTest {
         }
     }
 
-    /*
-    Need to rewrite according to new functionality. . .
-     */
-//    @Test
-//    public void testSaveAddPlaysound() {
-//        try {
-//            Stage temp = controller.showAddPlaysound(myStage);
-//            Stage window = controller.saveAddPlaysound(temp);
-//            assertNotNull(window);
-//            assertEquals("JSON Sound Definitions Editor", window.getTitle());
-//
-//        } catch (IOException e) {
-//            fail();
-//        }
-//    }
+    @Test public void testGetSoundHBoxes() {
+        HBox overlyingbox = null;
+        HBox[] result = controller.getSoundHBoxes(overlyingbox);
+
+        // bad input test
+        for (HBox box : result) {
+            assertNull(box);
+        }
+
+        overlyingbox = new HBox();
+        VBox containingBox = new VBox();
+        overlyingbox.getChildren().addAll(new Pane(), containingBox);
+
+        HBox directoryBox = new HBox(new Pane());
+        HBox streamBox = new HBox(new Pane());
+        HBox volumeBox = new HBox(new Pane());
+        HBox pitchBox = new HBox(new Pane());
+        HBox lolmBox = new HBox(new Pane());
+
+        containingBox.getChildren().addAll(directoryBox, streamBox, volumeBox, pitchBox, lolmBox);
+
+        result = controller.getSoundHBoxes(overlyingbox);
+
+        assertEquals(directoryBox, result[0]);
+        assertEquals(streamBox, result[1]);
+        assertEquals(volumeBox, result[2]);
+        assertEquals(pitchBox, result[3]);
+        assertEquals(lolmBox, result[4]);
+    }
+
+    @Test
+    public void testValidateIncrement(){
+        assertEquals(1, controller.validateIncrement("-2"));
+        assertEquals(1, controller.validateIncrement("0"));
+        assertEquals(1, controller.validateIncrement("1"));
+        assertEquals(5, controller.validateIncrement("5"));
+        assertEquals(5, controller.validateIncrement("5.4"));
+    }
+
+    @Test
+    public void testValidateIncrementNames() {
+        EditorData editorData = EditorData.getInstance();
+
+        assertTrue(controller.validateIncrementNames("Hello", 3));
+
+        Playsound playsound = new Playsound();
+        playsound.setName("Hello2");
+        editorData.playsounds.add(playsound);
+
+        assertFalse(controller.validateIncrementNames("Hello", 3));
+    }
+
+    @Test public void testShowViewProject() {
+        Stage stage = new Stage();
+        try {
+            stage = controller.showViewProject(myStage);
+        } catch (IOException e) {
+            fail();
+        }
+
+        assertNotNull(stage);
+        assertEquals("JSON Sound Definitions Editor", stage.getTitle());
+    }
 }

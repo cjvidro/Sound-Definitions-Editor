@@ -25,10 +25,7 @@ public class HomeScreenController {
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
-    @FXML
-    protected void newProject(ActionEvent event) throws IOException {
-        System.out.println("Ran");
-
+    protected Stage newProject(Stage stage) throws IOException {
         // load FXML and set the controllers
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
@@ -36,13 +33,22 @@ public class HomeScreenController {
         Parent root = loader.load();
 
         // set JavaFX stage details
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("JSON Sound Definitions Editor");
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.show();
+        Stage viewProject = new Stage();
+        viewProject.setTitle("JSON Sound Definitions Editor");
+        viewProject.setScene(new Scene(root, 1280, 720));
+        viewProject.show();
 
         // close the current
-        closeHomeScreen((Stage) ((Button) event.getSource()).getScene().getWindow());
+        closeHomeScreen(stage);
+
+        return viewProject;
+    }
+
+    @FXML
+    private void newProject(ActionEvent event) throws IOException {
+        // Calls the above helper function for testing purposes
+        newProject((Stage) ((Button) event.getSource()).getScene().getWindow());
+
     }
 
     protected Stage closeHomeScreen(Stage settingsStage) {
