@@ -28,14 +28,14 @@ public class ProjectController {
      *****************************************************/
 
     // Used for adding / editing playsounds
-    @FXML private TextField nameField;
-    @FXML private TextField incrementBox;
-    @FXML private ComboBox categoryBox;
-    @FXML private TextField minDistanceField;
-    @FXML private TextField maxDistanceField;
+    @FXML protected TextField nameField;
+    @FXML protected TextField incrementBox;
+    @FXML protected ComboBox categoryBox;
+    @FXML protected TextField minDistanceField;
+    @FXML protected TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
-    @FXML private VBox soundsVBox;
+    @FXML protected VBox soundsVBox;
     @FXML private VBox playsoundsVBox;
     @FXML private ScrollPane coreScrollPane;
 
@@ -217,7 +217,7 @@ public class ProjectController {
      * @param overlyingBox - The overlying HBox for a sound
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
      */
-    private HBox[] getSoundHBoxes(HBox overlyingBox) {
+    protected HBox[] getSoundHBoxes(HBox overlyingBox) {
         HBox[] soundBoxes = new HBox[5];
 
         if (overlyingBox != null) {
@@ -328,20 +328,31 @@ public class ProjectController {
         return validateSounds();
     }
 
-    private int validateIncrement(String incrementTemp) {
+    protected int validateIncrement(String incrementTemp) {
         int increment = 1;
 
         // Check if to use default
-        if (Integer.parseInt(incrementBox.getText()) < 1) {
-            System.out.println("Increment invalid - using default (1 Increment)");
-        } else {
-            increment = Integer.parseInt(incrementBox.getText());
+        try {
+            if (Integer.parseInt(incrementTemp) < 1) {
+                System.out.println("Increment invalid - using default (1 Increment)");
+            } else {
+                increment = Integer.parseInt(incrementTemp);
+            }
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Could not parse increment as an integer. . .");
+            try {
+                increment = (int) Double.parseDouble(incrementTemp);
+                System.out.println("Successfully parsed increment as a double!");
+            } catch (NumberFormatException f) {
+                System.out.println("Tried parsing increment as a double and failed - using default (1 increment)");
+            }
         }
 
         return increment;
     }
 
-    private boolean validateIncrementNames(String name, int increment) {
+    protected boolean validateIncrementNames(String name, int increment) {
         for (int i = 1; i <= increment; i++) {
             for (Playsound playsound : editorData.playsounds) {
                 if ((name + i).equals(playsound.getName())) {

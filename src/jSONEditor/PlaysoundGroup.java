@@ -1,7 +1,5 @@
 package jSONEditor;
 
-import java.util.ArrayList;
-
 /**
  * This is a group of playsounds
  */

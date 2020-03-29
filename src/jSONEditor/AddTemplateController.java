@@ -28,7 +28,6 @@ public class AddTemplateController {
     private void cancelAddTemplate(ActionEvent event) {
         // uses the above method for testing purposes
         cancelAddTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
-
     }
 
     protected Stage saveAddTemplate(Stage stage) {
