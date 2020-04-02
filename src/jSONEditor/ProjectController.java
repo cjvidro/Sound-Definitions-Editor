@@ -1,12 +1,15 @@
 package jSONEditor;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -14,7 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -132,7 +134,7 @@ public class ProjectController {
         System.out.println("Show Settings");
 
         // load FXML and set the controller
-        SettingsController controller = new SettingsController(); // the controller for the view project GUI
+        SettingsController controller = new SettingsController(); // the controller for the settings GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
@@ -570,6 +572,16 @@ public class ProjectController {
                     Label label = new Label(playsound.getName());
                     label.setFont(new Font(15));
                     box.getChildren().add(label);
+
+                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
+                                // double clicked
+                                showEditSingle(playsound, (Stage) label.getScene().getWindow());
+                            }
+                        }
+                    });
                 } else {
                     // multiple playsounds case
 
@@ -590,6 +602,16 @@ public class ProjectController {
                         groupMap.put(groupName, groupBox);
                         group = groupBox;
                         box.getChildren().add(groupAccordian);
+
+                        groupPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getButton().equals(MouseButton.SECONDARY) && event.getClickCount() == 1) {
+                                    // double clicked
+                                    showEditGroup(playsound.getGroup());
+                                }
+                            }
+                        });
                     } else {
                         group = groupMap.get(groupName);
                     }
@@ -598,8 +620,46 @@ public class ProjectController {
                     Label label = new Label(playsound.getName());
                     label.setFont(new Font(15));
                     group.getChildren().add(label);
+
+                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
+                                // double clicked
+                                showEditSingle(playsound, (Stage) label.getScene().getWindow());
+                            }
+                        }
+                    });
                 }
             }
         }
+    }
+
+    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow) {
+        System.out.println("Edit " + playsound.getName());
+
+        // load FXML and set the controller
+        ProjectController controller = new ProjectController();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        loader.setController(controller); // addPlaysound/viewProject controller
+        Node addPlaysound = null;
+        try {
+            addPlaysound = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coreScrollpaneReference.setContent(addPlaysound);
+
+        // set JavaFX stage details
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+
+        return editPlaysoundWindow;
+    }
+
+    protected Stage showEditGroup(PlaysoundGroup playsoundGroup) {
+        System.out.println("Edit Group " + playsoundGroup.getName());
+
+        return new Stage();
     }
 }
