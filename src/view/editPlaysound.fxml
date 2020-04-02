@@ -112,7 +112,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <TextField promptText="sounds/" />
+                                    <TextField fx:id="firstSoundDirectory" promptText="sounds/" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">

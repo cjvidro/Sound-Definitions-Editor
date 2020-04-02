@@ -445,7 +445,7 @@ public class ProjectController {
 
                     Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
 
-                    playsound.addSound(directory, stream, volume, pitch, lolm);
+                    playsound.addSound(directory, stream, pitch, volume, lolm);
                 }
 
                 // Add the playsound to editorData instance
@@ -455,6 +455,22 @@ public class ProjectController {
         }
 
         return false;
+    }
+
+    private VBox addSound(ProjectController controller) throws IOException {
+        int sounds = controller.soundsVBox.getChildren().size();
+
+        // load FXML and set the controller
+        ProjectController myController = new ProjectController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        loader.setController(myController); // view project controller
+        Node sound = loader.load();
+
+        controller.soundsVBox.getChildren().add(sounds - 1, sound);
+
+        System.out.println("Add " + controller.soundsVBox.getChildren().size());
+
+        return (VBox) ((HBox) sound).getChildren().get(1);
     }
 
     @FXML
@@ -635,7 +651,7 @@ public class ProjectController {
         }
     }
 
-    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow) {
+    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
         System.out.println("Edit " + playsound.getName());
 
         // load FXML and set the controller
@@ -665,8 +681,43 @@ public class ProjectController {
         controller.categoryBox.getSelectionModel().select(playsound.getCategory());
 
         /*
-        INSERT SOUND DETAILS
+        Set sound details
          */
+        int numSounds = playsound.sounds.size();
+        // populate first playsound
+        VBox firstSoundVBox = ((VBox) ((HBox) controller.soundsVBox.getChildren().get(0)).getChildren().get(1));
+        Sound firstSound = playsound.sounds.get(0);
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstSound.getDirectory()); // set directory
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
+        if (firstSound.getVolume() != null) {
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
+        }
+        if (firstSound.getPitch() != null) {
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getPitch()  + ""); // set pitch
+        }
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
+
+        // populate remaining playsounds
+        for (int i = 1; i < numSounds; i++) {
+            try {
+                VBox soundVBox = addSound(controller); // create the sound GUI display
+                Sound sound = playsound.getSound(i);
+
+                // populate the sound
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(sound.getDirectory()); // set directory
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
+                if (sound.getVolume() != null) {
+                    ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
+                }
+                if (sound.getPitch() != null) {
+                    ((TextField) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setText(sound.getPitch()  + ""); // set pitch
+                }
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return editPlaysoundWindow;
     }
