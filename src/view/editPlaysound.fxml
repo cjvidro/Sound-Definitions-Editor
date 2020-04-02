@@ -200,6 +200,11 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Button mnemonicParsing="false" text="Delete">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>
