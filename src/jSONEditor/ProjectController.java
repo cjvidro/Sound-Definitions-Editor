@@ -390,6 +390,7 @@ public class ProjectController {
                     // multiple playsounds
                     playsound.setName(nameField.getText() + i);
                     playsound.setGroup(group);
+                    group.playsounds.add(playsound);
                 }
                 playsound.setCategory((Category) categoryBox.getValue());
 
@@ -624,7 +625,7 @@ public class ProjectController {
                             public void handle(MouseEvent event) {
                                 if(event.getButton().equals(MouseButton.SECONDARY) && event.getClickCount() == 1) {
                                     // double clicked
-                                    showEditGroup(playsound.getGroup());
+                                    showEditGroup(playsound.getGroup(), (Stage) groupPane.getScene().getWindow());
                                 }
                             }
                         });
@@ -683,6 +684,52 @@ public class ProjectController {
         /*
         Set sound details
          */
+        setSoundDetails(playsound, controller);
+
+        return editPlaysoundWindow;
+    }
+
+    protected Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
+        System.out.println("Edit Group " + playsoundGroup.getName());
+
+        // load FXML and set the controller
+        ProjectController controller = new ProjectController();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        loader.setController(controller); // addPlaysound/viewProject controller
+        Node addPlaysound = null;
+        try {
+            addPlaysound = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coreScrollpaneReference.setContent(addPlaysound);
+
+        // set JavaFX stage details
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+
+        // USES FIRST PLAYSOUND AS THE TEMPLATE
+        Playsound playsound = playsoundGroup.playsounds.get(0);
+
+        // Set playsound details
+        controller.nameField.setText(playsound.getName());
+        if (playsound.getMin() != null) {
+            controller.minDistanceField.setText(playsound.getMin() + "");
+        }
+        if (playsound.getMax() != null) {
+            controller.maxDistanceField.setText(playsound.getMax() + "");
+        }
+        controller.categoryBox.getSelectionModel().select(playsound.getCategory());
+
+        /*
+        Set sound details
+         */
+        setSoundDetails(playsound, controller);
+
+        return editPlaysoundWindow;
+    }
+
+    private void setSoundDetails(Playsound playsound, ProjectController controller) {
         int numSounds = playsound.sounds.size();
         // populate first playsound
         VBox firstSoundVBox = ((VBox) ((HBox) controller.soundsVBox.getChildren().get(0)).getChildren().get(1));
@@ -719,12 +766,5 @@ public class ProjectController {
             }
         }
 
-        return editPlaysoundWindow;
-    }
-
-    protected Stage showEditGroup(PlaysoundGroup playsoundGroup) {
-        System.out.println("Edit Group " + playsoundGroup.getName());
-
-        return new Stage();
     }
 }
