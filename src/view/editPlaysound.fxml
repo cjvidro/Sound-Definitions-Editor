@@ -31,7 +31,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <ComboBox prefWidth="150.0" promptText="Select Template" />
+                  <ComboBox fx:id="templateBox" prefWidth="150.0" promptText="Select Template" />
                </children>
             </HBox>
             <HBox spacing="10.0">

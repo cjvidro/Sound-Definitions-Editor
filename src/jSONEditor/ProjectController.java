@@ -654,6 +654,20 @@ public class ProjectController {
         // set JavaFX stage details
         editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
 
+        // Set playsound details
+        controller.nameField.setText(playsound.getName());
+        if (playsound.getMin() != null) {
+        controller.minDistanceField.setText(playsound.getMin() + "");
+        }
+        if (playsound.getMax() != null) {
+            controller.maxDistanceField.setText(playsound.getMax() + "");
+        }
+        controller.categoryBox.getSelectionModel().select(playsound.getCategory());
+
+        /*
+        INSERT SOUND DETAILS
+         */
+
         return editPlaysoundWindow;
     }
 
