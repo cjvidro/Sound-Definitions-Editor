@@ -190,7 +190,7 @@
             </VBox>
             <HBox alignment="TOP_CENTER" spacing="15.0">
                <children>
-                  <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
+                  <Button fx:id="saveEditPlaysoundButton" mnemonicParsing="false" onAction="#saveEditPlaysound" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>

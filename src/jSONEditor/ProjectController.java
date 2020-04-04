@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -464,6 +465,7 @@ public class ProjectController {
                 // Add the playsound to editorData instance
                 editorData.playsounds.add(playsound);
             }
+            
             return true;
         }
 
@@ -842,15 +844,40 @@ public class ProjectController {
 
     @FXML
     private void deletePlaysound(ActionEvent event) throws IOException {
-        // get the reference name
+        // get the reference info
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
-        TextField refBox = ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
-                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(10));
-        TextField refGroup = ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
-                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
+        TextField refBox = getRefBox(stage);
+        TextField refGroup = getRefGroup(stage);
 
         deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
         showViewProject(stage);
+    }
+
+    @FXML
+    private void saveEditPlaysound(ActionEvent event) throws IOException {
+        // get the reference info
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        TextField refBox = getRefBox(stage);
+        TextField refGroup = getRefGroup(stage);
+
+        // delete the old playsound
+        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+
+        // save the new playsound
+        saveAddPlaysound(stage);
+
+        showViewProject(stage);
+    }
+
+    private TextField getRefBox(Stage stage) {
+        return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(10));
+    }
+
+    private TextField getRefGroup(Stage stage) {
+        return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
     }
 }
