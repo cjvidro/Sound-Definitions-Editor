@@ -1,20 +1,24 @@
 package jSONEditor;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -28,21 +32,25 @@ public class ProjectController {
      *****************************************************/
 
     // Used for adding / editing playsounds
-    @FXML private TextField nameField;
-    @FXML private TextField incrementBox;
-    @FXML private ComboBox categoryBox;
-    @FXML private TextField minDistanceField;
-    @FXML private TextField maxDistanceField;
+    @FXML protected TextField nameField;
+    @FXML protected TextField incrementBox;
+    @FXML protected ComboBox categoryBox;
+    @FXML protected TextField minDistanceField;
+    @FXML protected TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
-    @FXML private VBox soundsVBox;
+    @FXML protected VBox soundsVBox;
     @FXML private VBox playsoundsVBox;
     @FXML private ScrollPane coreScrollPane;
+    @FXML private TextField referenceName;
+    @FXML private TextField referenceGroup;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
     private static VBox playsoundsVBoxReference = null;
     private static ScrollPane coreScrollpaneReference = null;
+    protected static TextField playsoundName = null;
+    protected static TextField playsoundGroup = null;
 
     @FXML
     public void initialize() {
@@ -66,12 +74,20 @@ public class ProjectController {
             coreScrollpaneReference = coreScrollPane;
         }
 
+        if (playsoundName == null || (referenceName != null && referenceName != playsoundName)) {
+            playsoundName = referenceName;
+        }
+
+        if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
+            playsoundGroup = referenceGroup;
+        }
+
         /*
          * INSERT POPULATE TEMPLATES
          */
 
         /*
-         * CALL READ IN PLAYSOUNDS
+         * CALL READ SOUND DEFINITIONS
          */
 
         // Populate the playsounds on the LHS
@@ -132,7 +148,7 @@ public class ProjectController {
         System.out.println("Show Settings");
 
         // load FXML and set the controller
-        SettingsController controller = new SettingsController(); // the controller for the view project GUI
+        SettingsController controller = new SettingsController(); // the controller for the settings GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
@@ -217,7 +233,7 @@ public class ProjectController {
      * @param overlyingBox - The overlying HBox for a sound
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
      */
-    private HBox[] getSoundHBoxes(HBox overlyingBox) {
+    protected HBox[] getSoundHBoxes(HBox overlyingBox) {
         HBox[] soundBoxes = new HBox[5];
 
         if (overlyingBox != null) {
@@ -320,7 +336,6 @@ public class ProjectController {
                 Double.parseDouble(maxDistanceField.getText());
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
             System.out.println("Could not parse Distance Fields");
             return false;
         }
@@ -328,20 +343,31 @@ public class ProjectController {
         return validateSounds();
     }
 
-    private int validateIncrement(String incrementTemp) {
+    protected int validateIncrement(String incrementTemp) {
         int increment = 1;
 
         // Check if to use default
-        if (Integer.parseInt(incrementBox.getText()) < 1) {
-            System.out.println("Increment invalid - using default (1 Increment)");
-        } else {
-            increment = Integer.parseInt(incrementBox.getText());
+        try {
+            if (Integer.parseInt(incrementTemp) < 1) {
+                System.out.println("Increment invalid - using default (1 Increment)");
+            } else {
+                increment = Integer.parseInt(incrementTemp);
+            }
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Could not parse increment as an integer. . .");
+            try {
+                increment = (int) Double.parseDouble(incrementTemp);
+                System.out.println("Successfully parsed increment as a double!");
+            } catch (NumberFormatException f) {
+                System.out.println("Tried parsing increment as a double and failed - using default (1 increment)");
+            }
         }
 
         return increment;
     }
 
-    private boolean validateIncrementNames(String name, int increment) {
+    protected boolean validateIncrementNames(String name, int increment) {
         for (int i = 1; i <= increment; i++) {
             for (Playsound playsound : editorData.playsounds) {
                 if ((name + i).equals(playsound.getName())) {
@@ -377,6 +403,7 @@ public class ProjectController {
                     // multiple playsounds
                     playsound.setName(nameField.getText() + i);
                     playsound.setGroup(group);
+                    group.playsounds.add(playsound);
                 }
                 playsound.setCategory((Category) categoryBox.getValue());
 
@@ -432,16 +459,33 @@ public class ProjectController {
 
                     Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
 
-                    playsound.addSound(directory, stream, volume, pitch, lolm);
+                    playsound.addSound(directory, stream, pitch, volume, lolm);
                 }
 
                 // Add the playsound to editorData instance
                 editorData.playsounds.add(playsound);
             }
+            
             return true;
         }
 
         return false;
+    }
+
+    private VBox addSound(ProjectController controller) throws IOException {
+        int sounds = controller.soundsVBox.getChildren().size();
+
+        // load FXML and set the controller
+        ProjectController myController = new ProjectController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        loader.setController(myController); // view project controller
+        Node sound = loader.load();
+
+        controller.soundsVBox.getChildren().add(sounds - 1, sound);
+
+        System.out.println("Add " + controller.soundsVBox.getChildren().size());
+
+        return (VBox) ((HBox) sound).getChildren().get(1);
     }
 
     @FXML
@@ -559,6 +603,16 @@ public class ProjectController {
                     Label label = new Label(playsound.getName());
                     label.setFont(new Font(15));
                     box.getChildren().add(label);
+
+                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
+                                // double clicked
+                                showEditSingle(playsound, (Stage) label.getScene().getWindow());
+                            }
+                        }
+                    });
                 } else {
                     // multiple playsounds case
 
@@ -579,6 +633,16 @@ public class ProjectController {
                         groupMap.put(groupName, groupBox);
                         group = groupBox;
                         box.getChildren().add(groupAccordian);
+
+                        groupPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getButton().equals(MouseButton.SECONDARY) && event.getClickCount() == 1) {
+                                    // double clicked
+                                    showEditGroup(playsound.getGroup(), (Stage) groupPane.getScene().getWindow());
+                                }
+                            }
+                        });
                     } else {
                         group = groupMap.get(groupName);
                     }
@@ -587,8 +651,233 @@ public class ProjectController {
                     Label label = new Label(playsound.getName());
                     label.setFont(new Font(15));
                     group.getChildren().add(label);
+
+                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
+                                // double clicked
+                                showEditSingle(playsound, (Stage) label.getScene().getWindow());
+                            }
+                        }
+                    });
                 }
             }
         }
+    }
+
+    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
+        System.out.println("Edit " + playsound.getName());
+
+        // load FXML and set the controller
+        ProjectController controller = new ProjectController();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        loader.setController(controller); // addPlaysound/viewProject controller
+        Node addPlaysound = null;
+        try {
+            addPlaysound = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coreScrollpaneReference.setContent(addPlaysound);
+
+        // set JavaFX stage details
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+
+        // Set playsound details
+        controller.nameField.setText(playsound.getName());
+        if (playsound.getMin() != null) {
+        controller.minDistanceField.setText(playsound.getMin() + "");
+        }
+        if (playsound.getMax() != null) {
+            controller.maxDistanceField.setText(playsound.getMax() + "");
+        }
+        controller.categoryBox.getSelectionModel().select(playsound.getCategory());
+
+        // set the reference detail
+        controller.playsoundName.setText(playsound.getName());
+
+        /*
+        Set sound details
+         */
+        setSoundDetails(playsound, controller);
+
+        return editPlaysoundWindow;
+    }
+
+    protected Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
+        System.out.println("Edit Group " + playsoundGroup.getName());
+
+        // load FXML and set the controller
+        ProjectController controller = new ProjectController();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        loader.setController(controller); // addPlaysound/viewProject controller
+        Node addPlaysound = null;
+        try {
+            addPlaysound = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coreScrollpaneReference.setContent(addPlaysound);
+
+        // set JavaFX stage details
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+
+        // USES FIRST PLAYSOUND AS THE TEMPLATE
+        Playsound playsound = playsoundGroup.playsounds.get(0);
+
+        controller.incrementBox.setText(playsoundGroup.playsounds.size() + "");
+
+        // Set playsound details
+        controller.nameField.setText(playsoundGroup.getName());
+        if (playsound.getMin() != null) {
+            controller.minDistanceField.setText(playsound.getMin() + "");
+        }
+        if (playsound.getMax() != null) {
+            controller.maxDistanceField.setText(playsound.getMax() + "");
+        }
+        controller.categoryBox.getSelectionModel().select(playsound.getCategory());
+
+        // set the reference
+        controller.playsoundGroup.setText(playsound.getGroup().getName());
+
+        /*
+        Set sound details
+         */
+        setSoundDetails(playsound, controller);
+
+        return editPlaysoundWindow;
+    }
+
+    private void setSoundDetails(Playsound playsound, ProjectController controller) {
+        int numSounds = playsound.sounds.size();
+        // populate first playsound
+        VBox firstSoundVBox = ((VBox) ((HBox) controller.soundsVBox.getChildren().get(0)).getChildren().get(1));
+        Sound firstSound = playsound.sounds.get(0);
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstSound.getDirectory()); // set directory
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
+        if (firstSound.getVolume() != null) {
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
+        }
+        if (firstSound.getPitch() != null) {
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getPitch()  + ""); // set pitch
+        }
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
+
+        // populate remaining playsounds
+        for (int i = 1; i < numSounds; i++) {
+            try {
+                VBox soundVBox = addSound(controller); // create the sound GUI display
+                Sound sound = playsound.getSound(i);
+
+                // populate the sound
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(sound.getDirectory()); // set directory
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
+                if (sound.getVolume() != null) {
+                    ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
+                }
+                if (sound.getPitch() != null) {
+                    ((TextField) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setText(sound.getPitch()  + ""); // set pitch
+                }
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    protected boolean deletePlaysound(String playsoundRefName, String refGroup) {
+        // search for the playsound
+        Playsound playsound = null;
+        PlaysoundGroup group = null;
+
+        if (incrementBox != null && incrementBox.getText().equals("1")) {
+            // single playsound
+            for (Playsound psound : editorData.playsounds) {
+                if (psound.getName().equals(playsoundRefName)) {
+                    playsound = psound;
+                    break;
+                }
+            }
+        } else {
+            // playsound group
+            for (Playsound psound : editorData.playsounds) {
+                if (psound.getGroup().getName().equals(refGroup)) {
+                    group = psound.getGroup();
+                    break;
+                }
+            }
+        }
+
+        // check if could not find playsound or group
+        if (playsound == null && group == null) {
+            System.out.println(playsoundRefName);
+            System.out.println(refGroup);
+            System.out.println("Could not remove playsound " + playsoundRefName);
+            return false;
+        }
+
+        // delete playsound
+        if (group == null) {
+            editorData.playsounds.remove(playsound); // remove from core display
+            if (playsound.getGroup() != null) {
+                playsound.getGroup().playsounds.remove(playsound); // remove from group
+            }
+
+            System.out.println("Deleted playsound " + playsound.getName());
+            return true;
+        }
+
+        // delete playsoundgroup
+        for (Playsound psound : group.playsounds) {
+            editorData.playsounds.remove(psound); // remove from core display
+        }
+
+        System.out.println("Deleted group " + group.getName());
+        return true;
+    }
+
+
+    @FXML
+    private void deletePlaysound(ActionEvent event) throws IOException {
+        // get the reference info
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        TextField refBox = getRefBox(stage);
+        TextField refGroup = getRefGroup(stage);
+
+        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        showViewProject(stage);
+    }
+
+    @FXML
+    private void saveEditPlaysound(ActionEvent event) throws IOException {
+        // get the reference info
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        TextField refBox = getRefBox(stage);
+        TextField refGroup = getRefGroup(stage);
+
+        // delete the old playsound
+        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+
+        // save the new playsound
+        saveAddPlaysound(stage);
+
+        showViewProject(stage);
+    }
+
+    private TextField getRefBox(Stage stage) {
+        return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(10));
+    }
+
+    private TextField getRefGroup(Stage stage) {
+        return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
     }
 }

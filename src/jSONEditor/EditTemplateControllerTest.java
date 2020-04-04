@@ -48,7 +48,7 @@ public class EditTemplateControllerTest {
 
     @Test
     public void testSaveEditTemplate() {
-        assertNull(controller.cancelEditTemplate(myStage));
+        assertNull(controller.saveEditTemplate(myStage));
     }
 
     @Test

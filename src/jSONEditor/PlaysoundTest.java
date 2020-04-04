@@ -65,13 +65,24 @@ public class PlaysoundTest {
 
     @Test
     public void max() {
-        playsound.setMin(5.1);
-        assertEquals(new Double(5.1), playsound.getMin());
+        playsound.setMax(5.1);
+        assertEquals(new Double(5.1), playsound.getMax());
     }
 
     @Test
     public void name() {
         playsound.setName("cat");
         assertEquals("cat", playsound.getName());
+    }
+
+    @Test
+    public void group() {
+        PlaysoundGroup group = new PlaysoundGroup();
+        group.setName("myGroup");
+        assertEquals("myGroup", group.getName());
+
+        playsound.setGroup(group);
+        assertEquals(group, playsound.getGroup());
+
     }
 }
