@@ -170,7 +170,7 @@ public class Template {
 		this.name = name;
 	}
 	
-	protected String getString(String name) {
+	protected String getString() {
 		return name;
 	}
 }
