@@ -16,7 +16,7 @@
 
 <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox spacing="10.0">
+      <VBox fx:id="test" spacing="10.0">
          <children>
             <Label text="Edit Playsound" underline="true">
                <font>
@@ -31,7 +31,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <ComboBox prefWidth="150.0" promptText="Select Template" />
+                  <ComboBox fx:id="templateBox" prefWidth="150.0" promptText="Select Template" />
                </children>
             </HBox>
             <HBox spacing="10.0">
@@ -112,7 +112,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <TextField promptText="sounds/" />
+                                    <TextField fx:id="firstSoundDirectory" promptText="sounds/" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
@@ -190,7 +190,7 @@
             </VBox>
             <HBox alignment="TOP_CENTER" spacing="15.0">
                <children>
-                  <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
+                  <Button fx:id="saveEditPlaysoundButton" mnemonicParsing="false" onAction="#saveEditPlaysound" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -200,8 +200,15 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Button fx:id="deletePlaysoundButton" mnemonicParsing="false" onAction="#deletePlaysound" text="Delete">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
+            <TextField fx:id="referenceName" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" visible="false" />
+            <TextField fx:id="referenceGroup" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" visible="false" />
          </children>
          <padding>
             <Insets left="20.0" />
