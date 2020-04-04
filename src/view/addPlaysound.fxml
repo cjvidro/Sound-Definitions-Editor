@@ -1,497 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-      <HBox VBox.vgrow="NEVER">
+<AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox spacing="10.0">
          <children>
-          <MenuBar>
-            <menus>
-              <Menu mnemonicParsing="false" text="File">
-                <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Import" />
-                  <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
-                        <MenuItem mnemonicParsing="false" text="Edit Changelog" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-                  <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
-                </items>
-              </Menu>
-              <Menu mnemonicParsing="false" text="Template">
-                <items>
-                  <MenuItem mnemonicParsing="false" text="Add New Template" />
-                  <MenuItem mnemonicParsing="false" text="Edit Template" />
-                </items>
-              </Menu>
-            </menus>
-          </MenuBar>
-            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-            <Button mnemonicParsing="false" text="Help" />
-         </children>
-      </HBox>
-      <HBox>
-         <children>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-              <items>
-                  <VBox alignment="TOP_CENTER">
+            <Label text="Add Playsound" underline="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Template">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox prefWidth="150.0" promptText="Select Template" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Increment">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="incrementBox" promptText="1" text="1" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="nameField" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Category">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Min Distance">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="minDistanceField" promptText="1.0" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="Max Distance">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="maxDistanceField" promptText="1.0" />
+               </children>
+            </HBox>
+            <Label text="Sounds">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="soundsVBox" spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
                      <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" visible="false" />
+                        <VBox spacing="10.0">
                            <children>
-                            <Button mnemonicParsing="false" text="Import" />
-                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
-                              <Button mnemonicParsing="false" text="Save" />
-                           </children>
-                        </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Edit Changelog" />
-                           </children>
-                        </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
-                           </children>
-                        </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox>
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
-                              <Button fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="TOP_CENTER">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Template" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Log In" />
-                           </children>
-                        </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-              </items>
-            </ToolBar>
-         </children>
-      </HBox>
-    <SplitPane dividerPositions="0.18262806236080179" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <items>
-            <ScrollPane fitToHeight="true" fitToWidth="true" SplitPane.resizableWithParent="false">
-               <content>
-                  <VBox>
-                     <children>
-                        <Label alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" underline="true" VBox.vgrow="NEVER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Accordion>
-                                <panes>
-                                  <TitledPane animated="false" text="Entities">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                  <panes>
-                                                    <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                  </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                  <TitledPane animated="false" text="Custom">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                    <TitledPane animated="false" text="Voiceovers">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                    <TitledPane prefHeight="200.0" prefWidth="200.0" text="Music">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <Accordion>
-                                                   <panes>
-                                                      <TitledPane animated="false" text="untitled 1">
-                                                         <content>
-                                                            <VBox>
-                                                               <children>
-                                                                  <Label text="Label" />
-                                                               </children>
-                                                            </VBox>
-                                                         </content>
-                                                      </TitledPane>
-                                                   </panes>
-                                                </Accordion>
-                                                <Label text="Label" />
-                                                <Label text="Label" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
-                                </panes>
-                              </Accordion>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Directory">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="sounds/" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Stream">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <CheckBox mnemonicParsing="false">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Volume">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Pitch">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField promptText="1.0" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Low Memory Load">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <CheckBox mnemonicParsing="false">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                  </HBox>
+                  <HBox spacing="10.0">
                      <children>
-                        <HBox>
-                           <children>
-                              <VBox spacing="10.0">
-                                 <children>
-                                    <Label text="Add Playsound" underline="true">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Template">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox prefWidth="150.0" promptText="Select Template" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Name">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="nameField" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Category">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Min Distance">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="minDistanceField" promptText="1.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Label text="Max Distance">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="maxDistanceField" promptText="1.0" />
-                                       </children>
-                                    </HBox>
-                                    <Label text="Sounds">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets top="15.0" />
-                                       </padding>
-                                    </Label>
-                                    <VBox fx:id="soundsVBox" spacing="10.0">
-                                       <children>
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" visible="false" />
-                                                <VBox spacing="10.0">
-                                                   <children>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Label text="Directory">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                            <TextField promptText="sounds/" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Label text="Stream">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                            <CheckBox mnemonicParsing="false">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Label text="Volume">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                            <TextField promptText="1.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Label text="Pitch">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                            <TextField promptText="1.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Label text="Low Memory Load">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                            <CheckBox mnemonicParsing="false">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </CheckBox>
-                                                            <Region HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
-                                                   <graphic>
-                                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@add.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </graphic></Button>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <HBox alignment="TOP_CENTER" spacing="15.0">
-                                       <children>
-                                          <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </VBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
-                                 <children>
-                                    <TextField fx:id="minField" prefWidth="40.0" promptText="Min" />
-                                    <Label text="-">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="maxField" prefWidth="40.0" promptText="Max" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" top="72.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                        </HBox>
+                        <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-      </items>
-    </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-      <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
-          </textFill>
-        </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
-      </children>
-      <padding>
-        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-      </padding>
-    </HBox>
-  </children>
-</VBox>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="TOP_CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="saveAddPlaysoundButton" mnemonicParsing="false" onAction="#saveAddPlaysound" text="Save">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

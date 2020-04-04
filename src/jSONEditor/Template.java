@@ -19,9 +19,7 @@ public class Template {
     /*
      * Sets all default playsounds for user.
      */
-    protected void setDefaultPlaysound() {
-    	Playsound playsound = new Playsound();
-    	
+    protected void setDefaultPlaysound(Playsound playsound) {
     	playsound.setMin(getDefaultMin());
     	playsound.setMax(getDefaultMax());
     	playsound.setCategory(getDefaultCategory());
@@ -30,9 +28,7 @@ public class Template {
     /*
      * Sets all default sounds for user.
      */
-    protected void setDefaultSound() {
-    	Sound sound = new Sound();
-    	
+    protected void setDefaultSound(Sound sound) {
     	sound.setStream(getDefaultStream());
     	sound.setPitch(getDefaultPitch());
     	sound.setVolume(getDefaultVolume());
