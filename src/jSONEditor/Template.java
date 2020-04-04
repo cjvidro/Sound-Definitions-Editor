@@ -1,6 +1,9 @@
 package jSONEditor;
 
 public class Template {
+	//Name to distinguish Templates
+	private String name;
+	
     // Playsound defaults
     private Double min_distance; // min_distance property
     private Double max_distance; // max_distance property
@@ -38,7 +41,7 @@ public class Template {
     /*
      * This method is to help with the LOLMSetting. This will return the desired result with the inputed setting.
      */
-    private Boolean detectLOLMSetting() {
+    protected Boolean detectLOLMSetting() {
     	if(getLOLMSetting() == 0)
     	{
     		return getDefaultLOLM();
@@ -54,7 +57,11 @@ public class Template {
     	else if(getLOLMSetting() == 3)
     	{
     		if(first)
+    		{
+    			first = false;
+    			
     			return true;
+    		}
     		
     		return false;
     	}
@@ -157,5 +164,13 @@ public class Template {
 	protected void setLOLMSetting(int LOLMSetting)
 	{
 		this.LOLMSetting = LOLMSetting;
+	}
+	
+	protected void setName(String name) {
+		this.name = name;
+	}
+	
+	protected String getString() {
+		return name;
 	}
 }
