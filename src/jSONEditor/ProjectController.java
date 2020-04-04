@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -40,11 +41,15 @@ public class ProjectController {
     @FXML protected VBox soundsVBox;
     @FXML private VBox playsoundsVBox;
     @FXML private ScrollPane coreScrollPane;
+    @FXML private TextField referenceName;
+    @FXML private TextField referenceGroup;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
     private static VBox playsoundsVBoxReference = null;
     private static ScrollPane coreScrollpaneReference = null;
+    protected static TextField playsoundName = null;
+    protected static TextField playsoundGroup = null;
 
     @FXML
     public void initialize() {
@@ -68,12 +73,20 @@ public class ProjectController {
             coreScrollpaneReference = coreScrollPane;
         }
 
+        if (playsoundName == null || (referenceName != null && referenceName != playsoundName)) {
+            playsoundName = referenceName;
+        }
+
+        if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
+            playsoundGroup = referenceGroup;
+        }
+
         /*
          * INSERT POPULATE TEMPLATES
          */
 
         /*
-         * CALL READ IN PLAYSOUNDS
+         * CALL READ SOUND DEFINITIONS
          */
 
         // Populate the playsounds on the LHS
@@ -322,7 +335,6 @@ public class ProjectController {
                 Double.parseDouble(maxDistanceField.getText());
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
             System.out.println("Could not parse Distance Fields");
             return false;
         }
@@ -681,6 +693,9 @@ public class ProjectController {
         }
         controller.categoryBox.getSelectionModel().select(playsound.getCategory());
 
+        // set the reference detail
+        controller.playsoundName.setText(playsound.getName());
+
         /*
         Set sound details
          */
@@ -711,8 +726,10 @@ public class ProjectController {
         // USES FIRST PLAYSOUND AS THE TEMPLATE
         Playsound playsound = playsoundGroup.playsounds.get(0);
 
+        controller.incrementBox.setText(playsoundGroup.playsounds.size() + "");
+
         // Set playsound details
-        controller.nameField.setText(playsound.getName());
+        controller.nameField.setText(playsoundGroup.getName());
         if (playsound.getMin() != null) {
             controller.minDistanceField.setText(playsound.getMin() + "");
         }
@@ -720,6 +737,9 @@ public class ProjectController {
             controller.maxDistanceField.setText(playsound.getMax() + "");
         }
         controller.categoryBox.getSelectionModel().select(playsound.getCategory());
+
+        // set the reference
+        controller.playsoundGroup.setText(playsound.getGroup().getName());
 
         /*
         Set sound details
@@ -766,5 +786,71 @@ public class ProjectController {
             }
         }
 
+    }
+
+    protected boolean deletePlaysound(String playsoundRefName, String refGroup) {
+        // search for the playsound
+        Playsound playsound = null;
+        PlaysoundGroup group = null;
+
+        if (incrementBox != null && incrementBox.getText().equals("1")) {
+            // single playsound
+            for (Playsound psound : editorData.playsounds) {
+                if (psound.getName().equals(playsoundRefName)) {
+                    playsound = psound;
+                    break;
+                }
+            }
+        } else {
+            // playsound group
+            for (Playsound psound : editorData.playsounds) {
+                if (psound.getGroup().getName().equals(refGroup)) {
+                    group = psound.getGroup();
+                    break;
+                }
+            }
+        }
+
+        // check if could not find playsound or group
+        if (playsound == null && group == null) {
+            System.out.println(playsoundRefName);
+            System.out.println(refGroup);
+            System.out.println("Could not remove playsound " + playsoundRefName);
+            return false;
+        }
+
+        // delete playsound
+        if (group == null) {
+            editorData.playsounds.remove(playsound); // remove from core display
+            if (playsound.getGroup() != null) {
+                playsound.getGroup().playsounds.remove(playsound); // remove from group
+            }
+
+            System.out.println("Deleted playsound " + playsound.getName());
+            return true;
+        }
+
+        // delete playsoundgroup
+        for (Playsound psound : group.playsounds) {
+            editorData.playsounds.remove(psound); // remove from core display
+        }
+
+        System.out.println("Deleted group " + group.getName());
+        return true;
+    }
+
+
+    @FXML
+    private void deletePlaysound(ActionEvent event) throws IOException {
+        // get the reference name
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        TextField refBox = ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(10));
+        TextField refGroup = ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
+
+        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        showViewProject(stage);
     }
 }
