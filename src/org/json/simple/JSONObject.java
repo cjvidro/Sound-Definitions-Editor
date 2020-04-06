@@ -98,9 +98,9 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
         else
             JSONValue.escape(key, sb);
 		sb.append('\"').append(':');
-		
+
 		sb.append(JSONValue.toJSONString(value));
-		
+
 		return sb.toString();
 	}
 	

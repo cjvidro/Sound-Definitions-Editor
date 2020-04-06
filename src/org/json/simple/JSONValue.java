@@ -250,7 +250,7 @@ public class JSONValue {
 				sb.append("\\t");
 				break;
 			case '/':
-				sb.append("\\/");
+				sb.append("/");   // Changed from "\\/" to prevent \/ in sound file path
 				break;
 			default:
                 //Reference: http://www.unicode.org/versions/Unicode5.1.0/

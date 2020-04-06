@@ -880,4 +880,10 @@ public class ProjectController {
         return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
                 .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
     }
+
+    @FXML
+    private void savePlaysounds() {
+        SoundIO io = new SoundIO();
+        io.writePlaysounds();
+    }
 }
