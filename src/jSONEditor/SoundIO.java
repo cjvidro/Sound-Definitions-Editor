@@ -1,9 +1,13 @@
 package jSONEditor;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 
 public class SoundIO {
 	EditorData editorData = EditorData.getInstance();
@@ -71,7 +75,8 @@ public class SoundIO {
 
 		// Write JSON file
 		try (FileWriter file = new FileWriter("sound_definitions.json")) {
-			file.write(master.toJSONString());
+
+			file.write(toPrettyFormat(master.toJSONString()));
 			file.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,6 +84,17 @@ public class SoundIO {
 		}
 
 		return true;
+	}
+
+	private String toPrettyFormat(String jsonString)
+	{
+		JsonParser parser = new JsonParser();
+		JsonObject json = parser.parse(jsonString).getAsJsonObject();
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String prettyJson = gson.toJson(json);
+
+		return prettyJson;
 	}
 
 }
