@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 public class Settings {
 	

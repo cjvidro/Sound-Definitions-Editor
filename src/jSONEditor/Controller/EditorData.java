@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.scene.control.TitledPane;
 
@@ -8,9 +8,9 @@ public class EditorData {
     private static EditorData single_instance = null;
 
     // "Global" variables that should be accessible by ALL classes in the package
-    protected ArrayList<Playsound> playsounds;
-    protected ArrayList<Template> templates;
-    protected TitledPane expandedPane;
+    public ArrayList<Playsound> playsounds;
+    public ArrayList<Template> templates;
+    public TitledPane expandedPane;
 
     private EditorData() {
         playsounds = new ArrayList<>();

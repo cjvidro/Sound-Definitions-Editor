@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 public class SoundIO {
 	EditorData editorData = EditorData.getInstance();
 
-	protected boolean writePlaysounds() {
+	public boolean writePlaysounds() {
 		// the master object that holds everything
 		JSONObject master = new JSONObject();
 

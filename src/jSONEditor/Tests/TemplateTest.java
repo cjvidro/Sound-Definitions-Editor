@@ -1,7 +1,8 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
 import static org.junit.Assert.*;
 
+import jSONEditor.Controller.Template;
 import org.junit.Before;
 import org.junit.Test;
 

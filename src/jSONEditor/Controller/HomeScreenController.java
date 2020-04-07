@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,10 +25,10 @@ public class HomeScreenController {
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
-    protected Stage newProject(Stage stage) throws IOException {
+    public Stage newProject(Stage stage) throws IOException {
         // load FXML and set the controllers
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();
 
@@ -51,7 +51,7 @@ public class HomeScreenController {
 
     }
 
-    protected Stage closeHomeScreen(Stage settingsStage) {
+    public Stage closeHomeScreen(Stage settingsStage) {
         System.out.println("Close Home Screen");
 
         settingsStage.close();

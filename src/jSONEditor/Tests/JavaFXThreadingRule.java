@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -13,7 +13,7 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
- * A JUnit {@link Rule} for running tests on the JavaFX thread and performing
+ * A JUnit {@link Rule} for running Tests on the JavaFX thread and performing
  * JavaFX initialisation.  To include in your test case, add the following code:
  *
  * <pre>
@@ -27,7 +27,7 @@ import org.junit.runners.model.Statement;
 public class JavaFXThreadingRule implements TestRule {
 
     /**
-     * Flag for setting up the JavaFX, we only need to do this once for all tests.
+     * Flag for setting up the JavaFX, we only need to do this once for all Tests.
      */
     private static boolean jfxIsSetup;
 

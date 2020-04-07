@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.ExportController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,24 +12,23 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SettingsControllerTest {
-
+public class ExportControllerTest {
     private Stage myStage;
-    SettingsController controller;
+    ExportController controller;
     ActionEvent event;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        controller = new SettingsController(); // the controller for settings GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
-        loader.setController(controller); // settings controller
+        controller = new ExportController(); // the controller for export GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/export.fxml")));
+        loader.setController(controller); // Export Controller
         Parent root = loader.load();
 
         // set JavaFX stage details
         myStage = new Stage();
-        myStage.setTitle("JSON Sound Definitions Editor - Settings");
+        myStage.setTitle("JSON Sound Definitions Editor - Export");
         myStage.setScene(new Scene(root, 1280, 720));
         myStage.show();
     }
@@ -39,12 +39,16 @@ public class SettingsControllerTest {
     @Test
     public void testSetup() {
         assertNotNull(myStage);
-        assertEquals("JSON Sound Definitions Editor - Settings", myStage.getTitle());
+        assertEquals("JSON Sound Definitions Editor - Export", myStage.getTitle());
     }
 
     @Test
-    public void testCloseSettings() {
-        assertNull(controller.closeSettings(myStage));
+    public void testCloseExport() {
+        assertNull(controller.closeExport(myStage));
     }
 
+    @Test
+    public void testExport() {
+        assertNull(controller.export(myStage));
+    }
 }

@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ public class EditTemplateController {
      * Change Scenes
      *****************************************************/
 
-    protected Stage cancelEditTemplate(Stage stage) {
+    public Stage cancelEditTemplate(Stage stage) {
         System.out.println("Cancel Edit Template");
 
         /*
@@ -30,7 +30,7 @@ public class EditTemplateController {
         cancelEditTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage saveEditTemplate(Stage stage) {
+    public Stage saveEditTemplate(Stage stage) {
         System.out.println("Save Edit Template");
 
         /*
@@ -48,7 +48,7 @@ public class EditTemplateController {
         saveEditTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage deleteTemplate(Stage stage) {
+    public Stage deleteTemplate(Stage stage) {
         System.out.println("Delete Template");
 
         /*

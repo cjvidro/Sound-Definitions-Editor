@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.EditTemplateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +22,7 @@ public class EditTemplateControllerTest {
         event = new ActionEvent();
 
         controller = new EditTemplateController(); // the controller for edit template GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editTemplate.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editTemplate.fxml")));
         loader.setController(controller); // Edit Template Controller
         Parent root = loader.load();
 

@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 public class Template {
 	//Name to distinguish Templates
@@ -22,7 +22,7 @@ public class Template {
     /*
      * Sets all default playsounds for user.
      */
-    protected void setDefaultPlaysound(Playsound playsound) {
+	public void setDefaultPlaysound(Playsound playsound) {
     	playsound.setMin(getDefaultMin());
     	playsound.setMax(getDefaultMax());
     	playsound.setCategory(getDefaultCategory());
@@ -31,7 +31,7 @@ public class Template {
     /*
      * Sets all default sounds for user.
      */
-    protected void setDefaultSound(Sound sound) {
+	public void setDefaultSound(Sound sound) {
     	sound.setStream(getDefaultStream());
     	sound.setPitch(getDefaultPitch());
     	sound.setVolume(getDefaultVolume());
@@ -41,7 +41,7 @@ public class Template {
     /*
      * This method is to help with the LOLMSetting. This will return the desired result with the inputed setting.
      */
-    protected Boolean detectLOLMSetting() {
+	public Boolean detectLOLMSetting() {
     	if(getLOLMSetting() == 0)
     	{
     		return getDefaultLOLM();
@@ -100,77 +100,77 @@ public class Template {
     /*
      * Getters and Setters
      */
-    protected Category getDefaultCategory() {
+	public Category getDefaultCategory() {
 		return category;
 	}
 
-	protected void setDefaultCategory(Category category) {
+	public void setDefaultCategory(Category category) {
 		this.category = category;
 	}
 
-	protected Double getDefaultMin() {
+	public Double getDefaultMin() {
 		return min_distance;
 	}
 
-	protected void setDefaultMin(Double min_distance) {
+	public void setDefaultMin(Double min_distance) {
 		this.min_distance = min_distance;
 	}
 
-	protected Double getDefaultMax() {
+	public Double getDefaultMax() {
 		return max_distance;
 	}
 
-	protected void setDefaultMax(Double max_distance) {
+	public void setDefaultMax(Double max_distance) {
 		this.max_distance = max_distance;
 	}
-	
-	protected Boolean getDefaultStream() {
+
+	public Boolean getDefaultStream() {
 		return stream; 
 	}
 
-	protected void setDefaultStream(Boolean stream) {
+	public void setDefaultStream(Boolean stream) {
 		this.stream = stream; 
 	}
 
-	protected Double getDefaultPitch() {
+	public Double getDefaultPitch() {
 		return pitch; 
 	}
 
-	protected void setDefaultPitch(Double pitch) {
+	public void setDefaultPitch(Double pitch) {
 		this.pitch = pitch;
 	}
 
-	protected Double getDefaultVolume() {
+	public Double getDefaultVolume() {
 		return volume;
 	}
 
-	protected void setDefaultVolume(Double volume) {
+	public void setDefaultVolume(Double volume) {
 		this.volume = volume;
 	}
 
-	protected Boolean getDefaultLOLM() {
+	public Boolean getDefaultLOLM() {
 		return lolm;
 	}
 
-	protected void setDefaultLOLM(Boolean lolm) {
+	public void setDefaultLOLM(Boolean lolm) {
 		this.lolm = lolm;
 	}
-	
-	protected int getLOLMSetting()
+
+	public int getLOLMSetting()
 	{
 		return LOLMSetting;
 	}
-	
-	protected void setLOLMSetting(int LOLMSetting)
+
+	public void setLOLMSetting(int LOLMSetting)
 	{
 		this.LOLMSetting = LOLMSetting;
 	}
-	
-	protected void setName(String name) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	
-	protected String getString() {
+
+	public String getString() {
 		return name;
 	}
 }

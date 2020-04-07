@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.HomeScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +24,7 @@ public class HomeScreenControllerTest {
         event = new ActionEvent();
 
         controller = new HomeScreenController(); // the controller for home screen GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/homeScreen.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/homeScreen.fxml")));
         loader.setController(controller); // home screen Controller
         Parent root = loader.load();
 

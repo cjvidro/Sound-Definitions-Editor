@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -98,7 +97,7 @@ public class ProjectController {
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
-    protected boolean quit() throws Exception {
+    public boolean quit() throws Exception {
         class ExpectedQuitException extends Exception {
             public ExpectedQuitException(String message) {
                 super(message);
@@ -123,12 +122,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showExport(ActionEvent event) throws IOException {
+    public Stage showExport(ActionEvent event) throws IOException {
         System.out.println("Show Export");
 
         // load FXML and set the controller
         ExportController controller = new ExportController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/export.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/export.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
 
@@ -144,12 +143,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showSettings(ActionEvent event) throws IOException {
+    public Stage showSettings(ActionEvent event) throws IOException {
         System.out.println("Show Settings");
 
         // load FXML and set the controller
         SettingsController controller = new SettingsController(); // the controller for the settings GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/settings.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
 
@@ -165,12 +164,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showAddTemplate(ActionEvent event) throws IOException {
+    public Stage showAddTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Add Template");
 
         // load FXML and set the controller
         AddTemplateController controller = new AddTemplateController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addTemplate.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addTemplate.fxml")));
         loader.setController(controller); // addTemplate controller
         Parent root = loader.load();
 
@@ -186,12 +185,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showEditTemplate(ActionEvent event) throws IOException {
+    public Stage showEditTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Edit Template");
 
         // load FXML and set the controller
         EditTemplateController controller = new EditTemplateController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editTemplate.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editTemplate.fxml")));
         loader.setController(controller); // addTemplate controller
         Parent root = loader.load();
 
@@ -206,12 +205,12 @@ public class ProjectController {
         return editTemplateWindow;
     }
 
-    protected Stage showAddPlaysound(Stage addPlaysoundWindow) throws IOException {
+    public Stage showAddPlaysound(Stage addPlaysoundWindow) throws IOException {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = loader.load();
 
@@ -233,7 +232,7 @@ public class ProjectController {
      * @param overlyingBox - The overlying HBox for a sound
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
      */
-    protected HBox[] getSoundHBoxes(HBox overlyingBox) {
+    public HBox[] getSoundHBoxes(HBox overlyingBox) {
         HBox[] soundBoxes = new HBox[5];
 
         if (overlyingBox != null) {
@@ -253,7 +252,7 @@ public class ProjectController {
      * Checks if the sounds are valid
      * @return true if valid, false if invalid
      */
-    protected boolean validateSounds() {
+    public boolean validateSounds() {
         if (soundsVBox != null) {
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
@@ -343,7 +342,7 @@ public class ProjectController {
         return validateSounds();
     }
 
-    protected int validateIncrement(String incrementTemp) {
+    public int validateIncrement(String incrementTemp) {
         int increment = 1;
 
         // Check if to use default
@@ -367,7 +366,7 @@ public class ProjectController {
         return increment;
     }
 
-    protected boolean validateIncrementNames(String name, int increment) {
+    public boolean validateIncrementNames(String name, int increment) {
         for (int i = 1; i <= increment; i++) {
             for (Playsound playsound : editorData.playsounds) {
                 if ((name + i).equals(playsound.getName())) {
@@ -477,7 +476,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController myController = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/sound.fxml")));
         loader.setController(myController); // view project controller
         Node sound = loader.load();
 
@@ -494,7 +493,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/sound.fxml")));
         loader.setController(controller); // view project controller
         Node sound = loader.load();
 
@@ -533,7 +532,7 @@ public class ProjectController {
         saveAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage showViewProject(Stage viewProjectWindow) throws IOException {
+    public Stage showViewProject(Stage viewProjectWindow) throws IOException {
         // save the expanded pane
         editorData.expandedPane = ((Accordion)playsoundsVBoxReference.getChildren().get(0)).getExpandedPane();
 
@@ -544,7 +543,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
 
@@ -671,7 +670,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = null;
         try {
@@ -711,7 +710,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = null;
         try {

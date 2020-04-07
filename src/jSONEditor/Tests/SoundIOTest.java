@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.*;
 import org.junit.Test;
 
 import java.io.BufferedReader;

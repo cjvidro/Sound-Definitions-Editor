@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import java.util.ArrayList;
 
@@ -9,11 +9,11 @@ public class PlaysoundGroup {
     private String name;
     protected ArrayList<Playsound> playsounds = new ArrayList<>();
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 }

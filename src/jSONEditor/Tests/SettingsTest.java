@@ -1,7 +1,8 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
 import static org.junit.Assert.*;
 
+import jSONEditor.Controller.Settings;
 import org.junit.Test;
 
 public class SettingsTest {

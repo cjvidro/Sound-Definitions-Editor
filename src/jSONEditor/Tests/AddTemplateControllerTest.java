@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.AddTemplateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,23 +12,24 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ExportControllerTest {
+public class AddTemplateControllerTest {
+
     private Stage myStage;
-    ExportController controller;
+    AddTemplateController controller;
     ActionEvent event;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        controller = new ExportController(); // the controller for export GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/export.fxml")));
-        loader.setController(controller); // Export Controller
+        controller = new AddTemplateController(); // the controller for add Template GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addTemplate.fxml")));
+        loader.setController(controller); // settings controller
         Parent root = loader.load();
 
         // set JavaFX stage details
         myStage = new Stage();
-        myStage.setTitle("JSON Sound Definitions Editor - Export");
+        myStage.setTitle("JSON Sound Definitions Editor - Add Template");
         myStage.setScene(new Scene(root, 1280, 720));
         myStage.show();
     }
@@ -38,16 +40,16 @@ public class ExportControllerTest {
     @Test
     public void testSetup() {
         assertNotNull(myStage);
-        assertEquals("JSON Sound Definitions Editor - Export", myStage.getTitle());
+        assertEquals("JSON Sound Definitions Editor - Add Template", myStage.getTitle());
     }
 
     @Test
-    public void testCloseExport() {
-        assertNull(controller.closeExport(myStage));
+    public void testCancelAddTemplate() {
+        assertNull(controller.cancelAddTemplate(myStage));
     }
 
     @Test
-    public void testExport() {
-        assertNull(controller.export(myStage));
+    public void testSaveAddTemplate() {
+        assertNull(controller.saveAddTemplate(myStage));
     }
 }

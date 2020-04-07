@@ -1,8 +1,10 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.EditorData;
+import jSONEditor.Controller.Playsound;
+import jSONEditor.Controller.ProjectController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -28,7 +30,7 @@ public class ProjectControllerTest {
         event = new ActionEvent();
 
         controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
         loader.setController(controller); // view project controller
         Parent root = loader.load();
 

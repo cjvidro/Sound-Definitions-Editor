@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ public class SettingsController {
      * Change Scenes
      *****************************************************/
 
-    protected Stage closeSettings(Stage settingsStage) {
+    public Stage closeSettings(Stage settingsStage) {
         System.out.println("Close Settings");
 
         settingsStage.close();
