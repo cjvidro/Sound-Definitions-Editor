@@ -2,8 +2,10 @@ package jSONEditor.Tests;
 
 import jSONEditor.Controller.EditorData;
 import jSONEditor.Controller.Playsound;
+import jSONEditor.Controller.PlaysoundGroup;
 import jSONEditor.Controller.ProjectController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -181,4 +183,74 @@ public class ProjectControllerTest {
         assertNotNull(stage);
         assertEquals("JSON Sound Definitions Editor", stage.getTitle());
     }
+
+    @Test
+    public void testCheckDirectory() {
+        assertFalse(controller.checkDirectory(""));
+        assertTrue(controller.checkDirectory("abc"));
+    }
+
+    @Test
+    public void checkIfNameExists() {
+        assertTrue(controller.checkIfNameExists("rada"));
+        EditorData editorData = EditorData.getInstance();
+        Playsound playsound = new Playsound();
+        playsound.setName("rada");
+        editorData.playsounds.add(playsound);
+        assertFalse(controller.checkIfNameExists("rada"));
+    }
+
+    @Test
+    public void testIncrement() {
+        assertFalse(controller.checkIncrement(new String()));
+        assertFalse(controller.checkIncrement(""));
+        assertTrue(controller.checkIncrement("4"));
+        assertFalse(controller.checkIncrement("3.24"));
+    }
+
+    @Test
+    public void checkDouble() {
+        assertFalse(controller.checkDouble(null));
+        assertTrue(controller.checkDouble(""));
+        assertFalse(controller.checkDouble("abc"));
+        assertTrue(controller.checkDouble("3.0"));
+    }
+
+    @Test public void testDeletePlaysound() {
+        Playsound playsound = new Playsound();
+        playsound.setName("testName");
+        EditorData editorData = EditorData.getInstance();
+        editorData.playsounds.add(playsound);
+        assertEquals(1, editorData.playsounds.size());
+
+        controller.deletePlaysound("testName", "", 1);
+        assertEquals(0, editorData.playsounds.size());
+
+        PlaysoundGroup group = new PlaysoundGroup();
+        group.setName("testName");
+        group.playsounds.add(playsound);
+
+        playsound.setName("testName1");
+        playsound.setGroup(group);
+        Playsound playsoundTwo = new Playsound();
+        playsoundTwo.setName("testName2");
+        playsoundTwo.setGroup(group);
+        group.playsounds.add(playsoundTwo);
+
+        editorData.playsounds.add(playsound);
+        editorData.playsounds.add(playsoundTwo);
+
+        assertEquals(2, editorData.playsounds.size());
+
+        controller.deletePlaysound("", "testName", 2);
+        assertEquals(0, editorData.playsounds.size());
+
+        assertFalse(controller.deletePlaysound("", "", 1));
+    }
+
+    @Test
+    public void testSaveCall() {
+        assertTrue(controller.savePlaysounds());
+    }
+
 }

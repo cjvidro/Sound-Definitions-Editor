@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class PlaysoundGroup {
     private String name;
-    protected ArrayList<Playsound> playsounds = new ArrayList<>();
+    public ArrayList<Playsound> playsounds = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;

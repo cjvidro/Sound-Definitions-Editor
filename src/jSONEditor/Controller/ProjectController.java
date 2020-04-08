@@ -31,11 +31,11 @@ public class ProjectController {
      *****************************************************/
 
     // Used for adding / editing playsounds
-    @FXML protected TextField nameField;
-    @FXML protected TextField incrementBox;
-    @FXML protected ComboBox categoryBox;
-    @FXML protected TextField minDistanceField;
-    @FXML protected TextField maxDistanceField;
+    @FXML public TextField nameField;
+    @FXML public TextField incrementBox;
+    @FXML public ComboBox categoryBox;
+    @FXML public TextField minDistanceField;
+    @FXML public TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
     @FXML protected VBox soundsVBox;
@@ -248,11 +248,20 @@ public class ProjectController {
         return soundBoxes;
     }
 
+    public boolean checkDirectory(String string) {
+        if (string.equals("")) {
+            System.out.println("Directory is invalid");
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Checks if the sounds are valid
      * @return true if valid, false if invalid
      */
-    public boolean validateSounds() {
+    protected boolean validateSounds() {
         if (soundsVBox != null) {
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
@@ -270,29 +279,66 @@ public class ProjectController {
 
                 String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
 
-                // Check if directory is invalid
-                if (directory.equals("")) {
-                    System.out.println("Empty directory field");
-                    return false;
-                }
+                if (!checkDirectory(directory)) return false;
 
-                // Check if volume or pitch are invalid
-                try {
-                    String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
-                    String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
+                String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
+                String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
 
-                    if (!volumeText.equals("")) {
-                        Double.parseDouble(volumeText);
-                    }
-                    if (!pitchText.equals("")) {
-                        Double.parseDouble(pitchText);
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Could not parse volume or pitch fields");
-                    return false;
-                }
+                // check if volume or pitch are invalid
+                if (!checkDouble(volumeText) || !checkDouble(pitchText)) return false;
             }
         }
+        return true;
+    }
+
+    public boolean checkIfNameExists(String string) {
+        if (string == null || string.equals("")) {
+            System.out.println("Name is blank!");
+            return false;
+        }
+
+        for (Playsound playsound : editorData.playsounds) {
+            if (string.equals(playsound.getName())) {
+                System.out.println("A playsound named " + string + " already exists!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkIncrement(String increment) {
+        if (increment == null || increment.equals("")) {
+            System.out.println("Increment is blank!");
+            return  false;
+        }
+
+        try {
+            Integer.parseInt(increment);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Could not parse increment");
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean checkDouble(String string) {
+        if (string == null) {
+            return false;
+        }
+
+        if (string.equals("")) {
+            return true;
+        }
+
+        try {
+            Double.parseDouble(string);
+        } catch (NumberFormatException e) {
+            System.out.println("Could not parse double");
+            return false;
+        }
+
         return true;
     }
 
@@ -300,44 +346,16 @@ public class ProjectController {
      * Checks if a playsound is valid
      * @return true if valid, false if invalid
      */
-    protected boolean validatePlaysound() {
-
-        // Check if name is null or empty
-        if (nameField == null || nameField.getText().equals("")) {
-            return false;
-        }
-
-        // check if the name is already used
-        for (Playsound playsound : editorData.playsounds) {
-            if (nameField.getText().equals(playsound.getName())) {
-                System.out.println("A playsound named " + nameField.getText() + " already exists!");
-                return false;
-            }
-        }
+    private boolean validatePlaysound() {
+        // check that name exists and is valid
+        if (!checkIfNameExists(nameField.getText())) return false;
 
         // check if increment is an integer
-        try {
-            if (incrementBox != null && !incrementBox.getText().equals("")) {
-                Integer.parseInt(incrementBox.getText());
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Could not parse increment");
-            return false;
-        }
+        if (incrementBox != null && !checkIncrement(incrementBox.getText())) return false;
 
-        // check if distances are doubles
-        try {
-            if (minDistanceField != null && !minDistanceField.getText().equals("")) {
-                Double.parseDouble(minDistanceField.getText());
-            }
-
-            if (maxDistanceField != null && !maxDistanceField.getText().equals("")) {
-                Double.parseDouble(maxDistanceField.getText());
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Could not parse Distance Fields");
-            return false;
-        }
+        // check min and max distance
+        if (minDistanceField != null && maxDistanceField != null && (!checkDouble(minDistanceField.getText())
+                || !checkDouble(maxDistanceField.getText()))) return false;
 
         return validateSounds();
     }
@@ -789,10 +807,16 @@ public class ProjectController {
 
     }
 
-    protected boolean deletePlaysound(String playsoundRefName, String refGroup) {
+    public boolean deletePlaysound(String playsoundRefName, String refGroup, int debug) {
         // search for the playsound
         Playsound playsound = null;
         PlaysoundGroup group = null;
+
+
+        if (debug != 0) {
+            incrementBox = new TextField();
+            incrementBox.setText(debug + "");
+        }
 
         if (incrementBox != null && incrementBox.getText().equals("1")) {
             // single playsound
@@ -849,7 +873,7 @@ public class ProjectController {
         TextField refBox = getRefBox(stage);
         TextField refGroup = getRefGroup(stage);
 
-        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        deletePlaysound(refBox.getText(), refGroup.getText(), 0); // calls the above helper method
         showViewProject(stage);
     }
 
@@ -862,7 +886,7 @@ public class ProjectController {
         TextField refGroup = getRefGroup(stage);
 
         // delete the old playsound
-        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        deletePlaysound(refBox.getText(), refGroup.getText(), 0); // calls the above helper method
 
         // save the new playsound
         saveAddPlaysound(stage);
@@ -881,8 +905,8 @@ public class ProjectController {
     }
 
     @FXML
-    private void savePlaysounds() {
+    public boolean savePlaysounds() {
         SoundIO io = new SoundIO();
-        io.writePlaysounds();
+        return io.writePlaysounds();
     }
 }

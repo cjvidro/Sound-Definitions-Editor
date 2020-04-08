@@ -12,7 +12,7 @@ import javafx.stage.Stage;
         public void start(Stage primaryStage) throws Exception{
             // load FXML and set the controller
             HomeScreenController controller = new HomeScreenController(); // the controller for the home screen
-            FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/homeScreen.fxml")));
+            FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/homeScreen.fxml")));
             loader.setController(controller); // home screen controller
             Parent root = loader.load();
 
