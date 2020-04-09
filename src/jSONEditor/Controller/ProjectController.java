@@ -38,7 +38,7 @@ public class ProjectController {
     @FXML public TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
-    @FXML protected VBox soundsVBox;
+    @FXML public VBox soundsVBox;
     @FXML private VBox playsoundsVBox;
     @FXML private ScrollPane coreScrollPane;
     @FXML private TextField referenceName;
@@ -50,6 +50,9 @@ public class ProjectController {
     private static ScrollPane coreScrollpaneReference = null;
     protected static TextField playsoundName = null;
     protected static TextField playsoundGroup = null;
+    public static ProjectController playsoundControllerReference = null; // used for testing
+    public static ProjectController soundControllerReference = null; // used for testing
+    public static ProjectController editPlaysoundControllerReference = null; // used for testing
 
     @FXML
     public void initialize() {
@@ -219,6 +222,8 @@ public class ProjectController {
         // set JavaFX stage details
         addPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Add Playsound");
 
+        playsoundControllerReference = controller;
+
         return addPlaysoundWindow;
     }
 
@@ -261,7 +266,7 @@ public class ProjectController {
      * Checks if the sounds are valid
      * @return true if valid, false if invalid
      */
-    protected boolean validateSounds() {
+    public boolean validateSounds() {
         if (soundsVBox != null) {
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
@@ -288,7 +293,7 @@ public class ProjectController {
                 if (!checkDouble(volumeText) || !checkDouble(pitchText)) return false;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean checkIfNameExists(String string) {
@@ -346,18 +351,21 @@ public class ProjectController {
      * Checks if a playsound is valid
      * @return true if valid, false if invalid
      */
-    private boolean validatePlaysound() {
-        // check that name exists and is valid
-        if (!checkIfNameExists(nameField.getText())) return false;
+    public boolean validatePlaysound() {
+        if (nameField != null) {
+            // check that name exists and is valid
+            if (!checkIfNameExists(nameField.getText())) return false;
 
-        // check if increment is an integer
-        if (incrementBox != null && !checkIncrement(incrementBox.getText())) return false;
+            // check if increment is an integer
+            if (incrementBox != null && !checkIncrement(incrementBox.getText())) return false;
 
-        // check min and max distance
-        if (minDistanceField != null && maxDistanceField != null && (!checkDouble(minDistanceField.getText())
-                || !checkDouble(maxDistanceField.getText()))) return false;
+            // check min and max distance
+            if (minDistanceField != null && maxDistanceField != null && (!checkDouble(minDistanceField.getText())
+                    || !checkDouble(maxDistanceField.getText()))) return false;
 
-        return validateSounds();
+            return validateSounds();
+        }
+        return false;
     }
 
     public int validateIncrement(String incrementTemp) {
@@ -396,7 +404,7 @@ public class ProjectController {
         return true;
     }
 
-    protected boolean createPlaysound() {
+    public boolean createPlaysound() {
         boolean valid = validatePlaysound();
 
         int increment = 1;
@@ -501,6 +509,8 @@ public class ProjectController {
         controller.soundsVBox.getChildren().add(sounds - 1, sound);
 
         System.out.println("Add " + controller.soundsVBox.getChildren().size());
+
+        soundControllerReference = myController;
 
         return (VBox) ((HBox) sound).getChildren().get(1);
     }
@@ -683,7 +693,7 @@ public class ProjectController {
         }
     }
 
-    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
+    public Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
         System.out.println("Edit " + playsound.getName());
 
         // load FXML and set the controller
@@ -696,6 +706,8 @@ public class ProjectController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        editPlaysoundControllerReference = controller;
 
         coreScrollpaneReference.setContent(addPlaysound);
 
@@ -723,7 +735,7 @@ public class ProjectController {
         return editPlaysoundWindow;
     }
 
-    protected Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
+    public Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
         System.out.println("Edit Group " + playsoundGroup.getName());
 
         // load FXML and set the controller
@@ -737,10 +749,12 @@ public class ProjectController {
             e.printStackTrace();
         }
 
+        editPlaysoundControllerReference = controller;
+
         coreScrollpaneReference.setContent(addPlaysound);
 
         // set JavaFX stage details
-        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Group");
 
         // USES FIRST PLAYSOUND AS THE TEMPLATE
         Playsound playsound = playsoundGroup.playsounds.get(0);
