@@ -2,6 +2,7 @@ package jSONEditor.Controller;
 
 import javafx.scene.control.TitledPane;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class EditorData {
@@ -11,6 +12,7 @@ public class EditorData {
     public ArrayList<Playsound> playsounds;
     public ArrayList<Template> templates;
     public TitledPane expandedPane;
+    public File currentDirectory = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();

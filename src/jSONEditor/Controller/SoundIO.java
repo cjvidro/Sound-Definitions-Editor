@@ -1,4 +1,5 @@
 package jSONEditor.Controller;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -6,18 +7,27 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class SoundIO {
-	EditorData editorData = EditorData.getInstance();
+	public static boolean writePlaysounds() {
+		if (EditorData.getInstance().currentDirectory == null) {
+			// use default directory
+			return writePlaysounds(new File(""));
+		} else {
+			return writePlaysounds(EditorData.getInstance().currentDirectory);
+		}
+	}
 
-	public boolean writePlaysounds() {
+	private static boolean writePlaysounds(File saveDirectory) {
 		// the master object that holds everything
 		JSONObject master = new JSONObject();
 
 		// create each playsound to add to master
-		for (Playsound playsound : editorData.playsounds) {
+		for (Playsound playsound : EditorData.getInstance().playsounds) {
 			// playsound attributes
 			JSONObject playsoundDetails = new JSONObject();
 
@@ -55,7 +65,7 @@ public class SoundIO {
 		}
 
 		// Write JSON file
-		try (FileWriter file = new FileWriter("sound_definitions.json")) {
+		try (FileWriter file = new FileWriter(saveDirectory + "/" + "sound_definitions.json")) {
 
 			file.write(toPrettyFormat(master.toJSONString()));
 			file.flush();
@@ -67,7 +77,7 @@ public class SoundIO {
 		return true;
 	}
 
-	private String toPrettyFormat(String jsonString)
+	private static String toPrettyFormat(String jsonString)
 	{
 		JsonParser parser = new JsonParser();
 		JsonObject json = parser.parse(jsonString).getAsJsonObject();
@@ -78,4 +88,34 @@ public class SoundIO {
 		return prettyJson;
 	}
 
+	public static boolean saveProjectAs() {
+		// get the new file folder
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		File selectedDirectory = directoryChooser.showDialog(new Stage());
+
+		/*
+		Check if this is already a saved file
+		 */
+
+		// create backup folder
+		File backupsFolder = new File(selectedDirectory.getAbsolutePath() + "/Backups");
+		backupsFolder.mkdir();
+
+		// set the current directory
+		EditorData.getInstance().currentDirectory = selectedDirectory;
+
+		/*
+		Save directory in current list of saves
+		 */
+
+		// save sound_defintions file
+		writePlaysounds(selectedDirectory);
+
+		/*
+		Save changelog
+		 */
+
+		System.out.println("Saved project as " + selectedDirectory.getName());
+		return true;
+	}
 }

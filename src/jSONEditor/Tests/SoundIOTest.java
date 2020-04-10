@@ -41,7 +41,7 @@ public class SoundIOTest {
 
         // check the read
         BufferedReader reader1 = new BufferedReader(new FileReader("sound_definitions.json"));
-        BufferedReader reader2 = new BufferedReader(new FileReader("TEST_sound_definitions.json"));
+        BufferedReader reader2 = new BufferedReader(new FileReader("./src/jSONEditor/Tests/TEST_sound_definitions.json"));
 
         String line1 = reader1.readLine();
         String line2 = reader2.readLine();

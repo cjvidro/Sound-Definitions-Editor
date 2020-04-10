@@ -929,7 +929,11 @@ public class ProjectController {
 
     @FXML
     public boolean savePlaysounds() {
-        SoundIO io = new SoundIO();
-        return io.writePlaysounds();
+        return SoundIO.writePlaysounds();
+    }
+
+    @FXML
+    private void saveProjectAs() {
+        SoundIO.saveProjectAs();
     }
 }
