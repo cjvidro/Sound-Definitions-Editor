@@ -466,7 +466,7 @@ public class ProjectController {
                     if (increment == 1) {
                         directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
                     } else {
-                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText() + increment;
+                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText() + i;
                     }
                     Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
 
@@ -730,7 +730,7 @@ public class ProjectController {
         /*
         Set sound details
          */
-        setSoundDetails(playsound, controller);
+        setSoundDetails(playsound, controller, false);
 
         return editPlaysoundWindow;
     }
@@ -777,17 +777,22 @@ public class ProjectController {
         /*
         Set sound details
          */
-        setSoundDetails(playsound, controller);
+        setSoundDetails(playsound, controller, true);
 
         return editPlaysoundWindow;
     }
 
-    private void setSoundDetails(Playsound playsound, ProjectController controller) {
+    private void setSoundDetails(Playsound playsound, ProjectController controller, Boolean group) {
         int numSounds = playsound.sounds.size();
         // populate first playsound
         VBox firstSoundVBox = ((VBox) ((HBox) controller.soundsVBox.getChildren().get(0)).getChildren().get(1));
         Sound firstSound = playsound.sounds.get(0);
-        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstSound.getDirectory()); // set directory
+
+        String firstDirectory = firstSound.getDirectory();
+        if (group) {
+            firstDirectory = firstDirectory.substring(0, firstDirectory.length() - 1);
+        }
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set directory
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
         if (firstSound.getVolume() != null) {
             ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
@@ -804,7 +809,11 @@ public class ProjectController {
                 Sound sound = playsound.getSound(i);
 
                 // populate the sound
-                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(sound.getDirectory()); // set directory
+                String directory = sound.getDirectory();
+                if (group) {
+                    directory = directory.substring(0, directory.length() - 1);
+                }
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set directory
                 ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
                 if (sound.getVolume() != null) {
                     ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
