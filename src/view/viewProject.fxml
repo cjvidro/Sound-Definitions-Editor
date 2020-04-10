@@ -31,7 +31,7 @@
                   <MenuItem mnemonicParsing="false" text="Open…" />
                   <Menu mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProjectAs" text="Save As…" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Import" />
@@ -64,7 +64,7 @@
                            <children>
                             <Button mnemonicParsing="false" text="Import" />
                               <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
-                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#savePlaysounds" text="Save" />
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProject" text="Save" />
                            </children>
                         </HBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">

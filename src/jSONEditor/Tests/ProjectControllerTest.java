@@ -250,7 +250,7 @@ public class ProjectControllerTest {
 
     @Test
     public void testSaveCall() {
-        assertTrue(controller.savePlaysounds());
+        assertTrue(controller.saveProject());
     }
 
     @Test

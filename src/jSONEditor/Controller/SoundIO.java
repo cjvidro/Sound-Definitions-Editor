@@ -143,4 +143,36 @@ public class SoundIO {
 		System.out.println("Saved project as " + selectedDirectory.getName());
 		return true;
 	}
+
+	public static boolean saveProject() {
+		File selectedDirectory = EditorData.getInstance().currentDirectory;
+
+		if (selectedDirectory == null) {
+			return saveProjectAs();
+		}
+
+		// create / move backups
+		File save5 = new File(selectedDirectory.getAbsolutePath() + "/Backups/sound_definitions_5.json");
+		save5.delete();
+		File save4 = new File(selectedDirectory.getAbsolutePath() + "/Backups/sound_definitions_4.json");
+		save4.renameTo(save5);
+		File save3 = new File(selectedDirectory.getAbsolutePath() + "/Backups/sound_definitions_3.json");
+		save3.renameTo(save4);
+		File save2 = new File(selectedDirectory.getAbsolutePath() + "/Backups/sound_definitions_2.json");
+		save2.renameTo(save3);
+		File save1 = new File(selectedDirectory.getAbsolutePath() + "/Backups/sound_definitions_1.json");
+		save1.renameTo(save2);
+		File lastSave = new File(selectedDirectory.getAbsolutePath() + "/sound_definitions.json");
+		lastSave.renameTo(save1);
+
+		// save sound_defintions file
+		writePlaysounds(selectedDirectory);
+
+		/*
+		Save changelog
+		 */
+
+		System.out.println("Saved project " + selectedDirectory.getName());
+		return true;
+	}
 }
