@@ -2,6 +2,10 @@ package jSONEditor.Controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -88,14 +92,35 @@ public class SoundIO {
 		return prettyJson;
 	}
 
+	private static File chooseDirectory() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		return directoryChooser.showDialog(new Stage());
+	}
+
 	public static boolean saveProjectAs() {
 		// get the new file folder
-		DirectoryChooser directoryChooser = new DirectoryChooser();
-		File selectedDirectory = directoryChooser.showDialog(new Stage());
+		File selectedDirectory = chooseDirectory();
 
-		/*
-		Check if this is already a saved file
-		 */
+		// Check if this save already exists
+		Set values = EditorData.getInstance().saves.entrySet();
+		Iterator iterator = values.iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<String, File> entry = (Map.Entry<String, File>) iterator.next();
+			File file = entry.getValue();
+
+			if (selectedDirectory.getName().equals(file.getName())) {
+				System.out.println("A project with this name already exists!");
+				selectedDirectory = chooseDirectory();
+			} else if (selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
+				System.out.println("A project with this file path already exists!");
+				selectedDirectory = chooseDirectory();
+			}
+		}
+
+		if (selectedDirectory == null) {
+			System.out.println("Failed to save project!");
+			return false;
+		}
 
 		// create backup folder
 		File backupsFolder = new File(selectedDirectory.getAbsolutePath() + "/Backups");
@@ -104,9 +129,9 @@ public class SoundIO {
 		// set the current directory
 		EditorData.getInstance().currentDirectory = selectedDirectory;
 
-		/*
-		Save directory in current list of saves
-		 */
+		// save the save directory
+		EditorData.saves.put(selectedDirectory.getName(), selectedDirectory);
+		EditorData.serializeSaves();
 
 		// save sound_defintions file
 		writePlaysounds(selectedDirectory);
