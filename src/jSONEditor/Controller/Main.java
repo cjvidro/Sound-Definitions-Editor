@@ -20,6 +20,8 @@ import javafx.stage.Stage;
             primaryStage.setTitle("JSON Sound Definitions Editor - Select Project");
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.show();
+
+            EditorData.getInstance();
         }
     
     public static void main(String[] args) {

@@ -101,6 +101,8 @@ public class ProjectController {
      * Change Scenes and Button Functionality
      *****************************************************/
     public boolean quit() throws Exception {
+        saveProject();
+
         class ExpectedQuitException extends Exception {
             public ExpectedQuitException(String message) {
                 super(message);
@@ -928,8 +930,12 @@ public class ProjectController {
     }
 
     @FXML
-    public boolean savePlaysounds() {
-        SoundIO io = new SoundIO();
-        return io.writePlaysounds();
+    public boolean saveProject() {
+        return SoundIO.saveProject();
+    }
+
+    @FXML
+    private void saveProjectAs() {
+        SoundIO.saveProjectAs();
     }
 }

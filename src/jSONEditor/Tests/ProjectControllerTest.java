@@ -50,16 +50,6 @@ public class ProjectControllerTest {
     }
 
     @Test
-    public void testQuit() {
-        try {
-            controller.quit();
-            fail();
-        } catch (Exception e) {
-            assertEquals("User exited", e.getMessage());
-        }
-    }
-
-    @Test
     public void testShowExport() {
         try {
             Stage export = controller.showExport(event);
@@ -246,11 +236,6 @@ public class ProjectControllerTest {
         assertEquals(0, editorData.playsounds.size());
 
         assertFalse(controller.deletePlaysound("", "", 1));
-    }
-
-    @Test
-    public void testSaveCall() {
-        assertTrue(controller.savePlaysounds());
     }
 
     @Test
