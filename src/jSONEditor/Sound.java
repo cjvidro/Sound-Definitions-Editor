@@ -14,7 +14,7 @@ public class Sound {
 	private Double volume; // volume property
 	private Boolean lolm; // load_on_low_memory property
 	private int index = 0; // the index within the playsound this sounds is. Starts with 0.
-
+	
 	/*
 	Getters and Setters
 	 */
