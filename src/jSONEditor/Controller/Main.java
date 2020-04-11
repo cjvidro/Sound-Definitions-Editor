@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
         public void start(Stage primaryStage) throws Exception{
             // load FXML and set the controller
             HomeScreenController controller = new HomeScreenController(); // the controller for the home screen
-            FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/homeScreen.fxml")));
+            FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/homeScreen.fxml")));
             loader.setController(controller); // home screen controller
             Parent root = loader.load();
 
@@ -20,6 +20,8 @@ import javafx.stage.Stage;
             primaryStage.setTitle("JSON Sound Definitions Editor - Select Project");
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.show();
+
+            EditorData.getInstance();
         }
     
     public static void main(String[] args) {

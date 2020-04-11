@@ -1,5 +1,7 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.Playsound;
+import jSONEditor.Controller.Sound;
 import org.junit.Before;
 import org.junit.Test;
 

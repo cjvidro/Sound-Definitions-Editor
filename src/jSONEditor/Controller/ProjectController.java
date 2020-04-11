@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,14 +31,14 @@ public class ProjectController {
      *****************************************************/
 
     // Used for adding / editing playsounds
-    @FXML protected TextField nameField;
-    @FXML protected TextField incrementBox;
-    @FXML protected ComboBox categoryBox;
-    @FXML protected TextField minDistanceField;
-    @FXML protected TextField maxDistanceField;
+    @FXML public TextField nameField;
+    @FXML public TextField incrementBox;
+    @FXML public ComboBox categoryBox;
+    @FXML public TextField minDistanceField;
+    @FXML public TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
-    @FXML protected VBox soundsVBox;
+    @FXML public VBox soundsVBox;
     @FXML private VBox playsoundsVBox;
     @FXML private ScrollPane coreScrollPane;
     @FXML private TextField referenceName;
@@ -51,6 +50,9 @@ public class ProjectController {
     private static ScrollPane coreScrollpaneReference = null;
     protected static TextField playsoundName = null;
     protected static TextField playsoundGroup = null;
+    public static ProjectController playsoundControllerReference = null; // used for testing
+    public static ProjectController soundControllerReference = null; // used for testing
+    public static ProjectController editPlaysoundControllerReference = null; // used for testing
 
     @FXML
     public void initialize() {
@@ -98,7 +100,9 @@ public class ProjectController {
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
-    protected boolean quit() throws Exception {
+    public boolean quit() throws Exception {
+        saveProject();
+
         class ExpectedQuitException extends Exception {
             public ExpectedQuitException(String message) {
                 super(message);
@@ -123,12 +127,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showExport(ActionEvent event) throws IOException {
+    public Stage showExport(ActionEvent event) throws IOException {
         System.out.println("Show Export");
 
         // load FXML and set the controller
         ExportController controller = new ExportController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/export.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/export.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
 
@@ -144,12 +148,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showSettings(ActionEvent event) throws IOException {
+    public Stage showSettings(ActionEvent event) throws IOException {
         System.out.println("Show Settings");
 
         // load FXML and set the controller
         SettingsController controller = new SettingsController(); // the controller for the settings GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/settings.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/settings.fxml")));
         loader.setController(controller); // export controller
         Parent root = loader.load();
 
@@ -165,12 +169,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showAddTemplate(ActionEvent event) throws IOException {
+    public Stage showAddTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Add Template");
 
         // load FXML and set the controller
         AddTemplateController controller = new AddTemplateController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addTemplate.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addTemplate.fxml")));
         loader.setController(controller); // addTemplate controller
         Parent root = loader.load();
 
@@ -186,12 +190,12 @@ public class ProjectController {
     }
 
     @FXML
-    protected Stage showEditTemplate(ActionEvent event) throws IOException {
+    public Stage showEditTemplate(ActionEvent event) throws IOException {
         System.out.println("Show Edit Template");
 
         // load FXML and set the controller
         EditTemplateController controller = new EditTemplateController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editTemplate.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editTemplate.fxml")));
         loader.setController(controller); // addTemplate controller
         Parent root = loader.load();
 
@@ -206,12 +210,12 @@ public class ProjectController {
         return editTemplateWindow;
     }
 
-    protected Stage showAddPlaysound(Stage addPlaysoundWindow) throws IOException {
+    public Stage showAddPlaysound(Stage addPlaysoundWindow) throws IOException {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = loader.load();
 
@@ -219,6 +223,8 @@ public class ProjectController {
 
         // set JavaFX stage details
         addPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Add Playsound");
+
+        playsoundControllerReference = controller;
 
         return addPlaysoundWindow;
     }
@@ -233,7 +239,7 @@ public class ProjectController {
      * @param overlyingBox - The overlying HBox for a sound
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
      */
-    protected HBox[] getSoundHBoxes(HBox overlyingBox) {
+    public HBox[] getSoundHBoxes(HBox overlyingBox) {
         HBox[] soundBoxes = new HBox[5];
 
         if (overlyingBox != null) {
@@ -249,11 +255,20 @@ public class ProjectController {
         return soundBoxes;
     }
 
+    public boolean checkDirectory(String string) {
+        if (string.equals("")) {
+            System.out.println("Directory is invalid");
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Checks if the sounds are valid
      * @return true if valid, false if invalid
      */
-    protected boolean validateSounds() {
+    public boolean validateSounds() {
         if (soundsVBox != null) {
             for (Node soundNode : soundsVBox.getChildren()) {
                 HBox overlyingBox = (HBox) soundNode;
@@ -271,29 +286,66 @@ public class ProjectController {
 
                 String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
 
-                // Check if directory is invalid
-                if (directory.equals("")) {
-                    System.out.println("Empty directory field");
-                    return false;
-                }
+                if (!checkDirectory(directory)) return false;
 
-                // Check if volume or pitch are invalid
-                try {
-                    String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
-                    String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
+                String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
+                String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
 
-                    if (!volumeText.equals("")) {
-                        Double.parseDouble(volumeText);
-                    }
-                    if (!pitchText.equals("")) {
-                        Double.parseDouble(pitchText);
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Could not parse volume or pitch fields");
-                    return false;
-                }
+                // check if volume or pitch are invalid
+                if (!checkDouble(volumeText) || !checkDouble(pitchText)) return false;
             }
         }
+        return false;
+    }
+
+    public boolean checkIfNameExists(String string) {
+        if (string == null || string.equals("")) {
+            System.out.println("Name is blank!");
+            return false;
+        }
+
+        for (Playsound playsound : editorData.playsounds) {
+            if (string.equals(playsound.getName())) {
+                System.out.println("A playsound named " + string + " already exists!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkIncrement(String increment) {
+        if (increment == null || increment.equals("")) {
+            System.out.println("Increment is blank!");
+            return  false;
+        }
+
+        try {
+            Integer.parseInt(increment);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Could not parse increment");
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean checkDouble(String string) {
+        if (string == null) {
+            return false;
+        }
+
+        if (string.equals("")) {
+            return true;
+        }
+
+        try {
+            Double.parseDouble(string);
+        } catch (NumberFormatException e) {
+            System.out.println("Could not parse double");
+            return false;
+        }
+
         return true;
     }
 
@@ -301,49 +353,24 @@ public class ProjectController {
      * Checks if a playsound is valid
      * @return true if valid, false if invalid
      */
-    protected boolean validatePlaysound() {
+    public boolean validatePlaysound() {
+        if (nameField != null) {
+            // check that name exists and is valid
+            if (!checkIfNameExists(nameField.getText())) return false;
 
-        // Check if name is null or empty
-        if (nameField == null || nameField.getText().equals("")) {
-            return false;
+            // check if increment is an integer
+            if (incrementBox != null && !checkIncrement(incrementBox.getText())) return false;
+
+            // check min and max distance
+            if (minDistanceField != null && maxDistanceField != null && (!checkDouble(minDistanceField.getText())
+                    || !checkDouble(maxDistanceField.getText()))) return false;
+
+            return validateSounds();
         }
-
-        // check if the name is already used
-        for (Playsound playsound : editorData.playsounds) {
-            if (nameField.getText().equals(playsound.getName())) {
-                System.out.println("A playsound named " + nameField.getText() + " already exists!");
-                return false;
-            }
-        }
-
-        // check if increment is an integer
-        try {
-            if (incrementBox != null && !incrementBox.getText().equals("")) {
-                Integer.parseInt(incrementBox.getText());
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Could not parse increment");
-            return false;
-        }
-
-        // check if distances are doubles
-        try {
-            if (minDistanceField != null && !minDistanceField.getText().equals("")) {
-                Double.parseDouble(minDistanceField.getText());
-            }
-
-            if (maxDistanceField != null && !maxDistanceField.getText().equals("")) {
-                Double.parseDouble(maxDistanceField.getText());
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Could not parse Distance Fields");
-            return false;
-        }
-
-        return validateSounds();
+        return false;
     }
 
-    protected int validateIncrement(String incrementTemp) {
+    public int validateIncrement(String incrementTemp) {
         int increment = 1;
 
         // Check if to use default
@@ -367,7 +394,7 @@ public class ProjectController {
         return increment;
     }
 
-    protected boolean validateIncrementNames(String name, int increment) {
+    public boolean validateIncrementNames(String name, int increment) {
         for (int i = 1; i <= increment; i++) {
             for (Playsound playsound : editorData.playsounds) {
                 if ((name + i).equals(playsound.getName())) {
@@ -379,7 +406,7 @@ public class ProjectController {
         return true;
     }
 
-    protected boolean createPlaysound() {
+    public boolean createPlaysound() {
         boolean valid = validatePlaysound();
 
         int increment = 1;
@@ -441,7 +468,7 @@ public class ProjectController {
                     if (increment == 1) {
                         directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
                     } else {
-                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText() + increment;
+                        directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText() + i;
                     }
                     Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
 
@@ -477,13 +504,15 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController myController = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/sound.fxml")));
         loader.setController(myController); // view project controller
         Node sound = loader.load();
 
         controller.soundsVBox.getChildren().add(sounds - 1, sound);
 
         System.out.println("Add " + controller.soundsVBox.getChildren().size());
+
+        soundControllerReference = myController;
 
         return (VBox) ((HBox) sound).getChildren().get(1);
     }
@@ -494,7 +523,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/sound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/sound.fxml")));
         loader.setController(controller); // view project controller
         Node sound = loader.load();
 
@@ -533,7 +562,7 @@ public class ProjectController {
         saveAddPlaysound((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage showViewProject(Stage viewProjectWindow) throws IOException {
+    public Stage showViewProject(Stage viewProjectWindow) throws IOException {
         // save the expanded pane
         editorData.expandedPane = ((Accordion)playsoundsVBoxReference.getChildren().get(0)).getExpandedPane();
 
@@ -544,7 +573,7 @@ public class ProjectController {
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/viewProject.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Parent root = loader.load();
 
@@ -666,12 +695,12 @@ public class ProjectController {
         }
     }
 
-    protected Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
+    public Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
         System.out.println("Edit " + playsound.getName());
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = null;
         try {
@@ -679,6 +708,8 @@ public class ProjectController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        editPlaysoundControllerReference = controller;
 
         coreScrollpaneReference.setContent(addPlaysound);
 
@@ -701,17 +732,17 @@ public class ProjectController {
         /*
         Set sound details
          */
-        setSoundDetails(playsound, controller);
+        setSoundDetails(playsound, controller, false);
 
         return editPlaysoundWindow;
     }
 
-    protected Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
+    public Stage showEditGroup(PlaysoundGroup playsoundGroup, Stage editPlaysoundWindow) {
         System.out.println("Edit Group " + playsoundGroup.getName());
 
         // load FXML and set the controller
         ProjectController controller = new ProjectController();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/editPlaysound.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editPlaysound.fxml")));
         loader.setController(controller); // addPlaysound/viewProject controller
         Node addPlaysound = null;
         try {
@@ -720,10 +751,12 @@ public class ProjectController {
             e.printStackTrace();
         }
 
+        editPlaysoundControllerReference = controller;
+
         coreScrollpaneReference.setContent(addPlaysound);
 
         // set JavaFX stage details
-        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
+        editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Group");
 
         // USES FIRST PLAYSOUND AS THE TEMPLATE
         Playsound playsound = playsoundGroup.playsounds.get(0);
@@ -746,17 +779,22 @@ public class ProjectController {
         /*
         Set sound details
          */
-        setSoundDetails(playsound, controller);
+        setSoundDetails(playsound, controller, true);
 
         return editPlaysoundWindow;
     }
 
-    private void setSoundDetails(Playsound playsound, ProjectController controller) {
+    private void setSoundDetails(Playsound playsound, ProjectController controller, Boolean group) {
         int numSounds = playsound.sounds.size();
         // populate first playsound
         VBox firstSoundVBox = ((VBox) ((HBox) controller.soundsVBox.getChildren().get(0)).getChildren().get(1));
         Sound firstSound = playsound.sounds.get(0);
-        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstSound.getDirectory()); // set directory
+
+        String firstDirectory = firstSound.getDirectory();
+        if (group) {
+            firstDirectory = firstDirectory.substring(0, firstDirectory.length() - 1);
+        }
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set directory
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
         if (firstSound.getVolume() != null) {
             ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
@@ -773,7 +811,11 @@ public class ProjectController {
                 Sound sound = playsound.getSound(i);
 
                 // populate the sound
-                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(sound.getDirectory()); // set directory
+                String directory = sound.getDirectory();
+                if (group) {
+                    directory = directory.substring(0, directory.length() - 1);
+                }
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set directory
                 ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
                 if (sound.getVolume() != null) {
                     ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
@@ -790,10 +832,16 @@ public class ProjectController {
 
     }
 
-    protected boolean deletePlaysound(String playsoundRefName, String refGroup) {
+    public boolean deletePlaysound(String playsoundRefName, String refGroup, int debug) {
         // search for the playsound
         Playsound playsound = null;
         PlaysoundGroup group = null;
+
+
+        if (debug != 0) {
+            incrementBox = new TextField();
+            incrementBox.setText(debug + "");
+        }
 
         if (incrementBox != null && incrementBox.getText().equals("1")) {
             // single playsound
@@ -850,7 +898,7 @@ public class ProjectController {
         TextField refBox = getRefBox(stage);
         TextField refGroup = getRefGroup(stage);
 
-        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        deletePlaysound(refBox.getText(), refGroup.getText(), 0); // calls the above helper method
         showViewProject(stage);
     }
 
@@ -863,7 +911,7 @@ public class ProjectController {
         TextField refGroup = getRefGroup(stage);
 
         // delete the old playsound
-        deletePlaysound(refBox.getText(), refGroup.getText()); // calls the above helper method
+        deletePlaysound(refBox.getText(), refGroup.getText(), 0); // calls the above helper method
 
         // save the new playsound
         saveAddPlaysound(stage);
@@ -882,8 +930,12 @@ public class ProjectController {
     }
 
     @FXML
-    private void savePlaysounds() {
-        SoundIO io = new SoundIO();
-        io.writePlaysounds();
+    public boolean saveProject() {
+        return SoundIO.saveProject();
+    }
+
+    @FXML
+    private void saveProjectAs() {
+        SoundIO.saveProjectAs();
     }
 }

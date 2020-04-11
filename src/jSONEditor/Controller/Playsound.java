@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +9,7 @@ public class Playsound {
 	Playsound variables
 	 */
 	private PlaysoundGroup group;
-	protected ArrayList<Sound> sounds = new ArrayList<>(); // Contains all of the sounds this playsound is related to
+	public ArrayList<Sound> sounds = new ArrayList<>(); // Contains all of the sounds this playsound is related to
 	private String name; // playsound name
 	private Double min_distance; // min_distance property
 	private Double max_distance; // max_distance property
@@ -27,7 +27,7 @@ public class Playsound {
 	 * @param volume - volume property
 	 * @param lolm - load_on_low_memory property
 	 */
-	protected void addSound(String directory, Boolean stream, Double pitch, Double volume, Boolean lolm) {
+	public void addSound(String directory, Boolean stream, Double pitch, Double volume, Boolean lolm) {
 		Sound sound = new Sound();
 
 		sound.setDirectory(directory);
@@ -45,7 +45,7 @@ public class Playsound {
 	 * @param index The index of the sound
 	 * @return the sound
 	 */
-	protected Sound getSound(int index) {
+	public Sound getSound(int index) {
 		return sounds.get(index);
 	}
 
@@ -53,7 +53,7 @@ public class Playsound {
 	 * Removes a single sound from this playsound
 	 * @param sound the sound to be removed
 	 */
-	protected void removeSound(Sound sound) {
+	public void removeSound(Sound sound) {
 		if (this != sound.getPlaysound()) {
 			// this sound is not associated with this playsound
 			return;
@@ -77,47 +77,47 @@ public class Playsound {
 	/*
 	Getters and setters
 	 */
-	protected int numberSounds() {
+	public int numberSounds() {
 		return sounds.size();
 	}
 
-	protected Category getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	protected void setCategory(Category category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	protected Double getMin() {
+	public Double getMin() {
 		return min_distance;
 	}
 
-	protected void setMin(Double min_distance) {
+	public void setMin(Double min_distance) {
 		this.min_distance = min_distance;
 	}
 
-	protected Double getMax() {
+	public Double getMax() {
 		return max_distance;
 	}
 
-	protected void setMax(Double max_distance) {
+	public void setMax(Double max_distance) {
 		this.max_distance = max_distance;
 	}
 
-	protected String getName() {
+	public String getName() {
 		return name;
 	}
 
-	protected void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	protected void setGroup(PlaysoundGroup group) {
+	public void setGroup(PlaysoundGroup group) {
 		this.group = group;
 	}
 
-	protected PlaysoundGroup getGroup() {
+	public PlaysoundGroup getGroup() {
 		return group;
 	}
 }

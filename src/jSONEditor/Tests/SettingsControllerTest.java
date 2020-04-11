@@ -1,5 +1,6 @@
-package jSONEditor;
+package jSONEditor.Tests;
 
+import jSONEditor.Controller.SettingsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,24 +12,24 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AddTemplateControllerTest {
+public class SettingsControllerTest {
 
     private Stage myStage;
-    AddTemplateController controller;
+    SettingsController controller;
     ActionEvent event;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        controller = new AddTemplateController(); // the controller for add Template GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../view/addTemplate.fxml")));
+        controller = new SettingsController(); // the controller for settings GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/settings.fxml")));
         loader.setController(controller); // settings controller
         Parent root = loader.load();
 
         // set JavaFX stage details
         myStage = new Stage();
-        myStage.setTitle("JSON Sound Definitions Editor - Add Template");
+        myStage.setTitle("JSON Sound Definitions Editor - Settings");
         myStage.setScene(new Scene(root, 1280, 720));
         myStage.show();
     }
@@ -39,16 +40,12 @@ public class AddTemplateControllerTest {
     @Test
     public void testSetup() {
         assertNotNull(myStage);
-        assertEquals("JSON Sound Definitions Editor - Add Template", myStage.getTitle());
+        assertEquals("JSON Sound Definitions Editor - Settings", myStage.getTitle());
     }
 
     @Test
-    public void testCancelAddTemplate() {
-        assertNull(controller.cancelAddTemplate(myStage));
+    public void testCloseSettings() {
+        assertNull(controller.closeSettings(myStage));
     }
 
-    @Test
-    public void testSaveAddTemplate() {
-        assertNull(controller.saveAddTemplate(myStage));
-    }
 }

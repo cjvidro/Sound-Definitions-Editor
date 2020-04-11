@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 /**
  * This class is correlated with the sound_definitions "sounds" array for each playsound
@@ -18,59 +18,59 @@ public class Sound {
 	/*
 	Getters and Setters
 	 */
-	protected String getDirectory() {
+	public String getDirectory() {
 		return directory;
 	}
 
-	protected void setDirectory(String directory) {
+	public void setDirectory(String directory) {
 		this.directory = directory; 
 	}
 
-	protected Boolean getStream() {
+	public Boolean getStream() {
 		return stream; 
 	}
 
-	protected void setStream(Boolean stream) {
+	public void setStream(Boolean stream) {
 		this.stream = stream; 
 	}
 
-	protected Double getPitch() {
+	public Double getPitch() {
 		return pitch; 
 	}
 
-	protected void setPitch(Double pitch) {
+	public void setPitch(Double pitch) {
 		this.pitch = pitch;
 	}
 
-	protected Double getVolume() {
+	public Double getVolume() {
 		return volume;
 	}
 
-	protected void setVolume(Double volume) {
+	public void setVolume(Double volume) {
 		this.volume = volume;
 	}
 
-	protected Boolean getLOLM() {
+	public Boolean getLOLM() {
 		return lolm;
 	}
 
-	protected void setLOLM(Boolean lolm) {
+	public void setLOLM(Boolean lolm) {
 		this.lolm = lolm;
 	}
 
-	protected int getIndex() {
+	public int getIndex() {
 		return index;
 	}
 
-	protected void setIndex(int index) {
+	public void setIndex(int index) {
 		this.index = index;
 	}
 
-	protected Playsound getPlaysound() {
+	public Playsound getPlaysound() {
 		return playsound;
 	}
 
-	protected void setPlaysound(Playsound playsound) {
+	public void setPlaysound(Playsound playsound) {
 		this.playsound = playsound;
 	}
 }

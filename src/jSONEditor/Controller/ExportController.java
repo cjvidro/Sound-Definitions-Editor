@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ public class ExportController {
      * Change Scenes
      *****************************************************/
 
-    protected Stage closeExport(Stage stage) {
+    public Stage closeExport(Stage stage) {
         System.out.println("Close Export");
 
         stage.close();
@@ -27,7 +27,7 @@ public class ExportController {
         return closeExport((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage export (Stage stage) {
+    public Stage export (Stage stage) {
         System.out.println("Export");
 
         /*

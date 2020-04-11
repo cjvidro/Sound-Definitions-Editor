@@ -1,4 +1,4 @@
-package jSONEditor;
+package jSONEditor.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ public class AddTemplateController {
      * Change Scenes
      *****************************************************/
 
-    protected Stage cancelAddTemplate(Stage stage) {
+    public Stage cancelAddTemplate(Stage stage) {
         System.out.println("Cancel Add Template");
 
         /*
@@ -30,7 +30,7 @@ public class AddTemplateController {
         cancelAddTemplate((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    protected Stage saveAddTemplate(Stage stage) {
+    public Stage saveAddTemplate(Stage stage) {
         System.out.println("Save Add Template");
 
         /*
