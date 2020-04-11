@@ -27,60 +27,72 @@ public class SoundIO {
 			JSONParser jsonParser = new JSONParser();
 
 			//Read JSON file
-			JSONObject newPlaySound = (JSONObject) jsonParser.parse(""  );  // PASS IN THE READ STRING HERE
-
+			JSONObject newPlaySound = (JSONObject) jsonParser.parse(reader);
+			
+			//Get an instance of EditorData
 			EditorData instance = EditorData.getInstance();
-
-			/*
-			THE REST OF THE CODE IS UP TO YOU. . .
-			 */
-
-			// get the category from the JSON sound object
-			Category category = (Category) newPlaySound.get("category");
-			System.out.println("The category is: " + category);
-
-			// get the min_distance from the JSON sound object
-			Double min_distance = (Double) newPlaySound.get("min_distance");
-			System.out.println("The min_distance is: " + min_distance);
-
-			// get the max_distance from the JSON sound object
-			Double max_distance = (Double) newPlaySound.get("max_distance");
-			System.out.println("The max_distance is: " + max_distance);
-
+			
+			//Create a new Playsound
 			Playsound playsound = new Playsound();
-
-			playsound.setName(filename);
-			playsound.setCategory(category);
-			playsound.setMax(max_distance);
-			playsound.setMin(min_distance);
-
+			
+			//Instantiate playsound with nulls.
+			playsound.setCategory(null);
+			playsound.setMax(null);
+			playsound.setMin(null);
+			
+			//Add the new playsound
 			instance.playsounds.add(playsound);
+			
+			for(Object key: newPlaySound.keySet()) {
+				if(key.equals("category"))
+				{
+					//Set Category
+					instance.playsounds.get(instance.playsounds.size() - 1).setCategory((Category) newPlaySound.get(key));
+				}
+				else if(key.equals("min_distance"))
+				{
+					//Set Min_distance
+					instance.playsounds.get(instance.playsounds.size() - 1).setMin((Double) newPlaySound.get(key));
+				}
+				else if(key.equals("max_distance"))
+				{
+					//Set Min_distance
+					instance.playsounds.get(instance.playsounds.size() - 1).setMax((Double) newPlaySound.get(key));
+				}
+				else if(key.equals("sounds"))
+				{
+					// get an array from the JSON sound object
+					JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
+					
+					//temp values
+					String directory = null;
+					Boolean stream = null;
+					Double volume = null;
+					Double pitch = null;
+					Boolean lolm = null;
+					
+					// take the elements of the JSON sound array
+					for (int i = 0; i < JSONplaysounds.size(); i++) {
 
-			// get an array from the JSON sound object
-			JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
-
-			// take the elements of the JSON sound array
-			for (int i = 0; i < JSONplaysounds.size(); i++) {
-
-				//temp objects to access functions and store values
-				JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
-
-				//temp values
-				String directory = "";
-				Boolean stream = false;
-				Double volume = 1.0;
-				Double pitch = 1.0;
-				Boolean lolm = true;
-
-				//Pulling values from JSONObject to temp values
-				directory = (String) tempJSON.get("name");
-				stream = (Boolean) tempJSON.get("stream");
-				volume = (Double) tempJSON.get("volume");
-				pitch = (Double) tempJSON.get("pitch");
-				lolm = (Boolean) tempJSON.get("load_on_low_mem");
-
-				//setting temp PlaySound with temp values
-				instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, pitch, volume, lolm);
+						//temp objects to access functions and store values
+						JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
+						
+						//Pulling values from JSONObject to temp values
+						directory = (String) tempJSON.get("name");
+						stream = (Boolean) tempJSON.get("stream");
+						volume = (Double) tempJSON.get("volume");
+						pitch = (Double) tempJSON.get("pitch");
+						lolm = (Boolean) tempJSON.get("load_on_low_mem");
+					}
+					
+					//setting playsound with all values
+					instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, pitch, volume, lolm);
+				}
+				else
+				{
+					//Set Min_distance
+					instance.playsounds.get(instance.playsounds.size() - 1).setName((String) newPlaySound.get(key));
+				}
 			}
 
 		} catch (FileNotFoundException e) {
