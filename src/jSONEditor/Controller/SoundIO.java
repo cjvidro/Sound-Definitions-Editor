@@ -32,17 +32,6 @@ public class SoundIO {
 			//Get an instance of EditorData
 			EditorData instance = EditorData.getInstance();
 			
-			//Create a new Playsound
-			Playsound playsound = new Playsound();
-			
-			//Instantiate playsound with nulls.
-			playsound.setCategory(null);
-			playsound.setMax(null);
-			playsound.setMin(null);
-			
-			//Add the new playsound
-			instance.playsounds.add(playsound);
-			
 			for(Object key: newPlaySound.keySet()) {
 				if(key.equals("category"))
 				{
@@ -90,6 +79,17 @@ public class SoundIO {
 				}
 				else
 				{
+					//Create a new Playsound
+					Playsound playsound = new Playsound();
+					
+					//Instantiate playsound with nulls.
+					playsound.setCategory(null);
+					playsound.setMax(null);
+					playsound.setMin(null);
+					
+					//Add the new playsound
+					instance.playsounds.add(playsound);
+					
 					//Set Min_distance
 					instance.playsounds.get(instance.playsounds.size() - 1).setName((String) newPlaySound.get(key));
 				}
