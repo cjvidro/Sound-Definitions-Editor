@@ -91,7 +91,7 @@ public class SoundIO {
 					instance.playsounds.add(playsound);
 					
 					//Set Min_distance
-					instance.playsounds.get(instance.playsounds.size() - 1).setName((String) newPlaySound.get(key));
+					instance.playsounds.get(instance.playsounds.size() - 1).setName((String) key);
 				}
 			}
 
