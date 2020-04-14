@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class HomeScreenController {
@@ -25,6 +26,34 @@ public class HomeScreenController {
     /*****************************************************
      * Change Scenes and Button Functionality
      *****************************************************/
+    @FXML
+    private void initialize() {
+        // populate recent saves
+        File[] saves = EditorData.getInstance().saves;
+
+        if (project1Button != null && saves[0] != null) {
+            project1Button.setDisable(false);
+            project1Button.setText(saves[0].getName());
+            System.out.println("Loaded first button");
+        }
+        if (project2Button != null && saves[1] != null) {
+            project2Button.setDisable(false);
+            project2Button.setText(saves[1].getName());
+        }
+        if (project3Button != null && saves[2] != null) {
+            project3Button.setDisable(false);
+            project3Button.setText(saves[2].getName());
+        }
+        if (project3Button != null && saves[3] != null) {
+            project3Button.setDisable(false);
+            project3Button.setText(saves[3].getName());
+        }
+        if (project4Button != null && saves[4] != null) {
+            project4Button.setDisable(false);
+            project4Button.setText(saves[4].getName());
+        }
+    }
+
     public Stage newProject(Stage stage) throws IOException {
         // load FXML and set the controllers
         ProjectController controller = new ProjectController(); // the controller for the view project GUI

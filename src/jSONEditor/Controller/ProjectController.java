@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -29,6 +30,13 @@ public class ProjectController {
     /*****************************************************
      * FXML fields
      *****************************************************/
+
+    // home screen
+    @FXML private Button project1Button;
+    @FXML private Button project2Button;
+    @FXML private Button project3Button;
+    @FXML private Button project4Button;
+    @FXML private Button project5Button;
 
     // Used for adding / editing playsounds
     @FXML public TextField nameField;
@@ -56,6 +64,7 @@ public class ProjectController {
 
     @FXML
     public void initialize() {
+
         // populate categories
         if (categoryBox != null) {
             for (Category category : Category.values()) {

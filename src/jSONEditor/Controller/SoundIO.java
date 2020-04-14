@@ -1,8 +1,5 @@
 package jSONEditor.Controller;
 import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -218,16 +215,9 @@ public class SoundIO {
 		File selectedDirectory = chooseDirectory();
 
 		// Check if this save already exists
-		Set values = EditorData.getInstance().saves.entrySet();
-		Iterator iterator = values.iterator();
-		while (iterator.hasNext()) {
-			Map.Entry<String, File> entry = (Map.Entry<String, File>) iterator.next();
-			File file = entry.getValue();
-
-			if (selectedDirectory.getName().equals(file.getName())) {
-				System.out.println("A project with this name already exists!");
-				selectedDirectory = chooseDirectory();
-			} else if (selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
+		File[] array = EditorData.getInstance().saves;
+		for (File file : array) {
+			if (file != null && selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
 				System.out.println("A project with this file path already exists!");
 				selectedDirectory = chooseDirectory();
 			}
@@ -246,7 +236,12 @@ public class SoundIO {
 		EditorData.getInstance().currentDirectory = selectedDirectory;
 
 		// save the save directory
-		EditorData.saves.put(selectedDirectory.getName(), selectedDirectory);
+		for (int i = 3; i >= 0; i--) {
+			// shift current saves
+			EditorData.getInstance().saves[i + 1] = array[i];
+		}
+
+		EditorData.getInstance().saves[0] = selectedDirectory;
 		EditorData.serializeSaves();
 
 		// save sound_defintions file
