@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,12 +17,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class SoundIO {
-	protected void readInPlaySound(String filename) {
-		try (FileReader reader = new FileReader(filename)) {
-
-			/*
-			READ THE FILE TO A STRING
-			 */
+	private static boolean readInPlaySound(String filePath) {
+		try (FileReader reader = new FileReader(filePath)) {
 
 			//JSON parser object to parse read file
 			JSONParser jsonParser = new JSONParser();
@@ -51,7 +48,7 @@ public class SoundIO {
 				else if(key.equals("sounds"))
 				{
 					// get an array from the JSON sound object
-					JSONArray JSONplaysounds = (JSONArray) newPlaySound.get("sounds");
+					JSONArray JSONSounds = (JSONArray) newPlaySound.get("sounds");
 					
 					//temp values
 					String directory = null;
@@ -61,10 +58,10 @@ public class SoundIO {
 					Boolean lolm = null;
 					
 					// take the elements of the JSON sound array
-					for (int i = 0; i < JSONplaysounds.size(); i++) {
+					for (int i = 0; i < JSONSounds.size(); i++) {
 
 						//temp objects to access functions and store values
-						JSONObject tempJSON = (JSONObject) JSONplaysounds.get(i);
+						JSONObject tempJSON = (JSONObject) JSONSounds.get(i);
 						
 						//Pulling values from JSONObject to temp values
 						directory = (String) tempJSON.get("name");
@@ -97,12 +94,42 @@ public class SoundIO {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("Failed to import sound definition file!");
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Failed to import sound definition file!");
+			return false;
 		} catch (ParseException e) {
 			e.printStackTrace();
+			System.out.println("Failed to import sound definition file!");
+			return false;
 		}
 
+		System.out.println("Successfully imported sound definition file!");
+		return true;
+	}
+
+	public static boolean importSoundDefinitions() {
+		// select the sound_definitions file
+		File sound_definitions = chooseFile();
+
+		/*
+		INSERT CALL TO VALIDATE SOUND DEFINITIONS
+		 */
+
+		if (sound_definitions == null) {
+			System.out.println("Failed to import sound definition file!");
+			return false;
+		}
+
+		return readInPlaySound(sound_definitions.getAbsolutePath());
+	}
+
+	private static File chooseFile() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("JSON","*.json"));
+		return fileChooser.showOpenDialog(new Stage());
 	}
 
 

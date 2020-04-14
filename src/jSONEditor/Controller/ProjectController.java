@@ -938,4 +938,10 @@ public class ProjectController {
     private void saveProjectAs() {
         SoundIO.saveProjectAs();
     }
+
+    @FXML
+    private void importSoundDefinitions() {
+        SoundIO.importSoundDefinitions();
+        populatePlaysounds();
+    }
 }
