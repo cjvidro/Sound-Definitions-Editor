@@ -34,8 +34,7 @@ public class HomeScreenController {
         if (project1Button != null && saves[0] != null) {
             project1Button.setDisable(false);
             project1Button.setText(saves[0].getName());
-            System.out.println("Loaded first button");
-        }
+    }
         if (project2Button != null && saves[1] != null) {
             project2Button.setDisable(false);
             project2Button.setText(saves[1].getName());

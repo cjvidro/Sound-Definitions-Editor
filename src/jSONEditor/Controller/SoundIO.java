@@ -207,6 +207,11 @@ public class SoundIO {
 
 	private static File chooseDirectory() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
+		if (EditorData.getInstance().currentDirectory != null) {
+			directoryChooser.setInitialDirectory(EditorData.getInstance().currentDirectory);
+		} else {
+			directoryChooser.setInitialDirectory(new File("."));
+		}
 		return directoryChooser.showDialog(new Stage());
 	}
 
@@ -214,18 +219,18 @@ public class SoundIO {
 		// get the new file folder
 		File selectedDirectory = chooseDirectory();
 
+		if (selectedDirectory == null) {
+			System.out.println("Failed to save project!");
+			return false;
+		}
+
 		// Check if this save already exists
 		File[] array = EditorData.getInstance().saves;
 		for (File file : array) {
 			if (file != null && selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
 				System.out.println("A project with this file path already exists!");
-				selectedDirectory = chooseDirectory();
+				return false;
 			}
-		}
-
-		if (selectedDirectory == null) {
-			System.out.println("Failed to save project!");
-			return false;
 		}
 
 		// create backup folder
