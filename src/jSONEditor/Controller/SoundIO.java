@@ -133,7 +133,7 @@ public class SoundIO {
 
 	private static File chooseFile() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("JSON","*.json"));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON","*.json"));
 		return fileChooser.showOpenDialog(new Stage());
 	}
 
