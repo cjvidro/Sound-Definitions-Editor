@@ -949,7 +949,7 @@ public class ProjectController {
     }
 
     @FXML
-    private void importSoundDefinitions() {
+    protected void importSoundDefinitions() {
         SoundIO.importSoundDefinitions();
         populatePlaysounds();
     }

@@ -100,6 +100,7 @@ public class HomeScreenController {
         // close the current
         closeHomeScreen(stage);
 
+        System.out.println("Created new project!");
         return viewProject;
     }
 
@@ -129,6 +130,7 @@ public class HomeScreenController {
         // close the current window
         closeHomeScreen(stage);
 
+        System.out.println("Loaded project " + save.getName());
         return viewProject;
     }
 
@@ -145,5 +147,27 @@ public class HomeScreenController {
         settingsStage.close();
         settingsStage = null;
         return settingsStage;
+    }
+
+    @FXML
+    private void importSoundDefinitions(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+        // load FXML and set the controllers
+        ProjectController controller = new ProjectController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
+        loader.setController(controller); // view project controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage viewProject = new Stage();
+        viewProject.setTitle("JSON Sound Definitions Editor");
+        viewProject.setScene(new Scene(root, 1280, 720));
+        viewProject.show();
+
+        // close the current
+        closeHomeScreen(stage);
+
+        controller.importSoundDefinitions();
     }
 }
