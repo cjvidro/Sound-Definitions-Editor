@@ -604,7 +604,7 @@ public class ProjectController {
         showViewProject((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    private void populatePlaysounds() {
+    protected void populatePlaysounds() {
         String expandedPaneName = "";
         if (editorData.expandedPane != null) {
             expandedPaneName = editorData.expandedPane.getText();

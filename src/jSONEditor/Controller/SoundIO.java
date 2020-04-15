@@ -123,6 +123,14 @@ public class SoundIO {
 		return readInPlaySound(sound_definitions.getAbsolutePath());
 	}
 
+	public static boolean loadSoundDefinitions(File save) {
+		/*
+		INSERT CALL TO VALIDATE SOUND DEFINITIONS
+		 */
+
+		return readInPlaySound(save.getAbsolutePath() + "/sound_definitions.json");
+	}
+
 	private static File chooseFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("JSON","*.json"));
