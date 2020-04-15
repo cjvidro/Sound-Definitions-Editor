@@ -111,10 +111,6 @@ public class SoundIO {
 		// select the sound_definitions file
 		File sound_definitions = chooseFile();
 
-		/*
-		INSERT CALL TO VALIDATE SOUND DEFINITIONS
-		 */
-
 		if (sound_definitions == null) {
 			System.out.println("Failed to import sound definition file!");
 			return false;
@@ -124,10 +120,6 @@ public class SoundIO {
 	}
 
 	public static boolean loadSoundDefinitions(File save) {
-		/*
-		INSERT CALL TO VALIDATE SOUND DEFINITIONS
-		 */
-
 		return readInPlaySound(save.getAbsolutePath() + "/sound_definitions.json");
 	}
 
