@@ -31,13 +31,6 @@ public class ProjectController {
      * FXML fields
      *****************************************************/
 
-    // home screen
-    @FXML private Button project1Button;
-    @FXML private Button project2Button;
-    @FXML private Button project3Button;
-    @FXML private Button project4Button;
-    @FXML private Button project5Button;
-
     // Used for adding / editing playsounds
     @FXML public TextField nameField;
     @FXML public TextField incrementBox;
@@ -51,6 +44,7 @@ public class ProjectController {
     @FXML private ScrollPane coreScrollPane;
     @FXML private TextField referenceName;
     @FXML private TextField referenceGroup;
+    @FXML private Menu recentProjects;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
@@ -91,6 +85,27 @@ public class ProjectController {
 
         if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
             playsoundGroup = referenceGroup;
+        }
+
+        // populate recent projects
+        if (recentProjects != null) {
+            for (File file : EditorData.getInstance().saves) {
+                if (file != null) {
+                    MenuItem item = new MenuItem();
+                    item.setText(file.getName());
+
+                    item.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            SoundIO.loadSoundDefinitions(file);
+                            populatePlaysounds();
+                            EditorData.getInstance().currentDirectory = file;
+                        }
+                    });
+
+                    recentProjects.getItems().add(item);
+                }
+            }
         }
 
         /*
