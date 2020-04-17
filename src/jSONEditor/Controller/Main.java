@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
         @Override
         public void start(Stage primaryStage) throws Exception{
+            EditorData.getInstance(); // start internal initialization
+
             // load FXML and set the controller
             HomeScreenController controller = new HomeScreenController(); // the controller for the home screen
             FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/homeScreen.fxml")));
@@ -20,8 +22,6 @@ import javafx.stage.Stage;
             primaryStage.setTitle("JSON Sound Definitions Editor - Select Project");
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.show();
-
-            EditorData.getInstance();
         }
     
     public static void main(String[] args) {

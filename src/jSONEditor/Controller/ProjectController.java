@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -43,6 +44,7 @@ public class ProjectController {
     @FXML private ScrollPane coreScrollPane;
     @FXML private TextField referenceName;
     @FXML private TextField referenceGroup;
+    @FXML private Menu recentProjects;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
@@ -56,6 +58,7 @@ public class ProjectController {
 
     @FXML
     public void initialize() {
+
         // populate categories
         if (categoryBox != null) {
             for (Category category : Category.values()) {
@@ -82,6 +85,27 @@ public class ProjectController {
 
         if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
             playsoundGroup = referenceGroup;
+        }
+
+        // populate recent projects
+        if (recentProjects != null) {
+            for (File file : EditorData.getInstance().saves) {
+                if (file != null) {
+                    MenuItem item = new MenuItem();
+                    item.setText(file.getName());
+
+                    item.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            SoundIO.loadSoundDefinitions(file);
+                            populatePlaysounds();
+                            EditorData.getInstance().currentDirectory = file;
+                        }
+                    });
+
+                    recentProjects.getItems().add(item);
+                }
+            }
         }
 
         /*
@@ -595,7 +619,7 @@ public class ProjectController {
         showViewProject((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    private void populatePlaysounds() {
+    protected void populatePlaysounds() {
         String expandedPaneName = "";
         if (editorData.expandedPane != null) {
             expandedPaneName = editorData.expandedPane.getText();
@@ -940,7 +964,7 @@ public class ProjectController {
     }
 
     @FXML
-    private void importSoundDefinitions() {
+    protected void importSoundDefinitions() {
         SoundIO.importSoundDefinitions();
         populatePlaysounds();
     }

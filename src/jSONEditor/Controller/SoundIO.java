@@ -1,8 +1,5 @@
 package jSONEditor.Controller;
 import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -118,10 +115,6 @@ public class SoundIO {
 		// select the sound_definitions file
 		File sound_definitions = chooseFile();
 
-		/*
-		INSERT CALL TO VALIDATE SOUND DEFINITIONS
-		 */
-
 		if (sound_definitions == null) {
 			System.out.println("Failed to import sound definition file!");
 			return false;
@@ -130,9 +123,13 @@ public class SoundIO {
 		return readInPlaySound(sound_definitions.getAbsolutePath());
 	}
 
+	public static boolean loadSoundDefinitions(File save) {
+		return readInPlaySound(save.getAbsolutePath() + "/sound_definitions.json");
+	}
+
 	private static File chooseFile() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("JSON","*.json"));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON","*.json"));
 		return fileChooser.showOpenDialog(new Stage());
 	}
 
@@ -214,6 +211,11 @@ public class SoundIO {
 
 	private static File chooseDirectory() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
+		if (EditorData.getInstance().currentDirectory != null) {
+			directoryChooser.setInitialDirectory(EditorData.getInstance().currentDirectory);
+		} else {
+			directoryChooser.setInitialDirectory(new File("."));
+		}
 		return directoryChooser.showDialog(new Stage());
 	}
 
@@ -221,25 +223,18 @@ public class SoundIO {
 		// get the new file folder
 		File selectedDirectory = chooseDirectory();
 
-		// Check if this save already exists
-		Set values = EditorData.getInstance().saves.entrySet();
-		Iterator iterator = values.iterator();
-		while (iterator.hasNext()) {
-			Map.Entry<String, File> entry = (Map.Entry<String, File>) iterator.next();
-			File file = entry.getValue();
-
-			if (selectedDirectory.getName().equals(file.getName())) {
-				System.out.println("A project with this name already exists!");
-				selectedDirectory = chooseDirectory();
-			} else if (selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
-				System.out.println("A project with this file path already exists!");
-				selectedDirectory = chooseDirectory();
-			}
-		}
-
 		if (selectedDirectory == null) {
 			System.out.println("Failed to save project!");
 			return false;
+		}
+
+		// Check if this save already exists
+		File[] array = EditorData.getInstance().saves;
+		for (File file : array) {
+			if (file != null && selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
+				System.out.println("A project with this file path already exists!");
+				return false;
+			}
 		}
 
 		// create backup folder
@@ -250,7 +245,12 @@ public class SoundIO {
 		EditorData.getInstance().currentDirectory = selectedDirectory;
 
 		// save the save directory
-		EditorData.saves.put(selectedDirectory.getName(), selectedDirectory);
+		for (int i = 3; i >= 0; i--) {
+			// shift current saves
+			EditorData.getInstance().saves[i + 1] = array[i];
+		}
+
+		EditorData.getInstance().saves[0] = selectedDirectory;
 		EditorData.serializeSaves();
 
 		// save sound_defintions file

@@ -29,7 +29,7 @@
                 <items>
                   <MenuItem mnemonicParsing="false" text="New" />
                   <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
+                  <Menu fx:id="recentProjects" mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProjectAs" text="Save As…" />
