@@ -70,12 +70,12 @@ public class SoundIOTest {
     }
     
     @Test
-    public void testReadPlaysounds() throws Exception {
+    public void testReadPlaysounds() {
     	SoundIO soundio = new SoundIO();
     	
     	EditorData instance = EditorData.getInstance();
     	
-    	soundio.readInPlaySound("./MHG/src/jSONEditor/Tests/TEST_sound_definitions.json");
+    	soundio.readInPlaySound("./src/jSONEditor/Tests/TEST_sound_definitions.json");
     	
     	assertEquals("testName", instance.playsounds.get(instance.playsounds.size() - 1).getName());
     	assertEquals((Double) 1.3, instance.playsounds.get(instance.playsounds.size() - 1).getMin());

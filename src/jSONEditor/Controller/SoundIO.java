@@ -43,7 +43,6 @@ public class SoundIO {
 				
 				for(Object ps2: next.keySet())
 				{
-					System.out.println("key = " + ps2 + "\nvalue = " + next.get(ps2));
 					if(ps2.toString().equals("category"))
 					{
 						//Set Category
