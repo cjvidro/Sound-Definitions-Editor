@@ -17,7 +17,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class SoundIO {
-	private static boolean readInPlaySound(String filePath) {
+	public static boolean readInPlaySound(String filePath) {
 		try (FileReader reader = new FileReader(filePath)) {
 
 			//JSON parser object to parse read file
@@ -30,6 +30,9 @@ public class SoundIO {
 			EditorData instance = EditorData.getInstance();
 			
 			for(Object key: newPlaySound.keySet()) {
+				
+				System.out.println("The key is " + key.toString() + "\nThe value is " + newPlaySound.get(key).toString());
+				/*
 				if(key.equals("category"))
 				{
 					//Set Category
@@ -90,6 +93,7 @@ public class SoundIO {
 					//Set Min_distance
 					instance.playsounds.get(instance.playsounds.size() - 1).setName((String) key);
 				}
+			*/
 			}
 
 		} catch (FileNotFoundException e) {
