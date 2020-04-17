@@ -54,6 +54,7 @@ public class EditorData {
     }
 
     public static boolean serializeSaves() {
+    	
         try {
             FileOutputStream fos = new FileOutputStream("./config/saves.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);

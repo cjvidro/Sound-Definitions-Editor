@@ -68,12 +68,24 @@ public class SoundIOTest {
 
         assertTrue(areEqual);
     }
-    /*
+    
     @Test
     public void testReadPlaysounds() throws Exception {
     	SoundIO soundio = new SoundIO();
     	
-    	soundio.readInPlaySound("./src/jSONEditor/Tests/TEST_sound_definitions.json");
+    	EditorData instance = EditorData.getInstance();
+    	
+    	soundio.readInPlaySound("./MHG/src/jSONEditor/Tests/TEST_sound_definitions.json");
+    	
+    	assertEquals("testName", instance.playsounds.get(instance.playsounds.size() - 1).getName());
+    	assertEquals((Double) 1.3, instance.playsounds.get(instance.playsounds.size() - 1).getMin());
+    	assertEquals(Category.master, instance.playsounds.get(instance.playsounds.size() - 1).getCategory());
+    	assertEquals((Double) 0.6, instance.playsounds.get(instance.playsounds.size() - 1).getMax());
+    	assertEquals((Double) 1.2, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getVolume());
+    	assertEquals((Boolean) true, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getStream());
+    	assertEquals((Boolean) false, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getLOLM());
+    	assertEquals("sounds/testDirectory/testSound", instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getDirectory());
+    	assertEquals((Double) 4.2, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getPitch());
     }
-    */
+    
 }
