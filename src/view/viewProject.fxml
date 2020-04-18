@@ -29,12 +29,12 @@
                 <items>
                   <MenuItem mnemonicParsing="false" text="New" />
                   <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
+                  <Menu fx:id="recentProjects" mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProjectAs" text="Save As…" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
                   <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
                         <MenuItem mnemonicParsing="false" text="Edit Changelog" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -62,7 +62,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                            <Button mnemonicParsing="false" text="Import" />
+                            <Button mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
                               <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
                               <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProject" text="Save" />
                            </children>

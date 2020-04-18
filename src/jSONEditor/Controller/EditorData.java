@@ -4,7 +4,6 @@ import javafx.scene.control.TitledPane;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditorData {
     private static EditorData single_instance = null;
@@ -14,7 +13,7 @@ public class EditorData {
     public ArrayList<Template> templates;
     public TitledPane expandedPane;
     public File currentDirectory = null;
-    public static HashMap<String, File> saves = null;
+    public static File[] saves;
 
     private EditorData() {
         playsounds = new ArrayList<>();
@@ -32,7 +31,7 @@ public class EditorData {
             try {
                 FileInputStream fis = new FileInputStream("./config/saves.ser");
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                saves = (HashMap) ois.readObject();
+                saves = (File[]) ois.readObject();
                 ois.close();
                 fis.close();
                 System.out.println("Successfully loaded saves!");
@@ -41,7 +40,7 @@ public class EditorData {
                 System.out.println("Failed to load saves!");
 
                 System.out.println("Creating a new save map. . .");
-                saves = new HashMap<>();
+                saves = new File[5];
                 serializeSaves();
 
             } catch (ClassNotFoundException c) {
@@ -55,7 +54,10 @@ public class EditorData {
     }
 
     public static boolean serializeSaves() {
+    	
         try {
+            File file = new File("./config");
+            file.mkdir();
             FileOutputStream fos = new FileOutputStream("./config/saves.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(saves);
