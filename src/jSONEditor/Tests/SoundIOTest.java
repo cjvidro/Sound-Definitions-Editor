@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class SoundIOTest {
+	/*
 	@Test
     public void testWritePlaysounds() throws IOException {
         // setup stuff
@@ -68,6 +69,7 @@ public class SoundIOTest {
 
         assertTrue(areEqual);
     }
+    */
     
     @Test
     public void testReadPlaysounds() {
@@ -86,6 +88,92 @@ public class SoundIOTest {
     	assertEquals((Boolean) false, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getLOLM());
     	assertEquals("sounds/testDirectory/testSound", instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getDirectory());
     	assertEquals((Double) 4.2, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getPitch());
+    	
+    	instance.playsounds.remove(instance.playsounds.size() - 1);
+    	
+    	assertEquals(0, instance.playsounds.size());
     }
     
+    @Test
+    public void testReadMultipleSounds() {
+    	SoundIO soundio = new SoundIO();
+    	
+    	EditorData instance = EditorData.getInstance();
+    	
+    	soundio.readInPlaySound("./src/jSONEditor/Tests/TEST_multiple_sound_definitions.json");
+    	
+    	assertEquals("TEST_multiple_sounds", instance.playsounds.get(0).getName());
+    	assertEquals((Double) 2.0, instance.playsounds.get(0).getMin());
+    	assertEquals(Category.master, instance.playsounds.get(0).getCategory());
+    	assertEquals((Double) 5.2, instance.playsounds.get(0).getMax());
+    	assertEquals((Double) 55.0, instance.playsounds.get(0).sounds.get(0).getVolume());
+    	assertEquals((Boolean) true, instance.playsounds.get(0).sounds.get(0).getStream());
+    	assertEquals((Boolean) false, instance.playsounds.get(0).sounds.get(0).getLOLM());
+    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(0).getDirectory());
+    	assertEquals((Double) 8.2, instance.playsounds.get(0).sounds.get(0).getPitch());
+    	
+    	
+    	assertEquals((Double) 78.0, instance.playsounds.get(0).sounds.get(1).getVolume());
+    	assertEquals((Boolean) false, instance.playsounds.get(0).sounds.get(1).getStream());
+    	assertEquals((Boolean) true, instance.playsounds.get(0).sounds.get(1).getLOLM());
+    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(1).getDirectory());
+    	assertEquals((Double) 20.0, instance.playsounds.get(0).sounds.get(1).getPitch());
+    
+
+    	instance.playsounds.remove(0);
+    	
+    	assertEquals(0, instance.playsounds.size());
+    }
+    
+    @Test
+    public void testReadMultiplePlaysounds() {
+    	SoundIO soundio = new SoundIO();
+    	
+    	EditorData instance = EditorData.getInstance();
+    	
+    	soundio.readInPlaySound("./src/jSONEditor/Tests/TEST_multiple_playsounds.json");
+    	
+    	assertEquals("PS4", instance.playsounds.get(0).getName());
+    	assertEquals(Category.weather, instance.playsounds.get(0).getCategory());
+    	
+    	assertEquals("PS3", instance.playsounds.get(1).getName());
+    	assertEquals(Category.hostile, instance.playsounds.get(1).getCategory());
+    	
+    	assertEquals("PS6", instance.playsounds.get(2).getName());
+    	assertEquals(Category.neutral, instance.playsounds.get(2).getCategory());
+    	
+    	assertEquals("PS5", instance.playsounds.get(3).getName());
+    	assertEquals(Category.neutral, instance.playsounds.get(3).getCategory());
+    	
+    	assertEquals("PS7", instance.playsounds.get(4).getName());
+    	assertEquals(Category.player, instance.playsounds.get(4).getCategory());
+    	
+    	assertEquals("PS2", instance.playsounds.get(5).getName());
+    	assertEquals(Category.music, instance.playsounds.get(5).getCategory());
+    	
+    	assertEquals("PS1", instance.playsounds.get(6).getName());
+    	assertEquals(Category.ui, instance.playsounds.get(6).getCategory());
+    	
+    	for(int i = 0; i < 5; i++)
+    	{
+    		assertEquals((Double) 1.0, instance.playsounds.get(i).sounds.get(0).getVolume());
+        	assertEquals((Boolean) false, instance.playsounds.get(i).sounds.get(0).getStream());
+        	assertEquals((Boolean) false, instance.playsounds.get(i).sounds.get(0).getLOLM());
+        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getDirectory());
+        	assertEquals((Double) 1.0, instance.playsounds.get(i).sounds.get(0).getPitch());
+    	}
+    	for(int i = 5; i < 7; i++)
+    	{
+    		assertEquals((Double) 1.0, instance.playsounds.get(i).sounds.get(0).getVolume());
+        	assertEquals((Boolean) true, instance.playsounds.get(i).sounds.get(0).getStream());
+        	assertEquals((Boolean) true, instance.playsounds.get(i).sounds.get(0).getLOLM());
+        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getDirectory());
+    	}
+    	
+    	for(int i = 6; i >= 0; i--)
+    	{
+    		instance.playsounds.remove(i);
+    		assertEquals(i, instance.playsounds.size());
+    	}
+    }
 }
