@@ -8,17 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="HomeBackground" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="943.0">
       <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="943.0">
                <children>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="500.0" spacing="20.0">
+                  <VBox id="HomeMainBox" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="500.0" spacing="20.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -26,12 +25,12 @@
                         <Insets top="40.0" />
                      </padding>
                      <children>
-                        <Label alignment="CENTER" text="JSON Sound Definitions Editor" textAlignment="CENTER">
+                        <Label id="HomeText" alignment="CENTER" text="JSON Sound Definitions Editor" textAlignment="CENTER">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="450.0" spacing="10.0" style="-fx-background-color: lightgray;">
+                        <VBox id="GetStartedBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="450.0" spacing="10.0" style="-fx-background-color: lightgray;">
                            <children>
                               <Label text="Get Started">
                                  <font>
@@ -50,20 +49,28 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="Login With Google">
+                              <Label id="HomeText" text="Login With Google">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
                            </children>
                         </VBox>
+                        <HBox>
+                           <children>
+                              <Label id="HomeText" text="Developed by Scott Corbat, Pablo Delgado, Noah Harris, Adam Kreuger, Charles Vidro" />
+                           </children>
+                           <padding>
+                              <Insets bottom="2.0" left="5.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </VBox>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="943.0" spacing="15.0">
+                  <HBox id="HomeSaveBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="943.0" spacing="15.0" stylesheets="@stylesheet.css">
                      <children>
-                        <Button fx:id="openProjectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#importSoundDefinitions" prefHeight="125.0" prefWidth="125.0">
+                        <Button id="OutsideBox" fx:id="openProjectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#importSoundDefinitions" prefHeight="125.0" prefWidth="125.0">
                            <graphic>
-                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@folder.png" />
                                  </image>
@@ -72,16 +79,16 @@
                         </Button>
                         <HBox prefHeight="125.0" spacing="2.0">
                            <children>
-                              <Button fx:id="project1Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
-                              <Button fx:id="project2Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
-                              <Button fx:id="project3Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
-                              <Button fx:id="project4Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
-                              <Button fx:id="project5Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button id="save" fx:id="project1Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" stylesheets="@stylesheet.css" textAlignment="CENTER" wrapText="true" />
+                              <Button id="save" fx:id="project2Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button id="save" fx:id="project3Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button id="save" fx:id="project4Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
+                              <Button id="save" fx:id="project5Button" disable="true" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" textAlignment="CENTER" wrapText="true" />
                            </children>
                         </HBox>
-                        <Button fx:id="NewProjectButton" mnemonicParsing="false" onAction="#newProject" prefHeight="125.0" prefWidth="125.0">
+                        <Button id="OutsideBox" fx:id="NewProjectButton" mnemonicParsing="false" onAction="#newProject" prefHeight="125.0" prefWidth="125.0">
                            <graphic>
-                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView id="OutsideBox" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@plus.png" />
                                  </image>
@@ -98,18 +105,4 @@
       </children>
       </AnchorPane>
    </center>
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <Region maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1.0" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </top>
-   <bottom>
-      <VBox>
-         <children>
-            <Region maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1.0" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </bottom>
 </BorderPane>
