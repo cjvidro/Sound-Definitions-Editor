@@ -27,6 +27,7 @@ public class SoundIO {
 			EditorData instance = EditorData.getInstance();
 			
 			for(Object ps: newPlaySound.keySet()) {
+				//System.out.println("Key = " + ps + " Value = " + newPlaySound.get(ps));
 				//Create a new Playsound
 				Playsound playsound = new Playsound();
 				
@@ -43,6 +44,7 @@ public class SoundIO {
 				
 				for(Object ps2: next.keySet())
 				{
+					//System.out.println("Key = " + ps2 + " Value = " + next.get(ps2));
 					if(ps2.toString().equals("category"))
 					{
 						//Set Category
@@ -69,6 +71,10 @@ public class SoundIO {
 						else if(next.get(ps2).toString().equals("player"))
 						{
 							instance.playsounds.get(instance.playsounds.size() - 1).setCategory(Category.player);
+						}
+						else if(next.get(ps2).toString().equals("hostile"))
+						{
+							instance.playsounds.get(instance.playsounds.size() - 1).setCategory(Category.hostile);
 						}
 					}
 					else if(ps2.toString().equals("min_distance"))
@@ -101,7 +107,7 @@ public class SoundIO {
 								if(s.toString().equals("name"))
 								{
 									directory = obj.get(s).toString();
-								}	
+								}
 								else if(s.toString().equals("stream"))
 								{
 									stream = (Boolean) obj.get(s);
@@ -119,10 +125,10 @@ public class SoundIO {
 									lolm = (Boolean) obj.get(s);
 								}
 							}
-						}
-						
-						//setting playsound with all values
-						instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, pitch, volume, lolm);
+							
+							//setting playsound with all values
+							instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, pitch, volume, lolm);
+						}	
 					}
 				}
 			}
