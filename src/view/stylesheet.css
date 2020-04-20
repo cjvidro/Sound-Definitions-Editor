@@ -1,12 +1,25 @@
 /*
 ADD PLAYSOUND
  */
-#AddPlaysoundBackground {
+#AddPlaysoundBackground, #TemplateBackground {
  -fx-background-color: #515151;
 }
 
-#AddPlaysoundBackground *.label {
+#AddPlaysoundBackground *.label, #TemplateBackground *.label {
  -fx-text-fill: #ebebeb;
+}
+
+#AddPlaysoundBackground *.button, #TemplateBackground *.button {
+ -fx-text-fill: #ebebeb;
+ -fx-border-color: #313131;
+ -fx-border-width: 1;
+ -fx-border-radius: 0;
+ -fx-background-insets: 0;
+ -fx-background-color: #797979;
+}
+
+#AddPlaysoundBackground *.button:hover, #TemplateBackground *.button:hover{
+ -fx-background-color: #919191;
 }
 
 *.text-field, *.combo-box, *.check-box .box {
@@ -17,19 +30,6 @@ ADD PLAYSOUND
 *.combo-box .cell {
  -fx-text-fill: #ebebeb;
  -fx-background-color: #666666;
-}
-
-#AddPlaysoundBackground *.button {
- -fx-text-fill: #ebebeb;
- -fx-border-color: #313131;
- -fx-border-width: 1;
- -fx-border-radius: 0;
- -fx-background-insets: 0;
- -fx-background-color: #797979;
-}
-
-#AddPlaysoundBackground *.button:hover{
- -fx-background-color: #919191;
 }
 
 .check-box:selected .mark {
