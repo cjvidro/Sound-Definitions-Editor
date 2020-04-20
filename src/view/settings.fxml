@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane minHeight="-1.0" minWidth="-1.0">
          <children>
-            <VBox spacing="10.0">
+            <VBox alignment="CENTER" spacing="10.0">
                <children>
                   <HBox alignment="CENTER">
                      <children>
@@ -45,29 +45,12 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <Label text="Load On Low Memory:">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region minWidth="25.0" HBox.hgrow="ALWAYS" />
-                        <ToggleButton selected="true" text="Always">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="LOLM" />
-                           </toggleGroup>
-                        </ToggleButton>
-                        <ToggleButton text="First" toggleGroup="$LOLM" />
-                        <ToggleButton text="Alternate" toggleGroup="$LOLM" />
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
                         <Label text="Web Backups:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region minWidth="50.0" HBox.hgrow="ALWAYS" />
                         <ToggleButton text="On">
                            <toggleGroup>
                               <ToggleGroup fx:id="Web_Backup" />
