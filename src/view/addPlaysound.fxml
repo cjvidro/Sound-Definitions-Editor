@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="addPlaysoundBackground" minHeight="-1.0" minWidth="-1.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox spacing="10.0" stylesheets="@stylesheet.css">
+      <VBox id="AddPlaysoundBackground" spacing="10.0" stylesheets="@stylesheet.css">
          <children>
             <Label stylesheets="@stylesheet.css" text="Add Playsound" underline="true">
                <font>
@@ -128,7 +128,6 @@
                                           <Font size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <Region HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
@@ -166,10 +165,15 @@
                                           <Font size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <Region HBox.hgrow="ALWAYS" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </HBox>
                            </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                         </VBox>
                      </children>
                   </HBox>
@@ -204,7 +208,7 @@
             </HBox>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" right="10.0" top="5.0" />
          </padding>
       </VBox>
    </children>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox spacing="10.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="removeSoundButton" mnemonicParsing="false" onAction="#removeSound" prefHeight="25.0" prefWidth="25.0">
          <graphic>
@@ -48,7 +48,6 @@
                         <Font size="16.0" />
                      </font>
                   </CheckBox>
-                  <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox spacing="10.0">
@@ -86,7 +85,6 @@
                         <Font size="16.0" />
                      </font>
                   </CheckBox>
-                  <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
