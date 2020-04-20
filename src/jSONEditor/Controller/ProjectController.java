@@ -112,10 +112,6 @@ public class ProjectController {
          * INSERT POPULATE TEMPLATES
          */
 
-        /*
-         * CALL READ SOUND DEFINITIONS
-         */
-
         // Populate the playsounds on the LHS
         populatePlaysounds();
     }

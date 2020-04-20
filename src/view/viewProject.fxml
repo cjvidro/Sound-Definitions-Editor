@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="CoreBackground" fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <HBox VBox.vgrow="NEVER">
          <children>
@@ -27,7 +27,7 @@
             <menus>
               <Menu mnemonicParsing="false" text="File">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem id="item" mnemonicParsing="false" text="New" />
                   <MenuItem mnemonicParsing="false" text="Open…" />
                   <Menu fx:id="recentProjects" mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -50,24 +50,24 @@
               </Menu>
             </menus>
           </MenuBar>
-            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-            <Button mnemonicParsing="false" text="Help" />
+            <Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+            <Button id="MenuButtons" mnemonicParsing="false" text="Help" />
          </children>
       </HBox>
       <HBox>
          <children>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <ToolBar id="ToolbarBackground" prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
               <items>
                   <VBox alignment="TOP_CENTER">
                      <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                        <HBox alignment="TOP_CENTER">
                            <children>
-                            <Button mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
-                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
-                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProject" text="Save" />
+                            <Button id="ToolbarButton" mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
+                              <Button id="ToolbarButton" fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
+                              <Button id="ToolbarButton" fx:id="saveButton" mnemonicParsing="false" onAction="#saveProject" text="Save" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">
                            <font>
                               <Font size="9.0" />
                            </font>
@@ -79,10 +79,10 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Edit Changelog" />
+                              <Button id="ToolbarButton" mnemonicParsing="false" text="Edit Changelog" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
+                        <Text id="ToolbarText" fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
                            <font>
                               <Font size="9.0" />
                            </font>
@@ -94,10 +94,10 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
+                              <Button id="ToolbarButton" fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
                            <font>
                               <Font size="9.0" />
                            </font>
@@ -107,15 +107,15 @@
                   <Separator orientation="VERTICAL" />
                   <VBox>
                      <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                        <HBox alignment="TOP_CENTER">
                            <children>
-                              <Button fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
-                              <Button fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
+                              <Button id="ToolbarButton" fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
+                              <Button id="ToolbarButton" fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Template" textAlignment="CENTER">
+                              <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Template" textAlignment="CENTER">
                                  <font>
                                     <Font size="9.0" />
                                  </font>
@@ -129,10 +129,10 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Log In" />
+                              <Button id="ToolbarButton" mnemonicParsing="false" text="Log In" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
                            <font>
                               <Font size="9.0" />
                            </font>
@@ -143,43 +143,37 @@
             </ToolBar>
          </children>
       </HBox>
-    <SplitPane dividerPositions="0.18262806236080179" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane id="CoreBackground" dividerPositions="0.18" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <ScrollPane fitToHeight="true" fitToWidth="true" SplitPane.resizableWithParent="false">
                <content>
-                  <VBox>
+                  <VBox id="CoreBackground">
                      <children>
-                        <Label alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" underline="true" VBox.vgrow="NEVER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
+                        <HBox id="ToolbarBackground" VBox.vgrow="NEVER">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
-                        </Label>
+                           <children>
+                              <Label id="HomeText" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" textFill="#b5b5b5" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                         <VBox fx:id="playsoundsVBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
         <ScrollPane fx:id="coreScrollPane" prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
-              <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" wrapText="false">
-                           <textFill>
-                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-                           </textFill>
-                           <font>
-                      <Font size="18.0" fx:id="x1" />
-                           </font></Label>
-              </children>
-            </AnchorPane>
-          </content>
+               <content>
+                  <AnchorPane />
+               </content>
         </ScrollPane>
       </items>
     </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+    <HBox id="CoreBackground" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
           <font>

@@ -1,3 +1,120 @@
+/*
+VIEW PROJECT
+ */
+.accordion .titled-pane .title{
+ -fx-background-color: #b5b5b5;
+}
+
+.accordion .titled-pane *.content{
+ -fx-border-color: null;
+}
+
+.split-pane-divider {
+ -fx-background-color: #818181;
+ -fx-padding: 0 0.1em 0 0.1em;
+}
+
+.scroll-pane {
+ -fx-background: #515151;
+}
+
+.separator .line {
+ -fx-border-color: #818181;
+ -fx-border-width: 0.2;
+}
+
+.context-menu {
+ -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+ -fx-background-color: #515151;
+ -fx-border-width: 1;
+ -fx-border-color: #282828;
+}
+
+.context-menu > * > .separator > .line {
+ -fx-border-color: #bbbbbb;
+ -fx-border-insets: 0;
+ -fx-stroke-width: 1;
+ -fx-background-insets: 0;
+}
+
+#MenuButtons{
+ -fx-background-color: #515151;
+ -fx-text-fill: #bbbbbb;
+ -fx-background-insets: 0;
+}
+
+#MenuButtons:hover{
+ -fx-background-color: #717171;
+ -fx-text-fill: #ffffff;
+ -fx-background-insets: 0;
+}
+
+.menu-bar {
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+}
+
+.menu {
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+}
+
+.menu:hover {
+ -fx-background-color: #717171;
+ -fx-background-insets: 0;
+}
+
+.menu .label {
+ -fx-text-fill: #bbbbbb;
+}
+
+.menu:hover .label {
+ -fx-text-fill: #ffffff;
+}
+
+.menu-item {
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+}
+
+.menu-item:hover{
+ -fx-background-color: #717171;
+ -fx-background-insets: 0;
+}
+
+.menu-item .label {
+ -fx-text-fill: #bbbbbb;
+}
+
+.menu-item:hover .label {
+ -fx-text-fill: #ffffff;
+}
+
+#ToolbarBackground{
+ -fx-background-color: #333333;
+ -fx-background-insets: 0;
+}
+
+#ToolbarButton{
+ -fx-background-color: #333333;
+ -fx-background-insets: 0;
+ -fx-text-fill: #b5b5b5;
+}
+
+#ToolbarButton:hover {
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+ -fx-text-fill: #cccccc;
+}
+
+#CoreBackground{
+ -fx-background-color: #515151;
+}
+
+/*
+HOME SCREEN AND SUCH
+ */
+
 #GetStartedBox{
  -fx-background-color: #dddddd;
 }
