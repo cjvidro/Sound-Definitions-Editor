@@ -15,7 +15,7 @@
    <children>
       <Button fx:id="removeSoundButton" mnemonicParsing="false" onAction="#removeSound" prefHeight="25.0" prefWidth="25.0">
          <graphic>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#removeSound" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@remove.png" />
                </image>
