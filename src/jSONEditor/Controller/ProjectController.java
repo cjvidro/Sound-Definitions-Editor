@@ -154,11 +154,15 @@ public class ProjectController {
         if(editTemplateDropdown != null) {
         	for(Template template: EditorData.getInstance().templates) {
         		MenuItem item = new MenuItem();
+        		
         		item.setText(template.getName());
         		
         		item.setOnAction(new EventHandler<ActionEvent>() {
+        			
                     @Override
                     public void handle(ActionEvent event) {
+                    	EditTemplateController edit = new EditTemplateController();
+            			edit.setTemplate(template);
                         try {
 							showEditTemplate(event);
 						} catch (IOException e) {
@@ -830,6 +834,27 @@ public class ProjectController {
                 }
             }
         }
+    }
+    
+    @FXML
+    protected void populateTemplate(String name) {
+    	for(Template template: EditorData.getInstance().templates) {
+    		MenuItem item = new MenuItem();
+    		item.setText(template.getName());
+    		
+    		item.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+						showEditTemplate(event);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            });
+    		
+    		editTemplateDropdown.getItems().add(item);
+    	}
     }
 
     public Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){

@@ -15,7 +15,7 @@ public class EditTemplateController {
 	
 	ProjectController p = new ProjectController();
 	
-	private Template template = instance.templates.get(0);
+	private static Template template;
 	
 	/*****************************************************
      * FXML fields
@@ -53,6 +53,10 @@ public class EditTemplateController {
         }
         
         setAllValues();
+    }
+    
+    public void setTemplate(Template template) {
+    	this.template = template;
     }
     
     private void setAllValues() {
@@ -138,11 +142,12 @@ public class EditTemplateController {
 
     public Stage deleteTemplate(Stage stage) {
         System.out.println("Delete Template");
-
-        /*
-        INSERT DELETE FUNCTIONALITY HERE
-         */
-
+        
+        instance.templates.remove(template);
+        System.out.println("Successfully removed Template " + template.getName());
+        
+        p.populateTemplate(template.getName());
+        
         stage.close();
         stage = null;
         return stage;
