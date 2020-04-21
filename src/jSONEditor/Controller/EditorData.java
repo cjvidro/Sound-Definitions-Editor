@@ -14,6 +14,7 @@ public class EditorData {
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
+    protected String key = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();

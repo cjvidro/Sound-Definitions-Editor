@@ -5,12 +5,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +53,9 @@ public class Main extends Application {
             primaryStage.show();
         }
     
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) throws Exception {
+            MySQLAccess access = new MySQLAccess();
+            access.readDataBase();
+            launch(args);
     }
 }
