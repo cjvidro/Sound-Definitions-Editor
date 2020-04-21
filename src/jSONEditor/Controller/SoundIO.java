@@ -297,6 +297,39 @@ public class SoundIO {
 		System.out.println("Saved project as " + selectedDirectory.getName());
 		return true;
 	}
+	
+	public static String selectedDirectoryName(){
+		// get the new file folder
+		File selectedDirectory = chooseDirectory();
+
+		if (selectedDirectory == null) {
+			System.out.println("Failed to export!");
+			return null;
+		}
+
+		// Check if this save already exists
+		File[] array = EditorData.getInstance().saves;
+		for (File file : array) {
+			if (file != null && selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
+				System.out.println("A JSON file with this file path already exists!");
+				return null;
+			}
+		}
+
+		// set the current directory
+		EditorData.getInstance().currentDirectory = selectedDirectory;
+
+		// save the save directory
+		for (int i = 3; i >= 0; i--) {
+			// shift current saves
+			EditorData.getInstance().saves[i + 1] = array[i];
+		}
+
+		EditorData.getInstance().saves[0] = selectedDirectory;
+		EditorData.serializeSaves();
+
+		return selectedDirectory.getName();
+	}
 
 	public static boolean saveProject() {
 		File selectedDirectory = EditorData.getInstance().currentDirectory;
