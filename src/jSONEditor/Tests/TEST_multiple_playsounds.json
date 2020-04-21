@@ -1,0 +1,86 @@
+{
+  "PS4": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": false,
+        "load_on_low_memory": false,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "weather"
+  },
+  "PS3": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": false,
+        "load_on_low_memory": false,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "hostile"
+  },
+  "PS6": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": false,
+        "load_on_low_memory": false,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "neutral"
+  },
+  "PS5": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": false,
+        "load_on_low_memory": false,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "neutral"
+  },
+  "PS7": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": false,
+        "load_on_low_memory": false,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "player"
+  },
+  "PS2": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": true,
+        "load_on_low_memory": true,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "music"
+  },
+  "PS1": {
+    "sounds": [
+      {
+        "volume": 1.0,
+        "stream": true,
+        "load_on_low_memory": true,
+        "name": "sounds/sounds/sound",
+        "pitch": 1.0
+      }
+    ],
+    "category": "ui"
+  }
+}

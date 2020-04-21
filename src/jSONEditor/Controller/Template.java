@@ -16,8 +16,8 @@ public class Template {
     private Boolean lolm; // load_on_low_memory property
 
     // Other:
-    private int LOLMSetting = 0; // 0: No effect; 1: auto true; 2: auto false; 3: First true remaining are false; 4: Alternate starting with true; 5. Alternate starting with false.
-    private boolean first = true; // Helper for detectLOLMSetting. This will help when the LOLMSetting is set to 3, 4, or 5.
+    private int LOLMSetting = 0; // 0: auto true; 1: auto false; 2: First true remaining are false; 3: Alternate starting with true;
+    private boolean first = true; // Helper for detectLOLMSetting. This will help when the LOLMSetting is set to 2 or 3.
     
     /*
      * Sets all default playsounds for user.
@@ -44,17 +44,13 @@ public class Template {
 	public Boolean detectLOLMSetting() {
     	if(getLOLMSetting() == 0)
     	{
-    		return getDefaultLOLM();
+    		return true;
     	}
     	else if(getLOLMSetting() == 1)
     	{
-    		return true;
-    	}
-    	else if(getLOLMSetting() == 2)
-    	{
     		return false;
     	}
-    	else if(getLOLMSetting() == 3)
+    	else if(getLOLMSetting() == 2)
     	{
     		if(first)
     		{
@@ -65,26 +61,11 @@ public class Template {
     		
     		return false;
     	}
-    	else if(getLOLMSetting() == 4)
-    	{
-    		if(first)
-    		{
-    			setDefaultLOLM(true);
-    			
-    			first = false;
-    			
-    			return getDefaultLOLM();
-    		}
-    		
-    		setDefaultLOLM(!getDefaultLOLM());
-    		
-    		return getDefaultLOLM();
-    	}
     	else
     	{
     		if(first)
     		{
-    			setDefaultLOLM(false);
+    			setDefaultLOLM(true);
     			
     			first = false;
     			
@@ -148,11 +129,11 @@ public class Template {
 		this.volume = volume;
 	}
 
-	public Boolean getDefaultLOLM() {
+	private Boolean getDefaultLOLM() {
 		return lolm;
 	}
 
-	public void setDefaultLOLM(Boolean lolm) {
+	private void setDefaultLOLM(Boolean lolm) {
 		this.lolm = lolm;
 	}
 
@@ -170,7 +151,7 @@ public class Template {
 		this.name = name;
 	}
 
-	public String getString() {
+	public String getName() {
 		return name;
 	}
 }

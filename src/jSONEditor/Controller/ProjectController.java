@@ -8,6 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,6 +42,7 @@ public class ProjectController {
     @FXML public TextField nameField;
     @FXML public TextField incrementBox;
     @FXML public ComboBox categoryBox;
+    @FXML public ComboBox templateBox;
     @FXML public TextField minDistanceField;
     @FXML public TextField maxDistanceField;
 
@@ -63,6 +71,13 @@ public class ProjectController {
         if (categoryBox != null) {
             for (Category category : Category.values()) {
                 categoryBox.getItems().addAll(category);
+            }
+        }
+
+        // populate templates
+        if (templateBox != null) {
+            for (Template template : editorData.templates) {
+                templateBox.getItems().addAll(template.getName());
             }
         }
 
@@ -107,10 +122,6 @@ public class ProjectController {
                 }
             }
         }
-
-        /*
-         * INSERT POPULATE TEMPLATES
-         */
 
         // Populate the playsounds on the LHS
         populatePlaysounds();
@@ -201,7 +212,7 @@ public class ProjectController {
         // set JavaFX stage details
         Stage addTemplateWindow = new Stage();
         addTemplateWindow.setTitle("JSON Sound Definitions Editor - Add Template");
-        addTemplateWindow.setScene(new Scene(root, 325, 400));
+        addTemplateWindow.setScene(new Scene(root));
         addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
         addTemplateWindow.setResizable(false);
         addTemplateWindow.show();
@@ -222,7 +233,7 @@ public class ProjectController {
         // set JavaFX stage details
         Stage editTemplateWindow = new Stage();
         editTemplateWindow.setTitle("JSON Sound Definitions Editor - Edit Template");
-        editTemplateWindow.setScene(new Scene(root, 325, 400));
+        editTemplateWindow.setScene(new Scene(root));
         editTemplateWindow.initModality(Modality.APPLICATION_MODAL);
         editTemplateWindow.setResizable(false);
         editTemplateWindow.show();
@@ -360,7 +371,11 @@ public class ProjectController {
         }
 
         try {
-            Double.parseDouble(string);
+            Double num = Double.parseDouble(string);
+            if (num < 0) {
+                System.out.println("Double was negative!");
+                return false;
+            }
         } catch (NumberFormatException e) {
             System.out.println("Could not parse double");
             return false;
@@ -535,6 +550,54 @@ public class ProjectController {
         soundControllerReference = myController;
 
         return (VBox) ((HBox) sound).getChildren().get(1);
+    }
+
+    @FXML private void updateTemplate() {
+        if (templateBox != null) {
+            String name = (String)templateBox.getValue();
+            Template template = null;
+            for (Template templateRef : editorData.templates) {
+                if (templateRef.getName().equals(name)) {
+                    template = templateRef;
+                    break;
+                }
+            }
+
+            // update values - playsound
+            if (categoryBox != null && template.getDefaultCategory() != null) {
+                categoryBox.setValue(template.getDefaultCategory());
+            }
+            if (minDistanceField != null && template.getDefaultMin() != null) {
+                minDistanceField.setText(template.getDefaultMin() + "");
+            }
+            if (maxDistanceField != null && template.getDefaultMax() != null) {
+                maxDistanceField.setText(template.getDefaultMax() + "");
+            }
+
+            // update values - sound
+            for (Node soundNode : soundsVBox.getChildren()) {
+                HBox overlyingBox = (HBox) soundNode;
+
+                // check if this is the extra "box" for adding more sounds
+                if (overlyingBox != null) {
+                    try {
+                        overlyingBox.getChildren().get(1);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+
+                HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
+
+                ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
+
+                ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+
+                ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultPitch() + ""); //pitch
+
+                ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
+            }
+        }
     }
 
     @FXML

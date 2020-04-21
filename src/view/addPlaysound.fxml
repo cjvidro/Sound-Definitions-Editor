@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane id="addPlaysoundBackground" minHeight="-1.0" minWidth="-1.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox id="AddPlaysoundBackground" spacing="10.0" stylesheets="@stylesheet.css">
@@ -31,7 +32,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <ComboBox prefWidth="150.0" promptText="Select Template" stylesheets="@stylesheet.css" />
+                  <ComboBox fx:id="templateBox" onAction="#updateTemplate" prefWidth="150.0" promptText="Select Template" stylesheets="@stylesheet.css" />
                </children>
             </HBox>
             <HBox spacing="10.0">
