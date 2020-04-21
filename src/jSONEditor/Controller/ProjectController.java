@@ -123,10 +123,6 @@ public class ProjectController {
             }
         }
 
-        /*
-         * CALL READ SOUND DEFINITIONS
-         */
-
         // Populate the playsounds on the LHS
         populatePlaysounds();
     }
@@ -625,6 +621,8 @@ public class ProjectController {
         HBox sound = (HBox) button.getParent();
 
         soundsVBoxReference.getChildren().remove(sound);
+
+        System.out.println("Removed sound");
     }
 
     protected Stage saveAddPlaysound(Stage viewProjectWindow) throws IOException {
@@ -797,6 +795,7 @@ public class ProjectController {
         }
 
         editPlaysoundControllerReference = controller;
+        soundsVBoxReference = controller.soundsVBox;
 
         coreScrollpaneReference.setContent(addPlaysound);
 
@@ -839,6 +838,7 @@ public class ProjectController {
         }
 
         editPlaysoundControllerReference = controller;
+        soundsVBoxReference = controller.soundsVBox;
 
         coreScrollpaneReference.setContent(addPlaysound);
 

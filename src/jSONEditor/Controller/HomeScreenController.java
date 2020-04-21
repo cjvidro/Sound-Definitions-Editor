@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,6 +96,12 @@ public class HomeScreenController {
         Stage viewProject = new Stage();
         viewProject.setTitle("JSON Sound Definitions Editor");
         viewProject.setScene(new Scene(root, 1280, 720));
+        viewProject.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         viewProject.show();
 
         // close the current
@@ -125,6 +132,12 @@ public class HomeScreenController {
         Stage viewProject = new Stage();
         viewProject.setTitle("JSON Sound Definitions Editor");
         viewProject.setScene(new Scene(root, 1280, 720));
+        viewProject.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         viewProject.show();
 
         // close the current window
@@ -138,7 +151,6 @@ public class HomeScreenController {
     private void newProject(ActionEvent event) throws IOException {
         // Calls the above helper function for testing purposes
         newProject((Stage) ((Button) event.getSource()).getScene().getWindow());
-
     }
 
     public Stage closeHomeScreen(Stage settingsStage) {
@@ -163,6 +175,12 @@ public class HomeScreenController {
         Stage viewProject = new Stage();
         viewProject.setTitle("JSON Sound Definitions Editor");
         viewProject.setScene(new Scene(root, 1280, 720));
+        viewProject.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         viewProject.show();
 
         // close the current
