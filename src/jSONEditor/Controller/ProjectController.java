@@ -591,9 +591,13 @@ public class ProjectController {
 
                 ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
 
-                ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+                if (template.getDefaultVolume() != null) {
+                    ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+                }
 
-                ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultPitch() + ""); //pitch
+                if (template.getDefaultPitch() != null) {
+                    ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultPitch() + ""); //pitch
+                }
 
                 ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
             }

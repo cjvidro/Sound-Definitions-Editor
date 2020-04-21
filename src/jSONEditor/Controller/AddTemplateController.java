@@ -100,8 +100,6 @@ public class AddTemplateController {
 				} else if (LOLMBox.getValue().equals("Alternate true and false")) {
 					template.setLOLMSetting(3);
 				}
-			} else {
-    			template.setDefaultCategory(null);
 			}
     		
     		instance.templates.add(template);
@@ -121,7 +119,8 @@ public class AddTemplateController {
     			System.out.println("Min distance was invalid!");
     			return false;
     		} else {
-				if (Double.parseDouble(minField.getText()) < 0) {
+    			String text = minField.getText();
+				if (!text.equals("") && Double.parseDouble(text) < 0) {
 					System.out.println("Min distance was negative!");
 					return false;
 				}
@@ -131,7 +130,8 @@ public class AddTemplateController {
     			System.out.println("Max distance was invalid!");
     			return false;
     		} else {
-				if (Double.parseDouble(maxField.getText()) < 0) {
+				String text = maxField.getText();
+				if (!text.equals("") && Double.parseDouble(maxField.getText()) < 0) {
 					System.out.println("Max distance was negative!");
 					return false;
 				}
@@ -141,7 +141,8 @@ public class AddTemplateController {
 				System.out.println("Pitch was invalid!");
     			return false;
     		} else {
-				if (Double.parseDouble(pitchField.getText()) < 0) {
+				String text = pitchField.getText();
+				if (!text.equals("") && Double.parseDouble(pitchField.getText()) < 0) {
 					System.out.println("Pitch was negative!");
 					return false;
 				}
@@ -151,13 +152,15 @@ public class AddTemplateController {
 				System.out.println("Volume was invalid!");
     			return false;
     		} else {
-				if (Double.parseDouble(volumeField.getText()) < 0) {
+				String text = pitchField.getText();
+				if (!text.equals("") && Double.parseDouble(volumeField.getText()) < 0) {
 					System.out.println("Volume was negative!");
 					return false;
 				}
 			}
     		
-    		if(LOLMBox == null) {
+    		if(LOLMBox.getValue() == null) {
+    			System.out.println("Please select a load on low memory setting!");
     			return false;
     		}
     		
