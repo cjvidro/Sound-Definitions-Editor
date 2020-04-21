@@ -205,7 +205,7 @@ public class ProjectController {
         // set JavaFX stage details
         Stage addTemplateWindow = new Stage();
         addTemplateWindow.setTitle("JSON Sound Definitions Editor - Add Template");
-        addTemplateWindow.setScene(new Scene(root, 325, 400));
+        addTemplateWindow.setScene(new Scene(root));
         addTemplateWindow.initModality(Modality.APPLICATION_MODAL);
         addTemplateWindow.setResizable(false);
         addTemplateWindow.show();
@@ -226,7 +226,7 @@ public class ProjectController {
         // set JavaFX stage details
         Stage editTemplateWindow = new Stage();
         editTemplateWindow.setTitle("JSON Sound Definitions Editor - Edit Template");
-        editTemplateWindow.setScene(new Scene(root, 325, 400));
+        editTemplateWindow.setScene(new Scene(root));
         editTemplateWindow.initModality(Modality.APPLICATION_MODAL);
         editTemplateWindow.setResizable(false);
         editTemplateWindow.show();

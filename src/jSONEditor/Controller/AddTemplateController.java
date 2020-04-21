@@ -56,52 +56,53 @@ public class AddTemplateController {
     	boolean valid = validateTemplate();
     	
     	if(valid)
-    	{ 
+    	{
     		template.setName(templateName.getText());
     		template.setDefaultCategory((Category) catBox.getValue());
-    	
+
     		if(!minField.getText().equals("")) {
     			template.setDefaultMin(Double.parseDouble(minField.getText()));
     		}
     		else {
     			template.setDefaultMin(null);
     		}
-    	
+
     		if(!maxField.getText().equals("")) {
     			template.setDefaultMax(Double.parseDouble(maxField.getText()));
     		}
     		else {
     			template.setDefaultMax(null);
     		}
-    	
+
     		template.setDefaultStream(streamBox.isSelected());
-    	
+
     		if(!volumeField.getText().equals("")) {
     			template.setDefaultVolume(Double.parseDouble(volumeField.getText()));
-    		}	
+    		}
     		else {
     			template.setDefaultVolume(null);
     		}
-    	
+
     		if(!pitchField.getText().equals("")) {
     			template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
     		}
     		else {
     			template.setDefaultPitch(null);
     		}
-    	
-    		if(LOLMBox.getValue().equals("All true")) {
-    			template.setLOLMSetting(0);
-    		}
-    		else if(LOLMBox.getValue().equals("All false")) {
-    			template.setLOLMSetting(1);
-    		}
-    		else if(LOLMBox.getValue().equals("First true, remaining false")) {
-    			template.setLOLMSetting(2);
-    		}	
-    		else if(LOLMBox.getValue().equals("Alternate true and false")) {
-    			template.setLOLMSetting(3);
-    		}
+
+    		if (LOLMBox.getValue() != null) {
+				if (LOLMBox.getValue().equals("All true")) {
+					template.setLOLMSetting(0);
+				} else if (LOLMBox.getValue().equals("All false")) {
+					template.setLOLMSetting(1);
+				} else if (LOLMBox.getValue().equals("First true, remaining false")) {
+					template.setLOLMSetting(2);
+				} else if (LOLMBox.getValue().equals("Alternate true and false")) {
+					template.setLOLMSetting(3);
+				}
+			} else {
+    			template.setDefaultCategory(null);
+			}
     		
     		instance.templates.add(template);
     	}
@@ -110,25 +111,29 @@ public class AddTemplateController {
     }
     
     private boolean validateTemplate() {
-    	if(templateName != null)
-    	{
-    		if(catBox == null) {
-    			return false;
-    		}
+    	if(templateName != null) {
+			if(templateName.getText().equals("")) {
+				System.out.println("Template name was empty!");
+				return false;
+			}
     			
     		if(minField != null &&  !p.checkDouble(minField.getText())) {
+    			System.out.println("Min distance was invalid!");
     			return false;
     		}
     		
     		if(maxField != null && !p.checkDouble(maxField.getText())) {
+    			System.out.println("Max distance was invalid!");
     			return false;
     		}
     		
     		if(pitchField != null && !p.checkDouble(pitchField.getText())) {
+				System.out.println("Pitch was invalid!");
     			return false;
     		}
     		
     		if(volumeField != null && !p.checkDouble(volumeField.getText())) {
+				System.out.println("Volume was invalid!");
     			return false;
     		}
     		
@@ -138,7 +143,8 @@ public class AddTemplateController {
     		
     		return true;
     	}
-    	
+
+		System.out.println("Scene not valid");
     	return false;
     }
     
@@ -148,10 +154,6 @@ public class AddTemplateController {
 	
     public Stage cancelAddTemplate(Stage stage) {
         System.out.println("Cancel Add Template");
-
-        /*
-        INSERT CANCEL FUNCTIONALITY HERE
-         */
 
         stage.close();
         stage = null;
@@ -172,11 +174,11 @@ public class AddTemplateController {
         if (success) {
             System.out.print("Added template ");
             System.out.println(instance.templates.get(instance.templates.size() - 1).getName());
+
+			stage.close();
+			stage = null;
         }
 
-
-        stage.close();
-        stage = null;
         return stage;
     }
 
