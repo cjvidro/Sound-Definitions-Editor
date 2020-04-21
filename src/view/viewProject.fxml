@@ -27,8 +27,7 @@
             <menus>
               <Menu mnemonicParsing="false" text="File">
                 <items>
-                  <MenuItem id="item" mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open…" />
+                  <MenuItem id="item" mnemonicParsing="false" onAction="#newProject" text="New" />
                   <Menu fx:id="recentProjects" mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />

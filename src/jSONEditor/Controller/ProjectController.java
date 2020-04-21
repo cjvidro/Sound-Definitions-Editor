@@ -23,9 +23,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -1034,5 +1034,14 @@ public class ProjectController {
     protected void importSoundDefinitions() {
         SoundIO.importSoundDefinitions();
         populatePlaysounds();
+    }
+
+    @FXML
+    private void newProject() {
+        editorData.currentDirectory = null;
+        editorData.playsounds = new ArrayList<>();
+        populatePlaysounds();
+
+        System.out.println("New Project!");
     }
 }
