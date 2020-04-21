@@ -53,6 +53,7 @@ public class ProjectController {
     @FXML private TextField referenceName;
     @FXML private TextField referenceGroup;
     @FXML private Menu recentProjects;
+    @FXML private Menu editTemplateDropdown;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
@@ -122,7 +123,54 @@ public class ProjectController {
                 }
             }
         }
-
+        
+        if(EditorData.getInstance().templates.size() == 0)
+        {
+        	Template template = new Template();
+        	template.setName("thing");
+        	template.setDefaultCategory(Category.master);
+        	template.setDefaultMin(10.0);
+        	template.setDefaultMax(10.0);
+        	template.setDefaultStream(true);
+        	template.setDefaultVolume(10.0);
+        	template.setDefaultPitch(10.0);
+        	template.setLOLMSetting(0);
+        	
+        	EditorData.getInstance().templates.add(template);
+        	
+        	Template template2 = new Template();
+        	template2.setName("thing2");
+        	template2.setDefaultCategory(Category.master);
+        	template2.setDefaultMin(10.0);
+        	template2.setDefaultMax(10.0);
+        	template2.setDefaultStream(true);
+        	template2.setDefaultVolume(10.0);
+        	template2.setDefaultPitch(10.0);
+        	template2.setLOLMSetting(0);
+        	
+        	EditorData.getInstance().templates.add(template2);
+        }
+        
+        if(editTemplateDropdown != null) {
+        	for(Template template: EditorData.getInstance().templates) {
+        		MenuItem item = new MenuItem();
+        		item.setText(template.getName());
+        		
+        		item.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+							showEditTemplate(event);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+                    }
+                });
+        		
+        		editTemplateDropdown.getItems().add(item);
+        	}
+        }
+        
         // Populate the playsounds on the LHS
         populatePlaysounds();
     }
