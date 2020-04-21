@@ -129,11 +129,11 @@ public class Template {
 		this.volume = volume;
 	}
 
-	public Boolean getDefaultLOLM() {
+	private Boolean getDefaultLOLM() {
 		return lolm;
 	}
 
-	public void setDefaultLOLM(Boolean lolm) {
+	private void setDefaultLOLM(Boolean lolm) {
 		this.lolm = lolm;
 	}
 

@@ -595,8 +595,6 @@ public class ProjectController {
 
                 ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultPitch() + ""); //pitch
 
-                template.getDefaultLOLM();
-
                 ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
             }
         }

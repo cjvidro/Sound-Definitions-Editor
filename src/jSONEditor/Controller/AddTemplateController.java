@@ -120,22 +120,42 @@ public class AddTemplateController {
     		if(minField != null &&  !p.checkDouble(minField.getText())) {
     			System.out.println("Min distance was invalid!");
     			return false;
-    		}
+    		} else {
+				if (Double.parseDouble(minField.getText()) < 0) {
+					System.out.println("Min distance was negative!");
+					return false;
+				}
+			}
     		
     		if(maxField != null && !p.checkDouble(maxField.getText())) {
     			System.out.println("Max distance was invalid!");
     			return false;
-    		}
+    		} else {
+				if (Double.parseDouble(maxField.getText()) < 0) {
+					System.out.println("Max distance was negative!");
+					return false;
+				}
+			}
     		
     		if(pitchField != null && !p.checkDouble(pitchField.getText())) {
 				System.out.println("Pitch was invalid!");
     			return false;
-    		}
+    		} else {
+				if (Double.parseDouble(pitchField.getText()) < 0) {
+					System.out.println("Pitch was negative!");
+					return false;
+				}
+			}
     		
     		if(volumeField != null && !p.checkDouble(volumeField.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
-    		}
+    		} else {
+				if (Double.parseDouble(volumeField.getText()) < 0) {
+					System.out.println("Volume was negative!");
+					return false;
+				}
+			}
     		
     		if(LOLMBox == null) {
     			return false;
@@ -179,7 +199,7 @@ public class AddTemplateController {
 			stage = null;
         }
 
-        return stage;
+        return null;
     }
 
     @FXML
