@@ -375,7 +375,11 @@ public class ProjectController {
         }
 
         try {
-            Double.parseDouble(string);
+            Double num = Double.parseDouble(string);
+            if (num < 0) {
+                System.out.println("Double was negative!");
+                return false;
+            }
         } catch (NumberFormatException e) {
             System.out.println("Could not parse double");
             return false;
