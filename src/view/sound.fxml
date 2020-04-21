@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
+<HBox spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="removeSoundButton" mnemonicParsing="false" onAction="#removeSound" prefHeight="25.0" prefWidth="25.0">
          <graphic>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#removeSound" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@remove.png" />
                </image>
@@ -49,7 +48,6 @@
                         <Font size="16.0" />
                      </font>
                   </CheckBox>
-                  <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox spacing="10.0">
@@ -87,7 +85,6 @@
                         <Font size="16.0" />
                      </font>
                   </CheckBox>
-                  <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
