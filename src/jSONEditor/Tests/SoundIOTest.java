@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class SoundIOTest {
-	/*
 	@Test
     public void testWritePlaysounds() throws IOException {
         // setup stuff
@@ -69,7 +68,6 @@ public class SoundIOTest {
 
         assertTrue(areEqual);
     }
-    */
     
     @Test
     public void testReadPlaysounds() {
