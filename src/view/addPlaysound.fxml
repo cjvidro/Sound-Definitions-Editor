@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -31,7 +31,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <ComboBox prefWidth="150.0" promptText="Select Template" />
+                  <ComboBox fx:id="templateBox" onAction="#updateTemplate" prefWidth="150.0" promptText="Select Template" />
                </children>
             </HBox>
             <HBox spacing="10.0">
