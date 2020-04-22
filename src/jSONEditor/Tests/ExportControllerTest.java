@@ -12,14 +12,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 public class ExportControllerTest {
+	
     private Stage myStage;
     ExportController controller;
     ActionEvent event;
 
     @Before
-    public void start() throws Exception {
-        event = new ActionEvent();
+    public void start() throws Exception{
+    	event = new ActionEvent();
 
         controller = new ExportController(); // the controller for export GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/export.fxml")));
@@ -33,9 +36,10 @@ public class ExportControllerTest {
         myStage.show();
     }
 
+    
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
-
+    
     @Test
     public void testSetup() {
         assertNotNull(myStage);
@@ -47,8 +51,31 @@ public class ExportControllerTest {
         assertNull(controller.closeExport(myStage));
     }
 
+    @Test
+    public void testExport() throws IOException {
+    	controller.directoryName = "Test";
+    	controller.filePath.setText(null);
+    	assertEquals("No Location Selected", controller.export(myStage));
+    	
+    	controller.filePath.setText("");
+    	assertEquals("No Location Selected", controller.export(myStage));
+        
+    	controller.filePath.setText("Test");
+    	assertEquals("No Checked Box", controller.export(myStage));
+    	
+    	controller.fileCheck.setSelected(true);
+    	assertEquals("Wrote File", controller.export(myStage));
+    	
+    	controller.fileCheck.setSelected(false);
+    	controller.logCheck.setSelected(true);
+    	assertEquals("Wrote Changelog", controller.export(myStage));
+    	
+    	controller.fileCheck.setSelected(true);
+    	assertEquals("Wrote Both", controller.export(myStage));  
+    }
+    
     /*@Test
-    public void testExport() {
-        assertNull(controller.export(myStage));
+    public void testSelectLocation() {
+    	assertEquals("Location Selected", controller.selectLocation(myStage));
     }*/
 }

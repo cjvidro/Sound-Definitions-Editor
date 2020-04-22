@@ -12,10 +12,11 @@ import java.io.IOException;
 
 public class ExportController {
 	
-	@FXML public TextField directoryName;
+	@FXML public TextField filePath;
 	@FXML public CheckBox fileCheck;
 	@FXML public CheckBox logCheck;
 	public File selectedDirectory = null;
+	public String directoryName;
 	
     /*****************************************************
      * Change Scenes
@@ -35,36 +36,49 @@ public class ExportController {
         return closeExport((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
-    public void export(Stage stage) {
+    public String export(Stage stage) {
         System.out.println("Export");
         
-        boolean written = false;
         boolean text = false;
+        boolean written = false;
+        String testingString = null;
         
-        if(directoryName.getText() == null || directoryName.getText().compareTo("") == 0)
+        if(filePath.getText() == null || filePath.getText().compareTo("") == 0) {
         	System.out.println("You have not selected a location!");
-        else
+        	testingString = "No Location Selected";
+        }
+        else {
         	text = true;
+        }
         
         if(!fileCheck.isSelected() && !logCheck.isSelected() && text) {
         	System.out.println("You have not checked a box!");
+        	testingString = "No Checked Box";
         }
         
         if(fileCheck.isSelected() && text){
         	SoundIO.exportPlaysounds(selectedDirectory);
-        	System.out.println("Saved JSON file to " + directoryName.getText());
+        	System.out.println("Saved JSON file to " + directoryName);
         	selectedDirectory = null;
+        	testingString = "Wrote File";
         	written = true;
         }
         
         if(logCheck.isSelected() && text){
-        	System.out.println("Saved Changelog to " + directoryName.getText());
+        	System.out.println("Saved Changelog to " + directoryName);
         	selectedDirectory = null;
-        	written = true;
+        	testingString = "Wrote Changelog";
+        	if(written)
+        		testingString = "Wrote Both";
+        	written = true;      	
         }
         
-        if(written)
+        if(written) {
         	closeExport(stage);
+        	return testingString;
+        }
+        
+        return testingString;
     }
 
     @FXML
@@ -73,12 +87,14 @@ public class ExportController {
         export((Stage) ((Button) event.getSource()).getScene().getWindow());
     }
     
-    public void selectLocation(Stage stage) {     
+    public String selectLocation(Stage stage) {     
     	System.out.println("Select Location");
     	
     	selectedDirectory = SoundIO.selectedDirectoryName();
+    	directoryName = selectedDirectory.getName();
+    	filePath.setText(selectedDirectory.getAbsolutePath());
     	
-    	directoryName.setText(selectedDirectory.getAbsolutePath());
+    	return "Location Selected";
     }
     
     @FXML

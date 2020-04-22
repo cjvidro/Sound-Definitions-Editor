@@ -52,7 +52,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="directoryName" prefWidth="200.0">
+                  <TextField fx:id="filePath" prefWidth="200.0">
                      <font>
                         <Font size="14.0" />
                      </font>
