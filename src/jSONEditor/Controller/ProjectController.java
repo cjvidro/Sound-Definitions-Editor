@@ -235,6 +235,27 @@ public class ProjectController {
     }
 
     @FXML
+    public Stage showKey() throws IOException {
+        System.out.println("Show account key window");
+
+        // load FXML and set the controller
+        KeyController controller = new KeyController(); // the controller for the account GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/key.fxml")));
+        loader.setController(controller); // key controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage keyWindow = new Stage();
+        keyWindow.setTitle("JSON Sound Definitions Editor - Account");
+        keyWindow.setScene(new Scene(root));
+        keyWindow.initModality(Modality.APPLICATION_MODAL);
+        keyWindow.setResizable(false);
+        keyWindow.show();
+
+        return keyWindow;
+    }
+
+    @FXML
     public Stage showSettings(ActionEvent event) throws IOException {
         System.out.println("Show Settings");
 

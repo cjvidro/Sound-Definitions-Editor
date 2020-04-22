@@ -2,7 +2,13 @@ package jSONEditor.Controller;
 
 import javafx.scene.control.TitledPane;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class EditorData {
@@ -14,6 +20,10 @@ public class EditorData {
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
+    public static Boolean autosave = null;
+    public static Boolean webBackup = null;
+    protected static String key = null;
+    protected static String username = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();
@@ -22,6 +32,22 @@ public class EditorData {
     public static EditorData getInstance() {
         if (single_instance == null) {
             single_instance = new EditorData();
+
+            try {
+                loadKey();
+            } catch (IOException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            }
         }
 
         // setup saves
@@ -47,6 +73,36 @@ public class EditorData {
                 c.printStackTrace();
             }
         }
+
+
+        // setup settings
+        if (autosave == null || webBackup == null) {
+            // try to load the files
+            try {
+                FileInputStream fis = new FileInputStream("./config/autosave.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                autosave = (Boolean) ois.readObject();
+                ois.close();
+                fis.close();
+
+                fis = new FileInputStream("./config/webBackup.ser");
+                ois = new ObjectInputStream(fis);
+                webBackup = (Boolean) ois.readObject();
+                ois.close();
+                fis.close();
+
+                System.out.println("Successfully loaded settings!");
+            } catch (IOException e) {
+                // e.printStackTrace();
+                System.out.println("Failed to load settings!");
+
+                System.out.println("Creating a new settings. . .");
+                autosave = true;
+                webBackup = true;
+
+                serializeSettings();
+            }
+       }
 
         if (templates == null) {
 
@@ -108,5 +164,87 @@ public class EditorData {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static boolean serializeSettings() {
+        try {
+            // autosave
+            File file = new File("./config");
+            file.mkdir();
+            FileOutputStream fos = new FileOutputStream("./config/autosave.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(autosave);
+            oos.close();
+            fos.close();
+
+            // web Backup
+            fos = new FileOutputStream("./config/webBackup.ser");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(webBackup);
+            oos.close();
+            fos.close();
+
+            System.out.println("Serialized settings");
+            return true;
+        } catch (IOException e) {
+            System.out.println("Failed to serialize settings!");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void saveKey() throws IOException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+        if (MySQLAccess.getUsername() == null) {
+            username = null;
+        }
+
+        // Get AES Key
+        SecretKey myKey = null;
+        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            myKey = (SecretKey) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // generate IV
+        SecureRandom random = new SecureRandom();
+        byte [] iv = new byte [16];
+        random.nextBytes( iv );
+
+        // create cipher
+        Cipher cipher = Cipher.getInstance( myKey.getAlgorithm() + "/CBC/PKCS5Padding" );
+        cipher.init( Cipher.ENCRYPT_MODE, myKey, new IvParameterSpec( iv ) );
+
+        // create sealed object
+        SealedObject sealedEm1 = new SealedObject( key, cipher);
+
+        // Save it
+        FileOutputStream fos = new FileOutputStream("./config/user.aes");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(sealedEm1);
+    }
+
+    public static void loadKey() throws IOException, ClassNotFoundException, InvalidKeyException, NoSuchAlgorithmException {
+        // Get AES Key
+        SecretKey myKey = null;
+        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            myKey = (SecretKey) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Read
+        FileInputStream fis = new FileInputStream("./config/user.aes");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        SealedObject sealedObject = (SealedObject) ois.readObject();
+        key = (String) sealedObject.getObject(myKey);
+
+        System.out.println("Loaded user key!");
+
+        username = MySQLAccess.getUsername();
     }
 }

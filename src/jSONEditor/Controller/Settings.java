@@ -29,9 +29,4 @@ public class Settings {
 	public void allowWebBackup() {
 		web = !web;
 	}
-	
-	//TO DO
-	public void help() {
-		
-	}
 }
