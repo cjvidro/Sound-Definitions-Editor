@@ -50,69 +50,70 @@ public class AddTemplateController {
         }
     }
     
-    public Boolean createTemplate() {
+    public void createTemplate() {
     	Template template = new Template();
     	
-    	boolean valid = validateTemplate();
-    	
-    	if(valid)
-    	{
-    		template.setName(templateName.getText());
-    		template.setDefaultCategory((Category) catBox.getValue());
+    	template.setName(templateName.getText());
+    	template.setDefaultCategory((Category) catBox.getValue());
 
-    		if(!minField.getText().equals("")) {
-    			template.setDefaultMin(Double.parseDouble(minField.getText()));
-    		}
-    		else {
-    			template.setDefaultMin(null);
-    		}
-
-    		if(!maxField.getText().equals("")) {
-    			template.setDefaultMax(Double.parseDouble(maxField.getText()));
-    		}
-    		else {
-    			template.setDefaultMax(null);
-    		}
-
-    		template.setDefaultStream(streamBox.isSelected());
-
-    		if(!volumeField.getText().equals("")) {
-    			template.setDefaultVolume(Double.parseDouble(volumeField.getText()));
-    		}
-    		else {
-    			template.setDefaultVolume(null);
-    		}
-
-    		if(!pitchField.getText().equals("")) {
-    			template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
-    		}
-    		else {
-    			template.setDefaultPitch(null);
-    		}
-
-    		if (LOLMBox.getValue() != null) {
-				if (LOLMBox.getValue().equals("All true")) {
-					template.setLOLMSetting(0);
-				} else if (LOLMBox.getValue().equals("All false")) {
-					template.setLOLMSetting(1);
-				} else if (LOLMBox.getValue().equals("First true, remaining false")) {
-					template.setLOLMSetting(2);
-				} else if (LOLMBox.getValue().equals("Alternate true and false")) {
-					template.setLOLMSetting(3);
-				}
-			}
-    		
-    		instance.templates.add(template);
+    	if(!minField.getText().equals("")) {
+    		template.setDefaultMin(Double.parseDouble(minField.getText()));
     	}
-    	
-    	return valid;
+    	else {
+    		template.setDefaultMin(null);
+    	}
+
+    	if(!maxField.getText().equals("")) {
+    		template.setDefaultMax(Double.parseDouble(maxField.getText()));
+    	}
+    	else {
+    		template.setDefaultMax(null);
+    	}
+
+    	template.setDefaultStream(streamBox.isSelected());
+
+    	if(!volumeField.getText().equals("")) {
+    		template.setDefaultVolume(Double.parseDouble(volumeField.getText()));
+    	}
+    	else {
+    		template.setDefaultVolume(null);
+    	}
+
+    	if(!pitchField.getText().equals("")) {
+    		template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
+    	}
+    	else {
+    		template.setDefaultPitch(null);
+    	}
+
+    	if (LOLMBox.getValue() != null) {
+    		if (LOLMBox.getValue().equals("All true")) {
+    			template.setLOLMSetting(0);
+			} else if (LOLMBox.getValue().equals("All false")) {
+				template.setLOLMSetting(1);
+			} else if (LOLMBox.getValue().equals("First true, remaining false")) {
+				template.setLOLMSetting(2);
+			} else if (LOLMBox.getValue().equals("Alternate true and false")) {
+				template.setLOLMSetting(3);
+			}
+		}
+    		
+    	instance.templates.add(template);
     }
     
-    private boolean validateTemplate() {
+    protected boolean validateTemplate() {
     	if(templateName != null) {
 			if(templateName.getText().equals("")) {
 				System.out.println("Template name was empty!");
 				return false;
+			}
+			else {
+				for(Template template: instance.templates) {
+					if(template.getName().equals(templateName.getText())) {
+						System.out.println("Template names must be unique!");
+						return false;
+					}
+				}
 			}
     			
     		if(minField != null &&  !p.checkDouble(minField.getText())) {
@@ -192,9 +193,11 @@ public class AddTemplateController {
     public Stage saveAddTemplate(Stage stage) {
         System.out.println("Save Add Template");
 
-        boolean success = createTemplate();
+        boolean success = validateTemplate();
 
         if (success) {
+        	createTemplate();
+        	
             System.out.print("Added template ");
             System.out.println(instance.templates.get(instance.templates.size() - 1).getName());
 

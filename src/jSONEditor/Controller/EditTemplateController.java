@@ -99,6 +99,128 @@ public class EditTemplateController {
     		editLoad.setValue("Alternate true and false");
     	}
     }
+    
+    public void createTemplate() {
+    	Template template = new Template();
+    	
+    	template.setName(editTemplate.getText());
+    	template.setDefaultCategory((Category) editCategory.getValue());
+
+    	if(!editMin.getText().equals("")) {
+    		template.setDefaultMin(Double.parseDouble(editMin.getText()));
+    	}
+    	else {
+    		template.setDefaultMin(null);
+    	}
+
+    	if(!editMax.getText().equals("")) {
+    		template.setDefaultMax(Double.parseDouble(editMax.getText()));
+    	}
+    	else {
+    		template.setDefaultMax(null);
+    	}
+
+    	template.setDefaultStream(editStream.isSelected());
+
+    	if(!editVolume.getText().equals("")) {
+    		template.setDefaultVolume(Double.parseDouble(editVolume.getText()));
+    	}
+    	else {
+    		template.setDefaultVolume(null);
+    	}
+
+    	if(!editPitch.getText().equals("")) {
+    		template.setDefaultPitch(Double.parseDouble(editPitch.getText()));
+    	}
+    	else {
+    		template.setDefaultPitch(null);
+    	}
+
+    	if (editLoad.getValue() != null) {
+    		if (editLoad.getValue().equals("All true")) {
+    			template.setLOLMSetting(0);
+			} else if (editLoad.getValue().equals("All false")) {
+				template.setLOLMSetting(1);
+			} else if (editLoad.getValue().equals("First true, remaining false")) {
+				template.setLOLMSetting(2);
+			} else if (editLoad.getValue().equals("Alternate true and false")) {
+				template.setLOLMSetting(3);
+			}
+		}
+    		
+    	instance.templates.add(template);
+    }
+    
+    protected boolean validateTemplate() {
+    	if(editTemplate != null) {
+			if(editTemplate.getText().equals("")) {
+				System.out.println("Template name was empty!");
+				return false;
+			}
+			else {
+				for(Template temp: instance.templates) {
+					if(temp.getName().equals(editTemplate.getText()) && !editTemplate.getText().equals(template.getName())) {
+						System.out.println("Template names must be unique!");
+						return false;
+					}
+				}
+			}
+    			
+    		if(editMin != null &&  !p.checkDouble(editMin.getText())) {
+    			System.out.println("Min distance was invalid!");
+    			return false;
+    		} else {
+    			String text = editMin.getText();
+				if (!text.equals("") && Double.parseDouble(text) < 0) {
+					System.out.println("Min distance was negative!");
+					return false;
+				}
+			}
+    		
+    		if(editMax != null && !p.checkDouble(editMax.getText())) {
+    			System.out.println("Max distance was invalid!");
+    			return false;
+    		} else {
+				String text = editMax.getText();
+				if (!text.equals("") && Double.parseDouble(editMax.getText()) < 0) {
+					System.out.println("Max distance was negative!");
+					return false;
+				}
+			}
+    		
+    		if(editPitch != null && !p.checkDouble(editPitch.getText())) {
+				System.out.println("Pitch was invalid!");
+    			return false;
+    		} else {
+				String text = editPitch.getText();
+				if (!text.equals("") && Double.parseDouble(editPitch.getText()) < 0) {
+					System.out.println("Pitch was negative!");
+					return false;
+				}
+			}
+    		
+    		if(editPitch != null && !p.checkDouble(editPitch.getText())) {
+				System.out.println("Volume was invalid!");
+    			return false;
+    		} else {
+				String text = editPitch.getText();
+				if (!text.equals("") && Double.parseDouble(editPitch.getText()) < 0) {
+					System.out.println("Volume was negative!");
+					return false;
+				}
+			}
+    		
+    		if(editLoad.getValue() == null) {
+    			System.out.println("Please select a load on low memory setting!");
+    			return false;
+    		}
+    		
+    		return true;
+    	}
+
+		System.out.println("Scene not valid");
+    	return false;
+    }
 	
     /*****************************************************
      * Change Scenes
@@ -125,13 +247,19 @@ public class EditTemplateController {
     public Stage saveEditTemplate(Stage stage) {
         System.out.println("Save Edit Template");
 
-        /*
-        INSERT SAVE EDIT FUNCTIONALITY HERE
-         */
-
-        stage.close();
-        stage = null;
-        return stage;
+        boolean success = validateTemplate();
+        
+        if (success) {
+        	instance.templates.remove(template);
+        	createTemplate();
+        	p.populateTemplate();
+        	System.out.println("Successfully edited template " + template.getName());
+            
+			stage.close();
+			stage = null;
+        }
+        
+        return null;
     }
 
     @FXML
@@ -144,9 +272,8 @@ public class EditTemplateController {
         System.out.println("Delete Template");
         
         instance.templates.remove(template);
-        System.out.println("Successfully removed Template " + template.getName());
         
-        p.populateTemplate(template.getName());
+        p.populateTemplate();
         
         stage.close();
         stage = null;

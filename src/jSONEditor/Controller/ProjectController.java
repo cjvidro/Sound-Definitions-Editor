@@ -64,7 +64,8 @@ public class ProjectController {
     public static ProjectController playsoundControllerReference = null; // used for testing
     public static ProjectController soundControllerReference = null; // used for testing
     public static ProjectController editPlaysoundControllerReference = null; // used for testing
-
+    public static Menu editTemplateDropdownReference = null;
+    
     @FXML
     public void initialize() {
 
@@ -103,6 +104,9 @@ public class ProjectController {
             playsoundGroup = referenceGroup;
         }
 
+        if(editTemplateDropdownReference == null) {
+        	editTemplateDropdownReference = editTemplateDropdown;
+        }
         // populate recent projects
         if (recentProjects != null) {
             for (File file : EditorData.getInstance().saves) {
@@ -837,7 +841,9 @@ public class ProjectController {
     }
     
     @FXML
-    protected void populateTemplate(String name) {
+    protected void populateTemplate() {
+    	editTemplateDropdownReference.getItems().clear();
+    	
     	for(Template template: EditorData.getInstance().templates) {
     		MenuItem item = new MenuItem();
     		item.setText(template.getName());
@@ -845,6 +851,8 @@ public class ProjectController {
     		item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                	EditTemplateController edit = new EditTemplateController();
+        			edit.setTemplate(template);
                     try {
 						showEditTemplate(event);
 					} catch (IOException e) {
@@ -853,7 +861,7 @@ public class ProjectController {
                 }
             });
     		
-    		editTemplateDropdown.getItems().add(item);
+    		editTemplateDropdownReference.getItems().add(item);
     	}
     }
 
