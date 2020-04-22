@@ -33,7 +33,7 @@ public class MySQLAccess {
             System.out.println("Successfully connected!");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+    }
 
     }
 

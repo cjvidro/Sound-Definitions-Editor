@@ -139,6 +139,6 @@ public class EditorData {
         SealedObject sealedObject = (SealedObject) ois.readObject();
         key = (String) sealedObject.getObject(myKey);
 
-        System.out.println("Authenticated user!");
+        System.out.println("Loaded user key!");
     }
 }

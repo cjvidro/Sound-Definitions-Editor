@@ -17,43 +17,46 @@ import java.security.NoSuchAlgorithmException;
 public class KeyController {
 
     @FXML
-    private PasswordField keyBox;
+    public PasswordField keyBox;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         // fill key
         if (EditorData.getInstance().key != null) {
             keyBox.setText(EditorData.getInstance().key);
         }
     }
 
-    @FXML
-    private void saveKey(ActionEvent event) {
-        Stage stage = ((Stage) ((Button) event.getSource()).getScene().getWindow());
-
+    public boolean saveKey(Stage stage) {
         String newKey = keyBox.getText();
-        if (newKey.length() == 16) {
+        if (newKey.length() == 64) {
             // same length as key
             // Check if in hexadecimal
             for (Character ch : newKey.toCharArray()) {
                 if ((ch < '0') || (ch > '9' && ch < 'a') || (ch > 'z')) {
                     System.out.println("Key invalid!");
-                    return;
+                    return false;
                 }
             }
         } else {
             System.out.println("Invalid key length!");
-            return;
+            return false;
         }
 
         EditorData.getInstance().key = newKey;
-        saveKey();
+        saveKeyToDisk();
 
         System.out.println("Saved key!");
         closeKey(stage);
+        return true;
     }
 
-    private void saveKey() {
+    @FXML
+    private Boolean saveKey(ActionEvent event) {
+       return saveKey(((Stage) ((Button) event.getSource()).getScene().getWindow()));
+    }
+
+    private void saveKeyToDisk() {
         try {
             EditorData.saveKey();
         } catch (IOException e) {
@@ -78,7 +81,7 @@ public class KeyController {
         // reset key
         keyBox.setText("");
         EditorData.getInstance().key = null;
-        saveKey();
+        saveKeyToDisk();
 
         System.out.println("Reset key!");
         closeKey(stage);
