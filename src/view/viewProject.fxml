@@ -50,7 +50,7 @@
             </menus>
           </MenuBar>
             <Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
-            <Button id="MenuButtons" mnemonicParsing="false" text="Help" />
+            <Button id="MenuButtons" mnemonicParsing="false" onAction="#helpButton" text="Help" />
          </children>
       </HBox>
       <HBox>

@@ -23,8 +23,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -1145,5 +1148,16 @@ public class ProjectController {
         populatePlaysounds();
 
         System.out.println("New Project!");
+    }
+
+    @FXML
+    private void helpButton() {
+        try {
+            Desktop.getDesktop().browse(new URL("https://mhg.scottcorbat.com/help").toURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
