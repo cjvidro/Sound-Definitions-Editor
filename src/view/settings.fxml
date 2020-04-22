@@ -35,12 +35,12 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                          <ToggleButton text="On">
+                          <ToggleButton fx:id="saveOn" text="On">
                            <toggleGroup>
                               <ToggleGroup fx:id="Auto_save" />
                            </toggleGroup>
                         </ToggleButton>
-                          <ToggleButton selected="true" text="Off" toggleGroup="$Auto_save" />
+                          <ToggleButton fx:id="saveOff" selected="true" text="Off" toggleGroup="$Auto_save" />
                      </children>
                   </HBox>
                   <HBox>
@@ -51,12 +51,12 @@
                            </font>
                         </Label>
                         <Region minWidth="50.0" HBox.hgrow="ALWAYS" />
-                        <ToggleButton text="On">
+                        <ToggleButton fx:id="webOn" text="On">
                            <toggleGroup>
                               <ToggleGroup fx:id="Web_Backup" />
                            </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton selected="true" text="Off" toggleGroup="$Web_Backup" />
+                        <ToggleButton fx:id="webOff" selected="true" text="Off" toggleGroup="$Web_Backup" />
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" spacing="15.0">

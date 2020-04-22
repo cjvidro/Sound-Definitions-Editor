@@ -20,8 +20,11 @@ public class EditorData {
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
+    public Boolean autosave = true;
+    public Boolean webBackup = true;
     protected static String key = null;
     protected static String username = null;
+
 
     private EditorData() {
         playsounds = new ArrayList<>();
