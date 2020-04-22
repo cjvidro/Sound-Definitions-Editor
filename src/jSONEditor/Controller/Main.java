@@ -54,8 +54,8 @@ public class Main extends Application {
         }
     
     public static void main(String[] args) throws Exception {
-            MySQLAccess access = new MySQLAccess();
-            access.readDataBase();
-            launch(args);
+        MySQLAccess access = new MySQLAccess();
+        access.readDataBase();
+        launch(args);
     }
 }

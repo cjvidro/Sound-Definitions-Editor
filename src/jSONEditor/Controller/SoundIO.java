@@ -332,6 +332,10 @@ public class SoundIO {
 		Save changelog
 		 */
 
+		// Backup to server
+		MySQLAccess access = new MySQLAccess();
+		access.uploadSoundDef(lastSave);
+
 		System.out.println("Saved project " + selectedDirectory.getName());
 		return true;
 	}
