@@ -298,7 +298,7 @@ public class SoundIO {
 		return true;
 	}
 	
-	public static String selectedDirectoryName(){
+	public static File selectedDirectoryName(){
 		// get the new file folder
 		File selectedDirectory = chooseDirectory();
 
@@ -307,28 +307,16 @@ public class SoundIO {
 			return null;
 		}
 
-		// Check if this save already exists
-		File[] array = EditorData.getInstance().saves;
-		for (File file : array) {
-			if (file != null && selectedDirectory.getAbsoluteFile().equals(file.getAbsoluteFile())) {
-				System.out.println("A JSON file with this file path already exists!");
-				return null;
-			}
+		return selectedDirectory;
+	}
+	
+	public static boolean exportPlaysounds(File selectedDirectory) {
+		if (selectedDirectory == null) {
+			// use default directory
+			return writePlaysounds(new File(""));
+		} else {
+			return writePlaysounds(selectedDirectory);
 		}
-
-		// set the current directory
-		EditorData.getInstance().currentDirectory = selectedDirectory;
-
-		// save the save directory
-		for (int i = 3; i >= 0; i--) {
-			// shift current saves
-			EditorData.getInstance().saves[i + 1] = array[i];
-		}
-
-		EditorData.getInstance().saves[0] = selectedDirectory;
-		EditorData.serializeSaves();
-
-		return selectedDirectory.getName();
 	}
 
 	public static boolean saveProject() {

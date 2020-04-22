@@ -15,6 +15,7 @@ public class ExportController {
 	@FXML public TextField directoryName;
 	@FXML public CheckBox fileCheck;
 	@FXML public CheckBox logCheck;
+	public File selectedDirectory = null;
 	
     /*****************************************************
      * Change Scenes
@@ -37,54 +38,33 @@ public class ExportController {
     public void export(Stage stage) {
         System.out.println("Export");
         
-        boolean writeFile = false;
-        boolean writeLog = false;
+        boolean written = false;
+        boolean text = false;
         
-        if(fileCheck.isSelected() && (directoryName.getText() != null && directoryName.getText().compareTo("") != 0)){
-        	writeFile = SoundIO.writePlaysounds();
-        }
-        
-        if(logCheck.isSelected() && (directoryName.getText() != null && directoryName.getText().compareTo("") != 0)){
-        	writeLog = true;
-        }
-          
-        if(directoryName.getText() == null || directoryName.getText().compareTo("") == 0) {
+        if(directoryName.getText() == null || directoryName.getText().compareTo("") == 0)
         	System.out.println("You have not selected a location!");
-        }
-        else if(!fileCheck.isSelected() && !logCheck.isSelected()) {
+        else
+        	text = true;
+        
+        if(!fileCheck.isSelected() && !logCheck.isSelected() && text) {
         	System.out.println("You have not checked a box!");
         }
-        else if(!writeFile && !writeLog) {
-        	System.out.println("There is already a JSON file and Changelog in " + directoryName.getText());
-        	directoryName.setText(null);
-        }
-        else if(writeFile && writeLog) {
-        	System.out.println("Saved JSON file and Changelog to " + directoryName.getText());
-        	directoryName.setText(null);
-        	closeExport(stage);
-        }
-        else if(writeFile && !logCheck.isSelected()) {
+        
+        if(fileCheck.isSelected() && text){
+        	SoundIO.exportPlaysounds(selectedDirectory);
         	System.out.println("Saved JSON file to " + directoryName.getText());
-        	directoryName.setText(null);
-        	closeExport(stage);
+        	selectedDirectory = null;
+        	written = true;
         }
-        else if(writeFile && !writeLog) {
-        	System.out.println("Saved JSON file to " + directoryName.getText());
-        	System.out.println("There is already a Changelog in " + directoryName.getText());
-        	directoryName.setText(null);
-        	closeExport(stage);
-        }
-        else if(!fileCheck.isSelected() && writeLog) {
+        
+        if(logCheck.isSelected() && text){
         	System.out.println("Saved Changelog to " + directoryName.getText());
-        	directoryName.setText(null);
-        	closeExport(stage);
+        	selectedDirectory = null;
+        	written = true;
         }
-        else if(!writeFile && writeLog) {
-        	System.out.println("Saved Changelog to " + directoryName.getText());
-        	System.out.println("There is already a JSON file in " + directoryName.getText());
-        	directoryName.setText(null);
+        
+        if(written)
         	closeExport(stage);
-        }
     }
 
     @FXML
@@ -96,7 +76,9 @@ public class ExportController {
     public void selectLocation(Stage stage) {     
     	System.out.println("Select Location");
     	
-    	directoryName.setText(SoundIO.selectedDirectoryName());
+    	selectedDirectory = SoundIO.selectedDirectoryName();
+    	
+    	directoryName.setText(selectedDirectory.getName());
     }
     
     @FXML
