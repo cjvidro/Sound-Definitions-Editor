@@ -18,21 +18,23 @@ public class Main extends Application {
         public void start(Stage primaryStage) throws Exception{
             EditorData.getInstance(); // start internal initialization
 
-            // Auto save
-            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-            Runnable autoSave = () -> {
-                System.out.println("Starting auto save. . .");
-                if (EditorData.getInstance().currentDirectory != null) {
-                    if (SoundIO.saveProject()) {
-                        System.out.println("Auto save success!");
+            if (EditorData.getInstance().autosave) {
+                // Auto save
+                ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+                Runnable autoSave = () -> {
+                    System.out.println("Starting auto save. . .");
+                    if (EditorData.getInstance().currentDirectory != null) {
+                        if (SoundIO.saveProject()) {
+                            System.out.println("Auto save success!");
+                        } else {
+                            System.out.println("Failed auto save!");
+                        }
                     } else {
-                        System.out.println("Failed auto save!");
+                        System.out.println("Failed auto save! No current save directory.");
                     }
-                } else {
-                    System.out.println("Failed auto save! No current save directory.");
-                }
-            };
-            executor.scheduleWithFixedDelay(autoSave, 1, 1, TimeUnit.MINUTES);
+                };
+                executor.scheduleWithFixedDelay(autoSave, 1, 1, TimeUnit.MINUTES);
+            }
 
 
             // load FXML and set the controller

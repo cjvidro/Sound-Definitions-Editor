@@ -1,6 +1,5 @@
 package jSONEditor.Controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.control.TitledPane;
 
 import javax.crypto.*;
@@ -25,7 +24,6 @@ public class EditorData {
     public static Boolean webBackup = null;
     protected static String key = null;
     protected static String username = null;
-
 
     private EditorData() {
         playsounds = new ArrayList<>();

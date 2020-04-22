@@ -42,24 +42,6 @@ public class MySQLAccess {
 
 
             statement = connect.createStatement();
-//            rs = statement.executeQuery("use mhg_django;"); // select database
-//            rs = statement.executeQuery("select * from home_sounddef;");
-//
-//            /*
-//            Print result
-//             */
-//            System.out.println("-----------------------------------------------");
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//            int columnsNumber = rsmd.getColumnCount();
-//            while (rs.next()) {
-//                for (int i = 1; i <= columnsNumber; i++) {
-//                    if (i > 1) System.out.print(",  ");
-//                    String columnValue = rs.getString(i);
-//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//                }
-//                System.out.println("");
-//            }
-//            System.out.println("-----------------------------------------------");
         } catch (SQLException e) {
             e.printStackTrace();
     }
@@ -135,6 +117,10 @@ public class MySQLAccess {
     Upload sound_def (File file)
      */
     public static boolean uploadSoundDef(File localFile) {
+        if (EditorData.username == null || EditorData.webBackup == false) {
+            return false;
+        }
+
         EditorData.getInstance(); // initialization
 
         String projectName = EditorData.getInstance().currentDirectory.getName();
