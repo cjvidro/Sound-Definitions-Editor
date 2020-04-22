@@ -1,3 +1,11 @@
 .idea/
 out/
 MHT.iml
+/bin/
+out/
+.classpath
+.project
+src/Test/.classpath
+src/Test/.project
+sound_definitions.json
+config/saves.ser

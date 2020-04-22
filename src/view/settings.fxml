@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox id="EditBackground" alignment="CENTER" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css">
+         <content>
+            <AnchorPane minHeight="-1.0" minWidth="-1.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label alignment="CENTER" text="Settings" textAlignment="CENTER" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Autosave:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Region HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="saveOn" text="On">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="Auto_save" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                                <ToggleButton fx:id="saveOff" selected="true" text="Off" toggleGroup="$Auto_save" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Web Backups:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Region minWidth="50.0" HBox.hgrow="ALWAYS" />
+                              <ToggleButton fx:id="webOn" text="On">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="Web_Backup" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="webOff" selected="true" text="Off" toggleGroup="$Web_Backup" />
+                           </children>
+                        </HBox>
+                        <Label alignment="TOP_LEFT" text="Restart the program for all changes to take effect" underline="true" />
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <Button fx:id="settingsBack" mnemonicParsing="false" onAction="#closeSettings" text="Save">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</HBox>

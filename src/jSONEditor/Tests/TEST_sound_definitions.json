@@ -1,0 +1,16 @@
+{
+  "testName": {
+    "min_distance": 1.3,
+    "sounds": [
+      {
+        "volume": 1.2,
+        "stream": true,
+        "load_on_low_memory": false,
+        "name": "sounds/testDirectory/testSound",
+        "pitch": 4.2
+      }
+    ],
+    "category": "master",
+    "max_distance": 0.6
+  }
+}

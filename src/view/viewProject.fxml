@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="CoreBackground" fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <HBox VBox.vgrow="NEVER">
+         <children>
+          <MenuBar>
+            <menus>
+              <Menu mnemonicParsing="false" text="File">
+                <items>
+                  <MenuItem id="item" mnemonicParsing="false" onAction="#newProject" text="New" />
+                  <Menu fx:id="recentProjects" mnemonicParsing="false" text="Open Recent" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveProjectAs" text="Save As…" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
+                  <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
+                        <MenuItem mnemonicParsing="false" text="Edit Changelog" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+                  <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Template">
+                <items>
+                  <MenuItem fx:id="addTemplate" mnemonicParsing="false" onAction="#showAddTemplate" text="Add New Template" />
+                  <MenuItem fx:id="EditTemplate" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit Template" />
+                </items>
+              </Menu>
+            </menus>
+          </MenuBar>
+            <Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+            <Button id="MenuButtons" mnemonicParsing="false" text="Help" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <ToolBar id="ToolbarBackground" prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+              <items>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                            <Button id="ToolbarButton" mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
+                              <Button id="ToolbarButton" fx:id="exportButton" mnemonicParsing="false" onAction="#showExport" text="Export" />
+                              <Button id="ToolbarButton" fx:id="saveButton" mnemonicParsing="false" onAction="#saveProject" text="Save" />
+                           </children>
+                        </HBox>
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="File" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button id="ToolbarButton" mnemonicParsing="false" text="Edit Changelog" />
+                           </children>
+                        </HBox>
+                        <Text id="ToolbarText" fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button id="ToolbarButton" fx:id="AddPlaysoundButton" mnemonicParsing="false" onAction="#showAddPlaysound" text="Add Playsound" />
+                           </children>
+                        </HBox>
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Playsound" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox>
+                     <children>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <Button id="ToolbarButton" fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
+                              <MenuBar id="editTemplateButton">
+                                <menus>
+                                  <Menu id="editTemplateMenu" fx:id="editTemplateDropdown" mnemonicParsing="false" text="Edit" />
+                                </menus>
+                              </MenuBar>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Template" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="5.0">
+                           <children>
+                              <Button id="ToolbarButton" mnemonicParsing="false" onAction="#showKey" text="Account" />
+                           </children>
+                        </HBox>
+                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+              </items>
+            </ToolBar>
+         </children>
+      </HBox>
+    <SplitPane id="CoreBackground" dividerPositions="0.18" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+            <ScrollPane fitToHeight="true" fitToWidth="true" SplitPane.resizableWithParent="false">
+               <content>
+                  <VBox id="CoreBackground">
+                     <children>
+                        <HBox id="ToolbarBackground" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Label id="HomeText" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" textFill="#b5b5b5" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="3.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox fx:id="playsoundsVBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+        <ScrollPane fx:id="coreScrollPane" prefHeight="-1.0" prefWidth="-1.0">
+               <content>
+                  <AnchorPane />
+               </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+    <HBox id="StatusBar" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" visible="false" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" visible="false" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>

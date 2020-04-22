@@ -1,0 +1,23 @@
+{
+  "TEST_multiple_sounds": {
+    "min_distance": 2.0,
+    "sounds": [
+      {
+        "volume": 55.0,
+        "stream": true,
+        "load_on_low_memory": false,
+        "name": "sounds/thing/",
+        "pitch": 8.2
+      },
+      {
+        "volume": 78.0,
+        "stream": false,
+        "load_on_low_memory": true,
+        "name": "sounds/thing/",
+        "pitch": 20.0
+      }
+    ],
+    "category": "master",
+    "max_distance": 5.2
+  }
+}
