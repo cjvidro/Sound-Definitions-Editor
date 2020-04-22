@@ -127,11 +127,11 @@ public class ProjectController {
                 }
             }
         }
-        
+        /*
         if(EditorData.getInstance().templates.size() == 0)
         {
         	Template template = new Template();
-        	template.setName("thing");
+        	template.setName("Template 1");
         	template.setDefaultCategory(Category.master);
         	template.setDefaultMin(10.0);
         	template.setDefaultMax(10.0);
@@ -143,7 +143,7 @@ public class ProjectController {
         	EditorData.getInstance().templates.add(template);
         	
         	Template template2 = new Template();
-        	template2.setName("thing2");
+        	template2.setName("Template 2");
         	template2.setDefaultCategory(Category.master);
         	template2.setDefaultMin(10.0);
         	template2.setDefaultMax(10.0);
@@ -154,7 +154,7 @@ public class ProjectController {
         	
         	EditorData.getInstance().templates.add(template2);
         }
-        
+        */
         if(editTemplateDropdown != null) {
         	for(Template template: EditorData.getInstance().templates) {
         		MenuItem item = new MenuItem();
