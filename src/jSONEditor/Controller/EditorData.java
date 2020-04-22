@@ -2,7 +2,13 @@ package jSONEditor.Controller;
 
 import javafx.scene.control.TitledPane;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class EditorData {
@@ -14,7 +20,7 @@ public class EditorData {
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
-    protected String key = null;
+    protected static String key = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();
@@ -24,6 +30,22 @@ public class EditorData {
     public static EditorData getInstance() {
         if (single_instance == null) {
             single_instance = new EditorData();
+
+            try {
+                loadKey();
+            } catch (IOException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println("Failed to authenticate user!");
+                e.printStackTrace();
+            }
         }
 
         // setup saves
@@ -50,7 +72,6 @@ public class EditorData {
             }
         }
 
-
         return single_instance;
     }
 
@@ -70,5 +91,54 @@ public class EditorData {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static void saveKey() throws IOException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+        // Get AES Key
+        SecretKey myKey = null;
+        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            myKey = (SecretKey) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // generate IV
+        SecureRandom random = new SecureRandom();
+        byte [] iv = new byte [16];
+        random.nextBytes( iv );
+
+        // create cipher
+        Cipher cipher = Cipher.getInstance( myKey.getAlgorithm() + "/CBC/PKCS5Padding" );
+        cipher.init( Cipher.ENCRYPT_MODE, myKey, new IvParameterSpec( iv ) );
+
+        // create sealed object
+        SealedObject sealedEm1 = new SealedObject( key, cipher);
+
+        // Save it
+        FileOutputStream fos = new FileOutputStream("./config/user.aes");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(sealedEm1);
+    }
+
+    public static void loadKey() throws IOException, ClassNotFoundException, InvalidKeyException, NoSuchAlgorithmException {
+        // Get AES Key
+        SecretKey myKey = null;
+        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            myKey = (SecretKey) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Read
+        FileInputStream fis = new FileInputStream("./config/user.aes");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        SealedObject sealedObject = (SealedObject) ois.readObject();
+        key = (String) sealedObject.getObject(myKey);
+
+        System.out.println("Authenticated user!");
     }
 }

@@ -48,7 +48,7 @@ public class MySQLAccess {
             e.printStackTrace();
         }
 
-        // Read charles version
+        // Read
         FileInputStream fis = new FileInputStream("./config/db.aes");
         ObjectInputStream ois = new ObjectInputStream(fis);
         SealedObject sealedObject = (SealedObject) ois.readObject();

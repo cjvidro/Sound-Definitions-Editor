@@ -7,6 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 public class KeyController {
 
     @FXML
@@ -40,13 +47,28 @@ public class KeyController {
         }
 
         EditorData.getInstance().key = newKey;
-
-        /*
-        Serialize key save. . .
-         */
+        saveKey();
 
         System.out.println("Saved key!");
         closeKey(stage);
+    }
+
+    private void saveKey() {
+        try {
+            EditorData.saveKey();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -56,10 +78,7 @@ public class KeyController {
         // reset key
         keyBox.setText("");
         EditorData.getInstance().key = null;
-
-        /*
-        Serialize key save. . .
-         */
+        saveKey();
 
         System.out.println("Reset key!");
         closeKey(stage);
