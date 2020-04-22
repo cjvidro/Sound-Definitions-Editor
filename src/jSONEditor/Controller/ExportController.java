@@ -91,10 +91,13 @@ public class ExportController {
     	System.out.println("Select Location");
     	
     	selectedDirectory = SoundIO.selectedDirectoryName();
-    	directoryName = selectedDirectory.getName();
-    	filePath.setText(selectedDirectory.getAbsolutePath());
-    	
-    	return "Location Selected";
+    	if (selectedDirectory != null) {
+            directoryName = selectedDirectory.getName();
+            filePath.setText(selectedDirectory.getAbsolutePath());
+            return "Location Selected";
+        }
+
+        return "";
     }
     
     @FXML
