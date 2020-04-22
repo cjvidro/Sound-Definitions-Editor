@@ -109,7 +109,11 @@
                         <HBox alignment="TOP_CENTER">
                            <children>
                               <Button id="ToolbarButton" fx:id="AddTemplateButton" mnemonicParsing="false" onAction="#showAddTemplate" text="Add" />
-                              <Button id="ToolbarButton" fx:id="EditTemplateButton" mnemonicParsing="false" onAction="#showEditTemplate" text="Edit" />
+                              <MenuBar id="editTemplateButton">
+                                <menus>
+                                  <Menu id="editTemplateMenu" fx:id="editTemplateDropdown" mnemonicParsing="false" text="Edit" />
+                                </menus>
+                              </MenuBar>
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER">

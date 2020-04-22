@@ -158,8 +158,22 @@ VIEW PROJECT
  -fx-text-fill: #b5b5b5;
 }
 
-#CoreBackground{
+#CoreBackground {
  -fx-background-color: #515151;
+}
+
+#editTemplateButton {
+ -fx-background-color: #333333;
+}
+
+#editTemplateMenu {
+ -fx-background-color: #333333;
+}
+
+#editTemplateMenu:hover{
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+ -fx-text-fill: #cccccc;
 }
 
 /*

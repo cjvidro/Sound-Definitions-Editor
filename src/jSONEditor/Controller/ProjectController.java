@@ -53,6 +53,7 @@ public class ProjectController {
     @FXML private TextField referenceName;
     @FXML private TextField referenceGroup;
     @FXML private Menu recentProjects;
+    @FXML private Menu editTemplateDropdown;
 
     // references to be used
     private static VBox soundsVBoxReference = null;
@@ -63,7 +64,8 @@ public class ProjectController {
     public static ProjectController playsoundControllerReference = null; // used for testing
     public static ProjectController soundControllerReference = null; // used for testing
     public static ProjectController editPlaysoundControllerReference = null; // used for testing
-
+    public static Menu editTemplateDropdownReference = null;
+    
     @FXML
     public void initialize() {
 
@@ -102,6 +104,9 @@ public class ProjectController {
             playsoundGroup = referenceGroup;
         }
 
+        if(editTemplateDropdownReference == null) {
+        	editTemplateDropdownReference = editTemplateDropdown;
+        }
         // populate recent projects
         if (recentProjects != null) {
             for (File file : EditorData.getInstance().saves) {
@@ -122,7 +127,58 @@ public class ProjectController {
                 }
             }
         }
-
+        /*
+        if(EditorData.getInstance().templates.size() == 0)
+        {
+        	Template template = new Template();
+        	template.setName("Template 1");
+        	template.setDefaultCategory(Category.master);
+        	template.setDefaultMin(10.0);
+        	template.setDefaultMax(10.0);
+        	template.setDefaultStream(true);
+        	template.setDefaultVolume(10.0);
+        	template.setDefaultPitch(10.0);
+        	template.setLOLMSetting(0);
+        	
+        	EditorData.getInstance().templates.add(template);
+        	
+        	Template template2 = new Template();
+        	template2.setName("Template 2");
+        	template2.setDefaultCategory(Category.master);
+        	template2.setDefaultMin(10.0);
+        	template2.setDefaultMax(10.0);
+        	template2.setDefaultStream(true);
+        	template2.setDefaultVolume(10.0);
+        	template2.setDefaultPitch(10.0);
+        	template2.setLOLMSetting(0);
+        	
+        	EditorData.getInstance().templates.add(template2);
+        }
+        */
+        if(editTemplateDropdown != null) {
+        	for(Template template: EditorData.getInstance().templates) {
+        		MenuItem item = new MenuItem();
+        		
+        		item.setText(template.getName());
+        		
+        		item.setOnAction(new EventHandler<ActionEvent>() {
+        			
+                    @Override
+                    public void handle(ActionEvent event) {
+                    	EditTemplateController edit = new EditTemplateController();
+            			edit.setTemplate(template);
+                        try {
+							showEditTemplate(event);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+                    }
+                });
+        		
+        		editTemplateDropdown.getItems().add(item);
+        	}
+        }
+        
         // Populate the playsounds on the LHS
         populatePlaysounds();
     }
@@ -782,6 +838,31 @@ public class ProjectController {
                 }
             }
         }
+    }
+    
+    @FXML
+    protected void populateTemplate() {
+    	editTemplateDropdownReference.getItems().clear();
+    	
+    	for(Template template: EditorData.getInstance().templates) {
+    		MenuItem item = new MenuItem();
+    		item.setText(template.getName());
+    		
+    		item.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                	EditTemplateController edit = new EditTemplateController();
+        			edit.setTemplate(template);
+                    try {
+						showEditTemplate(event);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            });
+    		
+    		editTemplateDropdownReference.getItems().add(item);
+    	}
     }
 
     public Stage showEditSingle(Playsound playsound, Stage editPlaysoundWindow){
