@@ -7,9 +7,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class MySQLAccess {
-    private Connection connect = null;
-    private Statement statement = null;
-    private ResultSet rs = null;
+    private static Connection connect = null;
+    private static Statement statement = null;
+    private static ResultSet rs = null;
 
 
     private static class UserPass implements Serializable {
@@ -17,9 +17,9 @@ public class MySQLAccess {
         String password;
     }
 
-    UserPass userPass = new UserPass();
+    private static UserPass userPass = new UserPass();
 
-    public void readDataBase() throws Exception {
+    public static void readDataBase() throws Exception {
         initialize();
 
         try {
@@ -57,7 +57,7 @@ public class MySQLAccess {
 
     }
 
-    private void initialize() throws NoSuchAlgorithmException, InvalidKeyException, IOException, ClassNotFoundException {
+    private static void initialize() throws NoSuchAlgorithmException, InvalidKeyException, IOException, ClassNotFoundException {
         // Get AES Key
         SecretKey myKey = null;
         try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
@@ -75,12 +75,12 @@ public class MySQLAccess {
         userPass = (UserPass) sealedObject.getObject(myKey);
     }
 
-    public boolean validateKey() {
+    public static String getUsername() {
         EditorData.getInstance();
         String key = EditorData.key;
 
         if (key == null) {
-            return false;
+            return null;
         }
 
         // initializaiton
@@ -88,55 +88,45 @@ public class MySQLAccess {
             initialize();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return false;
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         } catch (InvalidKeyException e) {
             e.printStackTrace();
-            return false;
+            return null;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
 
         // database stuff
         try {
-            // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Setup the connection with the DB
-            connect = DriverManager.getConnection(
-                    "jdbc:mysql://scottcorbat.com:3306/?serverTimezone=UTC", userPass.username, userPass.password);
-
-            System.out.println("Successfully connected!");
 
             statement = connect.createStatement();
             rs = statement.executeQuery("use mhg_django;"); // select database
-            rs = statement.executeQuery("select COUNT(*) from home_userkey where token = '" + key + "';");
+            rs = statement.executeQuery("select username from home_userkey where token = '" + key + "';");
 
-            if (rs.next() && Integer.parseInt(rs.getString(1)) == 1){
-                System.out.println("Valid user token!");
-                return true;
+
+            if (rs.next() && !(rs.getString(1).equals(""))){
+                System.out.println("Valid user token! Connected as user " + rs.getString(1));
+                return rs.getString(1);
+            } else {
+                System.out.println("Invalid token!");
+                return null;
             }
-
-            System.out.println("Invalid token!");
-            return false;
-
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
     /*
-    GET ID method
-     */
-
-    /*
     Upload sound_def (File file)
      */
+    public static boolean uploadSoundDef(File file) {
+
+        return false;
+    }
 }

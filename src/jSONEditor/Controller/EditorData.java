@@ -21,6 +21,7 @@ public class EditorData {
     public File currentDirectory = null;
     public static File[] saves;
     protected static String key = null;
+    protected static String username = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();
@@ -94,6 +95,10 @@ public class EditorData {
     }
 
     public static void saveKey() throws IOException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+        if (MySQLAccess.getUsername() == null) {
+            username = null;
+        }
+
         // Get AES Key
         SecretKey myKey = null;
         try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
@@ -140,5 +145,7 @@ public class EditorData {
         key = (String) sealedObject.getObject(myKey);
 
         System.out.println("Loaded user key!");
+
+        username = MySQLAccess.getUsername();
     }
 }

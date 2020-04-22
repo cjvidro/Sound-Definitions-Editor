@@ -56,7 +56,6 @@ public class Main extends Application {
     public static void main(String[] args) throws Exception {
             MySQLAccess access = new MySQLAccess();
             access.readDataBase();
-            access.validateKey();
             launch(args);
     }
 }
