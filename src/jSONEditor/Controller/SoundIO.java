@@ -303,6 +303,27 @@ public class SoundIO {
 		System.out.println("Saved project as " + selectedDirectory.getName());
 		return true;
 	}
+	
+	public static File selectedDirectoryName(){
+		// get the new file folder
+		File selectedDirectory = chooseDirectory();
+
+		if (selectedDirectory == null) {
+			System.out.println("Failed to export!");
+			return null;
+		}
+
+		return selectedDirectory;
+	}
+	
+	public static boolean exportPlaysounds(File selectedDirectory) {
+		if (selectedDirectory == null) {
+			// use default directory
+			return writePlaysounds(new File(""));
+		} else {
+			return writePlaysounds(selectedDirectory);
+		}
+	}
 
 	public static boolean saveProject() {
 		File selectedDirectory = EditorData.getInstance().currentDirectory;
