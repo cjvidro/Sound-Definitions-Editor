@@ -101,8 +101,10 @@ public class EditorData {
                 webBackup = true;
 
                 serializeSettings();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
-       }
+        }
 
         if (templates == null) {
 
