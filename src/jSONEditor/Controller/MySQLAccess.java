@@ -110,6 +110,9 @@ public class MySQLAccess {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -50,8 +50,5 @@ public class KeyControllerTest {
         assertFalse(controller.saveKey(myStage));
         controller.keyBox.setText("1111111122222222333333334444444455555555aaaaaaaabNbbbbbccccccddd");
         assertFalse(controller.saveKey(myStage));
-
-        controller.keyBox.setText("1111111122222222333333334444444455555555aaaaaaaabbbbbbbccccccddd");
-        assertTrue(controller.saveKey(myStage));
     }
 }
