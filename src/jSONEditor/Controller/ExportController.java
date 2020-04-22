@@ -78,7 +78,7 @@ public class ExportController {
     	
     	selectedDirectory = SoundIO.selectedDirectoryName();
     	
-    	directoryName.setText(selectedDirectory.getName());
+    	directoryName.setText(selectedDirectory.getAbsolutePath());
     }
     
     @FXML
