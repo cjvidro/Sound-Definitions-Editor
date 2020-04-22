@@ -22,18 +22,18 @@ public class EditTemplateController {
      *****************************************************/
 	
 	//Template name
-    @FXML private TextField editTemplate;
+    @FXML public TextField editTemplate;
 	
 	// Used for playsound defaults
-    @FXML private ComboBox editCategory;
-    @FXML private TextField editMin;
-    @FXML private TextField editMax;
+    @FXML public ComboBox editCategory;
+    @FXML public TextField editMin;
+    @FXML public TextField editMax;
     
     //Used for sound defaults
-    @FXML private CheckBox editStream;
-    @FXML private TextField editVolume;
-    @FXML private TextField editPitch;
-    @FXML private ComboBox editLoad;
+    @FXML public CheckBox editStream;
+    @FXML public TextField editVolume;
+    @FXML public TextField editPitch;
+    @FXML public ComboBox editLoad;
     
     @FXML
     public void initialize() {
@@ -152,7 +152,7 @@ public class EditTemplateController {
 		instance.serializeTemplateSaves();
     }
     
-    protected boolean validateTemplate() {
+    public boolean validateTemplate() {
     	if(editTemplate != null) {
 			if(editTemplate.getText().equals("")) {
 				System.out.println("Template name was empty!");

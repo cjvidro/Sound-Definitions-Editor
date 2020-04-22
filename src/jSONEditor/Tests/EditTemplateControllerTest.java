@@ -1,5 +1,6 @@
 package jSONEditor.Tests;
 
+import jSONEditor.Controller.Category;
 import jSONEditor.Controller.EditTemplateController;
 import jSONEditor.Controller.EditorData;
 import jSONEditor.Controller.Template;
@@ -18,21 +19,27 @@ public class EditTemplateControllerTest {
     private Stage myStage;
     EditTemplateController controller;
     ActionEvent event;
+    Template template;
+    EditorData edit;
 
     @Before
     public void start() throws Exception {
         event = new ActionEvent();
 
-        EditorData editorData = EditorData.getInstance();
-        Template template = new Template();
-        template.setName("testName");
-        template.setLOLMSetting(2);
-        editorData.templates.add(template);
+        template = new Template();
+        template.setName("thing");
+        template.setLOLMSetting(0);
 
+        edit = EditorData.getInstance();
+
+        edit.templates.add(template);
 
         controller = new EditTemplateController(); // the controller for edit template GUI
         controller.setTemplate(template);
 
+        edit.templates.remove(edit.templates.size() - 1);
+
+        System.out.println("size = " + edit.templates.size());
 
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editTemplate.fxml")));
         loader.setController(controller); // Edit Template Controller
@@ -59,13 +66,31 @@ public class EditTemplateControllerTest {
         assertNull(controller.cancelEditTemplate(myStage));
     }
 
-//    @Test
-//    public void testSaveEditTemplate() {
-//        assertNull(controller.saveEditTemplate(myStage));
-//    }
-//
-//    @Test
-//    public void testDeleteTemplate() {
-//        assertNull(controller.deleteTemplate(myStage));
-//    }
+    @Test
+    public void testCreateAndValidateTemplate() {
+        controller.editTemplate.setText("thing");
+        controller.editCategory.setValue(Category.master);
+        controller.editMax.setText("1.0");
+        controller.editMin.setText("1.0");
+        controller.editVolume.setText("1.0");
+        controller.editPitch.setText("1.0");
+        controller.editStream.setSelected(true);
+        controller.editLoad.setValue("All true");
+
+        assertTrue(controller.validateTemplate());
+
+        controller.createTemplate();
+
+        assertEquals(controller.editTemplate.getText(), edit.templates.get(edit.templates.size() - 1).getName());
+        assertEquals((Category) controller.editCategory.getValue(), edit.templates.get(edit.templates.size() - 1).getDefaultCategory());
+        assertEquals((Double) Double.parseDouble(controller.editMax.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultMax());
+        assertEquals((Double) Double.parseDouble(controller.editMin.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultMin());
+        assertEquals((Double) Double.parseDouble(controller.editVolume.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultVolume());
+        assertEquals((Double) Double.parseDouble(controller.editPitch.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultPitch());
+        assertEquals(controller.editStream.isSelected(), edit.templates.get(edit.templates.size() - 1).getDefaultStream());
+
+        assertEquals(controller.editLoad.getValue(), "All true");
+
+        edit.templates.remove(edit.templates.size() - 1);
+    }
 }
