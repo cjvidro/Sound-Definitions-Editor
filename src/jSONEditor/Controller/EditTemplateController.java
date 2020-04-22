@@ -149,6 +149,7 @@ public class EditTemplateController {
 		}
     		
     	instance.templates.add(template);
+		instance.serializeTemplateSaves();
     }
     
     protected boolean validateTemplate() {

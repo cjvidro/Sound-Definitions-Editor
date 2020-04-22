@@ -99,6 +99,7 @@ public class AddTemplateController {
 		}
     		
     	instance.templates.add(template);
+    	instance.serializeTemplateSaves();
     }
     
     protected boolean validateTemplate() {

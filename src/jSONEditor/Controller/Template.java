@@ -1,6 +1,8 @@
 package jSONEditor.Controller;
 
-public class Template {
+import java.io.Serializable;
+
+public class Template implements Serializable {
 	//Name to distinguish Templates
 	private String name;
 	
