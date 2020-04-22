@@ -198,6 +198,8 @@ public class AddTemplateController {
         if (success) {
         	createTemplate();
         	
+        	p.populateTemplate();
+        	
             System.out.print("Added template ");
             System.out.println(instance.templates.get(instance.templates.size() - 1).getName());
 
