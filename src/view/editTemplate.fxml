@@ -36,7 +36,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <TextField />
+                        <TextField fx:id="editTemplate" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -47,7 +47,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <ComboBox prefWidth="150.0" promptText="Select Category" />
+                        <ComboBox fx:id="editCategory" prefWidth="150.0" promptText="Select Category" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -58,7 +58,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <TextField promptText="1.0" />
+                        <TextField fx:id="editMin" promptText="1.0" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -69,7 +69,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <TextField promptText="1.0" />
+                        <TextField fx:id="editMax" promptText="1.0" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -82,7 +82,7 @@
                         <Region prefWidth="125.0" />
                         <HBox>
                            <children>
-                              <CheckBox mnemonicParsing="false">
+                              <CheckBox fx:id="editStream" mnemonicParsing="false">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -99,7 +99,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <TextField promptText="1.0" />
+                        <TextField fx:id="editVolume" promptText="1.0" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -110,7 +110,7 @@
                            </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <TextField promptText="1.0" />
+                        <TextField fx:id="editPitch" promptText="1.0" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -120,12 +120,8 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Region prefWidth="45.0" />
-                        <CheckBox mnemonicParsing="false">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </CheckBox>
+                        <Region prefHeight="26.0" prefWidth="18.0" />
+                        <ComboBox fx:id="editLoad" prefWidth="150.0" promptText="Select Setting" />
                         <Region HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

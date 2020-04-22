@@ -30,6 +30,7 @@ public class ProjectControllerTest {
         event = new ActionEvent();
         EditorData editorData = EditorData.getInstance();
         editorData.playsounds = new ArrayList<>();
+        editorData.templates = new ArrayList<>();
 
         controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));
@@ -88,11 +89,22 @@ public class ProjectControllerTest {
     @Test
     public void testShowEditTemplate() {
         try {
+        	EditorData instance = EditorData.getInstance();
+        	
+        	Template temp = new Template();
+        	temp.setName("Test");
+        	temp.setLOLMSetting(0);
+        	instance.templates.add(temp);
+        	
+        	EditTemplateController edit = new EditTemplateController();
+        	edit.setTemplate(temp);
+        	
             Stage template = controller.showEditTemplate(event);
             assertNotNull(template);
             assertEquals("JSON Sound Definitions Editor - Edit Template", template.getTitle());
 
         } catch (IOException e) {
+        	e.printStackTrace();
             fail();
         }
     }

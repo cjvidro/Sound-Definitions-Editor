@@ -23,7 +23,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <CheckBox mnemonicParsing="false">
+                  <CheckBox fx:id="fileCheck" mnemonicParsing="false">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -38,7 +38,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <CheckBox mnemonicParsing="false">
+                  <CheckBox fx:id="logCheck" mnemonicParsing="false">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -47,12 +47,12 @@
             </HBox>
             <HBox spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Select Location">
+                  <Button fx:id="exportSelectLocation" mnemonicParsing="false" onAction="#selectLocation" text="Select Location">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField prefWidth="200.0">
+                  <TextField fx:id="filePath" prefWidth="200.0">
                      <font>
                         <Font size="14.0" />
                      </font>
