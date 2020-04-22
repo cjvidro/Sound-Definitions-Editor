@@ -1,13 +1,10 @@
 package jSONEditor.Tests;
 
-import jSONEditor.Controller.EditorData;
 import jSONEditor.Controller.KeyController;
-import jSONEditor.Controller.SettingsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Rule;
