@@ -38,6 +38,7 @@ public class EditTemplateControllerTest {
         controller.setTemplate(template);
 
         edit.templates.remove(edit.templates.size() - 1);
+        edit.serializeTemplateSaves();
 
         System.out.println("size = " + edit.templates.size());
 
@@ -92,5 +93,53 @@ public class EditTemplateControllerTest {
         assertEquals(controller.editLoad.getValue(), "All true");
 
         edit.templates.remove(edit.templates.size() - 1);
+        edit.serializeTemplateSaves();
+    }
+
+    @Test
+    public void testValidates() {
+        controller.editTemplate.setText("");
+        assertFalse(controller.validateTemplate());
+
+        System.out.println("size = " + edit.templates.size());
+        template.setName("thing");
+        edit.templates.add(template);
+
+        Template temp = new Template();
+        temp.setName("not");
+        controller.setTemplate(temp);
+
+        controller.editTemplate.setText("thing");
+        assertFalse(controller.validateTemplate());
+
+        edit.templates.remove(edit.templates.size() - 1);
+        edit.serializeTemplateSaves();
+
+        controller.editMin.setText("Yes");
+        assertFalse(controller.validateTemplate());
+        controller.editMin.setText("-2");
+        assertFalse(controller.validateTemplate());
+        controller.editMin.setText("2");
+
+        controller.editMax.setText("Yes");
+        assertFalse(controller.validateTemplate());
+        controller.editMax.setText("-2");
+        assertFalse(controller.validateTemplate());
+        controller.editMax.setText("2");
+
+        controller.editPitch.setText("Yes");
+        assertFalse(controller.validateTemplate());
+        controller.editPitch.setText("-2");
+        assertFalse(controller.validateTemplate());
+        controller.editPitch.setText("2");
+
+        controller.editVolume.setText("Yes");
+        assertFalse(controller.validateTemplate());
+        controller.editVolume.setText("-2");
+        assertFalse(controller.validateTemplate());
+        controller.editVolume.setText("2");
+
+        controller.editLoad.setValue(null);
+        assertFalse(controller.validateTemplate());
     }
 }
