@@ -273,6 +273,7 @@ public class EditTemplateController {
         System.out.println("Delete Template");
         
         instance.templates.remove(template);
+        instance.serializeTemplateSaves();
         
         p.populateTemplate();
         
