@@ -1,5 +1,6 @@
 package jSONEditor.Controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.control.TitledPane;
 
 import javax.crypto.*;
@@ -20,8 +21,8 @@ public class EditorData {
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
-    public Boolean autosave = true;
-    public Boolean webBackup = true;
+    public static Boolean autosave = null;
+    public static Boolean webBackup = null;
     protected static String key = null;
     protected static String username = null;
 
@@ -76,6 +77,39 @@ public class EditorData {
             }
         }
 
+        // setup settings
+        if (autosave == null || webBackup == null) {
+            // try to load the files
+            try {
+                FileInputStream fis = new FileInputStream("./config/autosave.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                autosave = (Boolean) ois.readObject();
+                ois.close();
+                fis.close();
+
+                fis = new FileInputStream("./config/webBackup.ser");
+                ois = new ObjectInputStream(fis);
+                webBackup = (Boolean) ois.readObject();
+                ois.close();
+                fis.close();
+
+                System.out.println("Successfully loaded settings!");
+            } catch (IOException e) {
+                // e.printStackTrace();
+                System.out.println("Failed to load settings!");
+
+                System.out.println("Creating a new settings. . .");
+                autosave = true;
+                webBackup = true;
+
+                serializeSettings();
+
+            } catch (ClassNotFoundException c) {
+                System.out.println("Class not found!");
+                c.printStackTrace();
+            }
+        }
+
         return single_instance;
     }
 
@@ -92,6 +126,33 @@ public class EditorData {
             return true;
         } catch (IOException e) {
             System.out.println("Failed to serialize saves!");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean serializeSettings() {
+        try {
+            // autosave
+            File file = new File("./config");
+            file.mkdir();
+            FileOutputStream fos = new FileOutputStream("./config/autosave.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(autosave);
+            oos.close();
+            fos.close();
+
+            // web Backup
+            fos = new FileOutputStream("./config/webBackup.ser");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(webBackup);
+            oos.close();
+            fos.close();
+
+            System.out.println("Serialized settings");
+            return true;
+        } catch (IOException e) {
+            System.out.println("Failed to serialize settings!");
             e.printStackTrace();
             return false;
         }

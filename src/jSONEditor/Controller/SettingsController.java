@@ -60,9 +60,7 @@ public class SettingsController {
             editorData.webBackup = true;
         }
 
-        /*
-        Serialize autosave
-         */
+        editorData.serializeSettings();
 
         System.out.println("Close Settings");
 
