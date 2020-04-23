@@ -59,14 +59,13 @@ public class ExportController {
         if(fileCheck.isSelected() && text){
         	SoundIO.exportPlaysounds(selectedDirectory);
         	System.out.println("Saved JSON file to " + directoryName);
-        	selectedDirectory = null;
         	testingString = "Wrote File";
         	written = true;
         }
         
         if(logCheck.isSelected() && text){
+        	SoundIO.exportChangelog(selectedDirectory);
         	System.out.println("Saved Changelog to " + directoryName);
-        	selectedDirectory = null;
         	testingString = "Wrote Changelog";
         	if(written)
         		testingString = "Wrote Both";
@@ -74,6 +73,7 @@ public class ExportController {
         }
         
         if(written) {
+        	selectedDirectory = null;
         	closeExport(stage);
         	return testingString;
         }

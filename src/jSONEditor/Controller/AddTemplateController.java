@@ -53,11 +53,19 @@ public class AddTemplateController {
     public void createTemplate() {
     	Template template = new Template();
     	
+    	instance.changelog = instance.changelog + "Creating Template - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+    	
     	template.setName(templateName.getText());
     	template.setDefaultCategory((Category) catBox.getValue());
+    	
+    	//Changelog Data
+    	instance.changelog = instance.changelog + "\tSet Template Name to " + template.getName() + "\n\n";
+    	if(template.getDefaultCategory() != null)
+    		instance.changelog = instance.changelog + "\tSet Template Default Category to " + template.getDefaultCategory() + "\n\n";
 
     	if(!minField.getText().equals("")) {
     		template.setDefaultMin(Double.parseDouble(minField.getText()));
+    		instance.changelog = instance.changelog + "\tSet Template Default Minimum Distance to " + template.getDefaultMin() + "\n\n";
     	}
     	else {
     		template.setDefaultMin(null);
@@ -65,15 +73,18 @@ public class AddTemplateController {
 
     	if(!maxField.getText().equals("")) {
     		template.setDefaultMax(Double.parseDouble(maxField.getText()));
+    		instance.changelog = instance.changelog + "\tSet Template Default Maximum Distance to " + template.getDefaultMax() + "\n\n";
     	}
     	else {
     		template.setDefaultMax(null);
     	}
 
     	template.setDefaultStream(streamBox.isSelected());
+    	instance.changelog = instance.changelog + "\t\tSet Template Default Stream to " + template.getDefaultStream() + "\n\n";
 
     	if(!volumeField.getText().equals("")) {
     		template.setDefaultVolume(Double.parseDouble(volumeField.getText()));
+    		instance.changelog = instance.changelog + "\t\tSet Template Default Volume to " + template.getDefaultVolume() + "\n\n";
     	}
     	else {
     		template.setDefaultVolume(null);
@@ -81,6 +92,7 @@ public class AddTemplateController {
 
     	if(!pitchField.getText().equals("")) {
     		template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
+    		instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to " + template.getDefaultPitch() + "\n\n";
     	}
     	else {
     		template.setDefaultPitch(null);
@@ -89,17 +101,23 @@ public class AddTemplateController {
     	if (LOLMBox.getValue() != null) {
     		if (LOLMBox.getValue().equals("All true")) {
     			template.setLOLMSetting(0);
+    			instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to All True\n\n";
 			} else if (LOLMBox.getValue().equals("All false")) {
 				template.setLOLMSetting(1);
+				instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to All False\n\n";
 			} else if (LOLMBox.getValue().equals("First true, remaining false")) {
 				template.setLOLMSetting(2);
+				EditorData.getInstance().changelog = instance.changelog + "\t\tSet Template Default Pitch to First True, Remaining False\n\n";
 			} else if (LOLMBox.getValue().equals("Alternate true and false")) {
 				template.setLOLMSetting(3);
+				instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to Alternate True and False\n\n";
 			}
 		}
     		
     	instance.templates.add(template);
     	instance.serializeTemplateSaves();
+    	
+    	instance.changelog = instance.changelog + "New Template Saved - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
     }
     
     protected boolean validateTemplate() {

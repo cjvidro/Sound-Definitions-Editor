@@ -125,6 +125,7 @@ public class HomeScreenController {
         }
 
         SoundIO.loadSoundDefinitions(save);
+        SoundIO.loadChangelog(save);
         controller.populatePlaysounds();
         EditorData.getInstance().currentDirectory = save;
 

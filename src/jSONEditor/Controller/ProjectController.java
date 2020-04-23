@@ -69,6 +69,9 @@ public class ProjectController {
     public static ProjectController editPlaysoundControllerReference = null; // used for testing
     public static Menu editTemplateDropdownReference = null;
     
+    //Changelog boolean
+    private static boolean edit = false;
+    
     @FXML
     public void initialize() {
 
@@ -121,6 +124,7 @@ public class ProjectController {
                         @Override
                         public void handle(ActionEvent event) {
                             SoundIO.loadSoundDefinitions(file);
+                            SoundIO.loadChangelog(file);
                             populatePlaysounds();
                             EditorData.getInstance().currentDirectory = file;
                         }
@@ -277,6 +281,27 @@ public class ProjectController {
         settingsWindow.show();
 
         return settingsWindow;
+    }
+    
+    @FXML
+    public Stage showEditChangelog(ActionEvent event) throws IOException {
+        System.out.println("Show Edit Changelog");
+
+        // load FXML and set the controller
+        EditChangelogController controller = new EditChangelogController(); // the controller for the view project GUI
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editChangelog.fxml")));
+        loader.setController(controller); // export controller
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage exportWindow = new Stage();
+        exportWindow.setTitle("JSON Sound Definitions Editor - Edit Changelog");
+        exportWindow.setScene(new Scene(root, 1280, 720));
+        exportWindow.initModality(Modality.APPLICATION_MODAL);
+        exportWindow.setResizable(true);
+        exportWindow.show();
+
+        return exportWindow;
     }
 
     @FXML
@@ -533,7 +558,22 @@ public class ProjectController {
         if (valid) {
              PlaysoundGroup group = new PlaysoundGroup();
              group.setName(nameField.getText());
-
+             
+             //Changelog Statement
+             if(edit)
+            	 editorData.changelog = editorData.changelog + "Editing Playsound Data - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+             else
+            	 editorData.changelog = editorData.changelog + "Creating New Playsound Data - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+             
+             if(increment > 1) {
+                 if(edit)
+                 	editorData.changelog = editorData.changelog + "\tSet Playsound Group Name to " + group.getName() + "\n\n";
+                 else
+                 	editorData.changelog = editorData.changelog + "\tCreated Playsound Group " + group.getName() + "\n\n";
+             }
+             else
+            	 editorData.changelog = editorData.changelog + "\tThis Playsound is not in a Group\n\n";
+             
              for (int i = 1; i <= increment; i++) {
 
                 Playsound playsound = new Playsound();
@@ -541,29 +581,50 @@ public class ProjectController {
                 if (increment == 1) {
                     // single playsound
                     playsound.setName(nameField.getText());
-                } else {
+                    
+                    //Changelog Data
+                    if(edit)
+                    	editorData.changelog = editorData.changelog + "\t\tSet Playsound Name to " + playsound.getName() + "\n\n";
+                    else
+                    	editorData.changelog = editorData.changelog + "\t\tCreated Playsound " + playsound.getName() + "\n\n";                    
+                } 
+                else {
                     // multiple playsounds
                     playsound.setName(nameField.getText() + i);
                     playsound.setGroup(group);
                     group.playsounds.add(playsound);
-                }
+                    
+                    //Changelog Data
+                    if(edit)
+                    	editorData.changelog = editorData.changelog + "\t\tSet Playsound" + i + "'s Name to " + playsound.getName() + "\n\n";
+                    else 
+                    	editorData.changelog = editorData.changelog + "\t\tCreated Playsound " + playsound.getName() + "\n\n";                  
+                }             
+                
                 playsound.setCategory((Category) categoryBox.getValue());
-
+                
+                //Changelog Data
+                if(playsound.getCategory() != null)
+                	editorData.changelog = editorData.changelog + "\t\t\tSet Category for Playsound " + playsound.getName() + " to " + playsound.getCategory() + "\n\n";
                 /*
                 Playsound Details
                 */
                 // check if min distance is empty
                 if (!minDistanceField.getText().equals("")) {
                     playsound.setMin(Double.parseDouble(minDistanceField.getText()));
+                    editorData.changelog = editorData.changelog + "\t\t\tSet Minimum Distance for Playsound " + playsound.getName() + " to " + playsound.getMin() + "\n\n";
                 }
 
                 // check if max distance is empty
                 if (!maxDistanceField.getText().equals("")) {
                     playsound.setMax(Double.parseDouble(maxDistanceField.getText()));
+                    editorData.changelog = editorData.changelog + "\t\t\tSet Maximum Distance for Playsound " + playsound.getName() + " to " + playsound.getMax() + "\n\n";
                 }
             /*
             Sound details
-             */
+             */ 
+                int j = 0;
+                editorData.changelog = editorData.changelog + "\t\t\tSet Number of Sounds to " + soundsVBox.getChildren().size() + "\n\n";
                 // Add all of the individual sounds
                 for (Node soundNode : soundsVBox.getChildren()) {
                     HBox overlyingBox = (HBox) soundNode;
@@ -602,6 +663,16 @@ public class ProjectController {
                     Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
 
                     playsound.addSound(directory, stream, pitch, volume, lolm);
+                    
+                    //Changelog Data
+                    j= j + 1;
+                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Directory for Sound " + j + " in Playsound " + playsound.getName() + " to " + directory + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Stream for Sound " + j + " in Playsound " + playsound.getName() + " to " + stream + "\n\n";
+                    if(volume != null)
+                    	editorData.changelog = editorData.changelog + "\t\t\t\tSet Volume for Sound " + j + " in Playsound " + playsound.getName() + " to " + volume + "\n\n";
+                    if(pitch != null)
+                    	editorData.changelog = editorData.changelog + "\t\t\t\tSet Pitch for Sound " + j + " in Playsound " + playsound.getName() + " to " + pitch + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Low Memory Load for Sound " + j + " in Playsound " + playsound.getName() + " to " + lolm + "\n\n";
                 }
 
                 // Add the playsound to editorData instance
@@ -717,7 +788,12 @@ public class ProjectController {
         if (success) {
             System.out.print("Added playsound ");
             System.out.println(editorData.playsounds.get(editorData.playsounds.size() - 1).getName());
-
+            
+            if(edit)
+            	 editorData.changelog = editorData.changelog + "Editing Data Finished - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+            else
+            	editorData.changelog = editorData.changelog + "New Data Saved - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+            
             return showViewProject(viewProjectWindow);
         }
 
@@ -914,7 +990,8 @@ public class ProjectController {
         // Set playsound details
         controller.nameField.setText(playsound.getName());
         if (playsound.getMin() != null) {
-        controller.minDistanceField.setText(playsound.getMin() + "");
+        	controller.minDistanceField.setText(playsound.getMin() + "");
+        	editorData.changelog = editorData.changelog + "";
         }
         if (playsound.getMax() != null) {
             controller.maxDistanceField.setText(playsound.getMax() + "");
@@ -989,6 +1066,7 @@ public class ProjectController {
         String firstDirectory = firstSound.getDirectory();
         if (group) {
             firstDirectory = firstDirectory.substring(0, firstDirectory.length() - 1);
+            
         }
         ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set directory
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
@@ -999,7 +1077,7 @@ public class ProjectController {
             ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getPitch()  + ""); // set pitch
         }
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
-
+        
         // populate remaining playsounds
         for (int i = 1; i < numSounds; i++) {
             try {
@@ -1073,6 +1151,7 @@ public class ProjectController {
             }
 
             System.out.println("Deleted playsound " + playsound.getName());
+            editorData.changelog = editorData.changelog + "Deleted Playsound " + playsound.getName() + " - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
             return true;
         }
 
@@ -1082,9 +1161,9 @@ public class ProjectController {
         }
 
         System.out.println("Deleted group " + group.getName());
+        editorData.changelog = editorData.changelog + "Deleted Playsound Group " + group.getName() + " - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
         return true;
     }
-
 
     @FXML
     private void deletePlaysound(ActionEvent event) throws IOException {
@@ -1108,10 +1187,12 @@ public class ProjectController {
 
         // delete the old playsound
         deletePlaysound(refBox.getText(), refGroup.getText(), 0); // calls the above helper method
-
+        
+        edit = true;
         // save the new playsound
         saveAddPlaysound(stage);
-
+        edit = false;
+        
         showViewProject(stage);
     }
 
@@ -1138,6 +1219,7 @@ public class ProjectController {
     @FXML
     protected void importSoundDefinitions() {
         SoundIO.importSoundDefinitions();
+        //SoundIO.importChangelog();
         populatePlaysounds();
     }
 
@@ -1145,6 +1227,7 @@ public class ProjectController {
     private void newProject() {
         editorData.currentDirectory = null;
         editorData.playsounds = new ArrayList<>();
+        editorData.changelog = null;
         populatePlaysounds();
 
         System.out.println("New Project!");

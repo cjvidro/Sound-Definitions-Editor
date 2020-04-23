@@ -150,6 +150,33 @@ public class SoundIO {
 		System.out.println("Successfully imported sound definition file!");
 		return true;
 	}
+	
+	public static boolean readInChangelog(String filePath) {
+		try (FileReader reader = new FileReader(filePath)) {
+			
+			BufferedReader br = new BufferedReader(reader);
+			EditorData instance = EditorData.getInstance();
+			String str = null;
+			
+			while((str = br.readLine()) != null) {
+				instance.changelog = instance.changelog + str + "\n";
+			}
+			
+			br.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("Failed to import sound changelog file!");
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Failed to import changelog file!");
+			return false;
+		}
+		
+		System.out.println("Successfully imported changelog file!");
+		return true;
+	}
 
 	public static boolean importSoundDefinitions() {
 		// select the sound_definitions file
@@ -160,11 +187,29 @@ public class SoundIO {
 			return false;
 		}
 
+		readInChangelog(sound_definitions.getAbsolutePath());
 		return readInPlaySound(sound_definitions.getAbsolutePath());
 	}
 
+	
+	public static boolean importChangelog() {
+		// select the sound_definitions file
+		File changelogFile = chooseFile();
+
+		if (changelogFile == null) {
+			System.out.println("Failed to import changelog file!");
+			return false;
+		}
+
+		return readInChangelog(changelogFile.getAbsolutePath());
+	}
+	
 	public static boolean loadSoundDefinitions(File save) {
 		return readInPlaySound(save.getAbsolutePath() + "/sound_definitions.json");
+	}
+	
+	public static boolean loadChangelog(File save) {
+		return readInChangelog(save.getAbsolutePath() + "/changelog.txt");
 	}
 
 	private static File chooseFile() {
@@ -248,6 +293,27 @@ public class SoundIO {
 
 		return prettyJson;
 	}
+	
+	
+	public static boolean writeChangelog() {
+		if (EditorData.getInstance().currentDirectory == null) {
+			// use default directory
+			return writeChangelog(new File(""));
+		} else {
+			return writeChangelog(EditorData.getInstance().currentDirectory);
+		}
+	}
+	
+	private static boolean writeChangelog(File saveDirectory) {
+		try (FileWriter file = new FileWriter(saveDirectory + "/" + "changelog.txt")){			
+			file.write(EditorData.getInstance().changelog);
+			file.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
 	private static File chooseDirectory() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -295,6 +361,7 @@ public class SoundIO {
 
 		// save sound_defintions file
 		writePlaysounds(selectedDirectory);
+		writeChangelog(selectedDirectory);
 
 		/*
 		Save changelog
@@ -324,6 +391,15 @@ public class SoundIO {
 			return writePlaysounds(selectedDirectory);
 		}
 	}
+	
+	public static boolean exportChangelog(File selectedDirectory) {
+		if (selectedDirectory == null) {
+			// use default directory
+			return writeChangelog(new File(""));
+		} else {
+			return writeChangelog(selectedDirectory);
+		}
+	}
 
 	public static boolean saveProject() {
 		File selectedDirectory = EditorData.getInstance().currentDirectory;
@@ -348,6 +424,7 @@ public class SoundIO {
 
 		// save sound_defintions file
 		writePlaysounds(selectedDirectory);
+		writeChangelog(selectedDirectory);
 
 		/*
 		Save changelog

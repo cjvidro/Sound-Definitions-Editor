@@ -103,11 +103,19 @@ public class EditTemplateController {
     public void createTemplate() {
     	Template template = new Template();
     	
+    	instance.changelog = instance.changelog + "Editing Template - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+    	
     	template.setName(editTemplate.getText());
     	template.setDefaultCategory((Category) editCategory.getValue());
+    	
+    	//Changelog Data
+    	instance.changelog = instance.changelog + "\tSet Template Name to " + template.getName() + "\n\n";
+    	if(template.getDefaultCategory() != null)
+    		instance.changelog = instance.changelog + "\tSet Template Default Category to " + template.getDefaultCategory() + "\n\n";
 
     	if(!editMin.getText().equals("")) {
     		template.setDefaultMin(Double.parseDouble(editMin.getText()));
+    		instance.changelog = instance.changelog + "\tSet Template Default Minimum Distance to " + template.getDefaultMin() + "\n\n";
     	}
     	else {
     		template.setDefaultMin(null);
@@ -115,15 +123,18 @@ public class EditTemplateController {
 
     	if(!editMax.getText().equals("")) {
     		template.setDefaultMax(Double.parseDouble(editMax.getText()));
+    		instance.changelog = instance.changelog + "\tSet Template Default Maximum Distance to " + template.getDefaultMax() + "\n\n";
     	}
     	else {
     		template.setDefaultMax(null);
     	}
 
     	template.setDefaultStream(editStream.isSelected());
+    	instance.changelog = instance.changelog + "\t\tSet Template Default Stream to " + template.getDefaultStream() + "\n\n";
 
     	if(!editVolume.getText().equals("")) {
     		template.setDefaultVolume(Double.parseDouble(editVolume.getText()));
+    		instance.changelog = instance.changelog + "\t\tSet Template Default Volume to " + template.getDefaultVolume() + "\n\n";
     	}
     	else {
     		template.setDefaultVolume(null);
@@ -131,6 +142,7 @@ public class EditTemplateController {
 
     	if(!editPitch.getText().equals("")) {
     		template.setDefaultPitch(Double.parseDouble(editPitch.getText()));
+    		instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to " + template.getDefaultPitch() + "\n\n";
     	}
     	else {
     		template.setDefaultPitch(null);
@@ -139,15 +151,21 @@ public class EditTemplateController {
     	if (editLoad.getValue() != null) {
     		if (editLoad.getValue().equals("All true")) {
     			template.setLOLMSetting(0);
+    			instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to All True\n\n";
 			} else if (editLoad.getValue().equals("All false")) {
 				template.setLOLMSetting(1);
+				instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to All False\n\n";
 			} else if (editLoad.getValue().equals("First true, remaining false")) {
 				template.setLOLMSetting(2);
+				instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to First True, Remaining False\n\n";
 			} else if (editLoad.getValue().equals("Alternate true and false")) {
 				template.setLOLMSetting(3);
+				instance.changelog = instance.changelog + "\t\tSet Template Default Pitch to Alternate True and False\n\n";
 			}
 		}
     		
+    	instance.changelog = instance.changelog + "Editing Template Finished - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
+    	
     	instance.templates.add(template);
 		instance.serializeTemplateSaves();
     }
@@ -271,6 +289,8 @@ public class EditTemplateController {
 
     public Stage deleteTemplate(Stage stage) {
         System.out.println("Delete Template");
+        
+        instance.changelog = instance.changelog + "Deleted Template " + template.getName() + " - Date: " + java.time.LocalDate.now() + "  Time: " + java.time.LocalTime.now() + "\n\n";
         
         instance.templates.remove(template);
         instance.serializeTemplateSaves();

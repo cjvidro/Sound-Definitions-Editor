@@ -24,9 +24,11 @@ public class EditorData {
     public static Boolean webBackup = null;
     protected static String key = null;
     protected static String username = null;
+    public String changelog = "";
 
     private EditorData() {
         playsounds = new ArrayList<>();
+        changelog = "";
     }
 
     public static EditorData getInstance() {

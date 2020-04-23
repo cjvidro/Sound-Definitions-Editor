@@ -35,7 +35,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#importSoundDefinitions" text="Import" />
                   <MenuItem fx:id="ExportMenuItem" mnemonicParsing="false" onAction="#showExport" text="Export" />
-                        <MenuItem mnemonicParsing="false" text="Edit Changelog" />
+                        <MenuItem fx:id="EditChangelogMenu" mnemonicParsing="false" onAction="#showEditChangelog" text="Edit Changelog" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="SettingsMenu" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
                   <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
@@ -78,7 +78,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <Button id="ToolbarButton" mnemonicParsing="false" text="Edit Changelog" />
+                              <Button id="ToolbarButton" fx:id="EditChangelogButton" mnemonicParsing="false" onAction="#showEditChangelog" text="Edit Changelog" />
                            </children>
                         </HBox>
                         <Text id="ToolbarText" fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Changelog" textAlignment="CENTER">
