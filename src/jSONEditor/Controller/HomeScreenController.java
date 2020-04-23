@@ -63,20 +63,20 @@ public class HomeScreenController {
                 }
             });
         }
-        if (project3Button != null && saves[3] != null) {
-            project3Button.setDisable(false);
-            project3Button.setText(saves[3].getName());
-            project3Button.setOnAction(new EventHandler<ActionEvent>() {
+        if (project4Button != null && saves[3] != null) {
+            project4Button.setDisable(false);
+            project4Button.setText(saves[3].getName());
+            project4Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     loadProject(saves[3], (Stage) project4Button.getScene().getWindow());
                 }
             });
         }
-        if (project4Button != null && saves[4] != null) {
-            project4Button.setDisable(false);
-            project4Button.setText(saves[4].getName());
-            project4Button.setOnAction(new EventHandler<ActionEvent>() {
+        if (project5Button != null && saves[4] != null) {
+            project5Button.setDisable(false);
+            project5Button.setText(saves[4].getName());
+            project5Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     loadProject(saves[4], (Stage) project5Button.getScene().getWindow());
