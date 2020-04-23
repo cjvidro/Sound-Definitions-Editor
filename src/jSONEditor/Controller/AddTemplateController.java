@@ -78,6 +78,8 @@ public class AddTemplateController {
     	else {
     		template.setDefaultMax(null);
     	}
+    	
+    	instance.changelog = instance.changelog + "\tSetting Default Data for Sound\n\n";
 
     	template.setDefaultStream(streamBox.isSelected());
     	instance.changelog = instance.changelog + "\t\tSet Template Default Stream to " + template.getDefaultStream() + "\n\n";

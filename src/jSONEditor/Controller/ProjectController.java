@@ -284,24 +284,21 @@ public class ProjectController {
     }
     
     @FXML
-    public Stage showEditChangelog(ActionEvent event) throws IOException {
-        System.out.println("Show Edit Changelog");
-
-        // load FXML and set the controller
-        EditChangelogController controller = new EditChangelogController(); // the controller for the view project GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/editChangelog.fxml")));
-        loader.setController(controller); // export controller
-        Parent root = loader.load();
-
-        // set JavaFX stage details
-        Stage exportWindow = new Stage();
-        exportWindow.setTitle("JSON Sound Definitions Editor - Edit Changelog");
-        exportWindow.setScene(new Scene(root, 1280, 720));
-        exportWindow.initModality(Modality.APPLICATION_MODAL);
-        exportWindow.setResizable(true);
-        exportWindow.show();
-
-        return exportWindow;
+    private void editChangelog(ActionEvent event) throws IOException {
+        if(editorData.currentDirectory == null) {
+        	System.out.println("This project has not been saved to a directory!");
+        	return;
+        }
+        
+    	System.out.println("Show Edit Changelog");
+        try {
+        	SoundIO.writeChangelog();
+        	File file = new File(editorData.currentDirectory.getAbsolutePath() + "/changelog.txt");
+            Desktop.getDesktop().open(file);
+            //SoundIO.readInChangelog(editorData.currentDirectory.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -624,7 +621,7 @@ public class ProjectController {
             Sound details
              */ 
                 int j = 0;
-                editorData.changelog = editorData.changelog + "\t\t\tSet Number of Sounds to " + soundsVBox.getChildren().size() + "\n\n";
+                editorData.changelog = editorData.changelog + "\t\t\tSet Number of Sounds to for Playsound " + playsound.getName() + " to " + (soundsVBox.getChildren().size() - 1) + "\n\n";
                 // Add all of the individual sounds
                 for (Node soundNode : soundsVBox.getChildren()) {
                     HBox overlyingBox = (HBox) soundNode;
@@ -666,13 +663,14 @@ public class ProjectController {
                     
                     //Changelog Data
                     j= j + 1;
-                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Directory for Sound " + j + " in Playsound " + playsound.getName() + " to " + directory + "\n\n";
-                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Stream for Sound " + j + " in Playsound " + playsound.getName() + " to " + stream + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\tSound " + i + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\t\tSet Directory for Sound " + j + " in Playsound " + playsound.getName() + " to " + directory + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\t\tSet Stream for Sound " + j + " in Playsound " + playsound.getName() + " to " + stream + "\n\n";
                     if(volume != null)
-                    	editorData.changelog = editorData.changelog + "\t\t\t\tSet Volume for Sound " + j + " in Playsound " + playsound.getName() + " to " + volume + "\n\n";
+                    	editorData.changelog = editorData.changelog + "\t\t\t\t\tSet Volume for Sound " + j + " in Playsound " + playsound.getName() + " to " + volume + "\n\n";
                     if(pitch != null)
-                    	editorData.changelog = editorData.changelog + "\t\t\t\tSet Pitch for Sound " + j + " in Playsound " + playsound.getName() + " to " + pitch + "\n\n";
-                    editorData.changelog = editorData.changelog + "\t\t\t\tSet Low Memory Load for Sound " + j + " in Playsound " + playsound.getName() + " to " + lolm + "\n\n";
+                    	editorData.changelog = editorData.changelog + "\t\t\t\t\tSet Pitch for Sound " + j + " in Playsound " + playsound.getName() + " to " + pitch + "\n\n";
+                    editorData.changelog = editorData.changelog + "\t\t\t\t\tSet Low Memory Load for Sound " + j + " in Playsound " + playsound.getName() + " to " + lolm + "\n\n";
                 }
 
                 // Add the playsound to editorData instance
@@ -1243,4 +1241,15 @@ public class ProjectController {
             e.printStackTrace();
         }
     }
+    
+    /*@FXML
+    private void helpButton2() {
+        try {
+        	SoundIO.writeChangelog();
+        	File file = new File(editorData.currentDirectory.getAbsolutePath() + "/changlog.txt");
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }*/
 }
