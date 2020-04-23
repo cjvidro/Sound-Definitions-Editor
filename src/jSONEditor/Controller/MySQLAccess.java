@@ -167,7 +167,7 @@ public class MySQLAccess {
         }
     }
 
-    private static void connectSFTP() throws JSchException {
+    public static boolean connectSFTP() throws JSchException {
         JSch jsch = new JSch();
 
         // Uncomment the line below if the FTP server requires certificate
@@ -183,6 +183,7 @@ public class MySQLAccess {
         session.connect();
 
         System.out.println("Connected to SFTP");
+        return true;
     }
 
     private static void upload(String source, String destination) throws JSchException, SftpException {
@@ -211,10 +212,12 @@ public class MySQLAccess {
         disconnect();
     }
 
-    public static void disconnect() {
+    public static boolean disconnect() {
         if (session != null) {
             session.disconnect();
             System.out.println("Disconnected from SFTP");
         }
+
+        return true;
     }
 }

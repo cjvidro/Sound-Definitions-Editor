@@ -1,5 +1,6 @@
 package jSONEditor.Tests;
 
+import com.jcraft.jsch.JSchException;
 import jSONEditor.Controller.MySQLAccess;
 import org.junit.Test;
 
@@ -15,6 +16,13 @@ public class MySQLAccessTest {
         } catch (Exception e) {
             fail();
         }
+    }
+
+    @Test
+    public void testSFTP() throws JSchException {
+        MySQLAccess access = new MySQLAccess();
+        assertTrue(access.connectSFTP());
+        assertTrue(access.disconnect());
     }
 
 }

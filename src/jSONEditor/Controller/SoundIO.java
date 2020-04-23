@@ -177,7 +177,7 @@ public class SoundIO {
 	public static boolean writePlaysounds() {
 		if (EditorData.getInstance().currentDirectory == null) {
 			// use default directory
-			return writePlaysounds(new File(""));
+			return writePlaysounds(new File("./"));
 		} else {
 			return writePlaysounds(EditorData.getInstance().currentDirectory);
 		}
@@ -226,8 +226,8 @@ public class SoundIO {
 		}
 
 		// Write JSON file
-		try (FileWriter file = new FileWriter(saveDirectory + "/" + "sound_definitions.json")) {
-
+		File filePath = new File(saveDirectory + "/" + "sound_definitions.json");
+		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(toPrettyFormat(master.toJSONString()));
 			file.flush();
 		} catch (IOException e) {

@@ -200,12 +200,12 @@ public class EditTemplateController {
 				}
 			}
     		
-    		if(editPitch != null && !p.checkDouble(editPitch.getText())) {
+    		if(editVolume != null && !p.checkDouble(editVolume.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
     		} else {
-				String text = editPitch.getText();
-				if (!text.equals("") && Double.parseDouble(editPitch.getText()) < 0) {
+				String text = editVolume.getText();
+				if (!text.equals("") && Double.parseDouble(editVolume.getText()) < 0) {
 					System.out.println("Volume was negative!");
 					return false;
 				}

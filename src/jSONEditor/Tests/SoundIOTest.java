@@ -36,11 +36,10 @@ public class SoundIOTest {
         editorData.playsounds.add(playsound);
 
         // perform the test
-        SoundIO soundIO = new SoundIO();
-        assertTrue(soundIO.writePlaysounds());
+        assertTrue(SoundIO.writePlaysounds());
 
         // check the read
-        BufferedReader reader1 = new BufferedReader(new FileReader("sound_definitions.json"));
+        BufferedReader reader1 = new BufferedReader(new FileReader("./sound_definitions.json"));
         BufferedReader reader2 = new BufferedReader(new FileReader("./src/jSONEditor/Tests/TEST_sound_definitions.json"));
 
         String line1 = reader1.readLine();
