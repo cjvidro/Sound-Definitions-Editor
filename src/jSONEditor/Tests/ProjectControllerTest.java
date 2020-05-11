@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -137,18 +138,16 @@ public class ProjectControllerTest {
         HBox directoryBox = new HBox(new Pane());
         HBox streamBox = new HBox(new Pane());
         HBox volumeBox = new HBox(new Pane());
-        HBox pitchBox = new HBox(new Pane());
         HBox lolmBox = new HBox(new Pane());
 
-        containingBox.getChildren().addAll(directoryBox, streamBox, volumeBox, pitchBox, lolmBox);
+        containingBox.getChildren().addAll(directoryBox, streamBox, volumeBox, lolmBox);
 
         result = controller.getSoundHBoxes(overlyingbox);
 
         assertEquals(directoryBox, result[0]);
         assertEquals(streamBox, result[1]);
         assertEquals(volumeBox, result[2]);
-        assertEquals(pitchBox, result[3]);
-        assertEquals(lolmBox, result[4]);
+        assertEquals(lolmBox, result[3]);
     }
 
     @Test
@@ -303,15 +302,13 @@ public class ProjectControllerTest {
         playsoundController.nameField.setText("tester123");
         assertTrue(playsoundController.createPlaysound());
 
-        playsoundController.minDistanceField.setText("3.0");
-        playsoundController.maxDistanceField.setText("2.1");
         playsoundController.nameField.setText("withMoreStuff");
         assertTrue(playsoundController.createPlaysound());
 
         ((TextField)((HBox)((VBox)((HBox)playsoundController.soundsVBox.getChildren().get(0)).getChildren()
                 .get(1)).getChildren().get(2)).getChildren().get(2)).setText("1.9");
-        ((TextField)((HBox)((VBox)((HBox)playsoundController.soundsVBox.getChildren().get(0)).getChildren()
-                .get(1)).getChildren().get(3)).getChildren().get(2)).setText("0.7");
+        ((CheckBox)((HBox)((VBox)((HBox)playsoundController.soundsVBox.getChildren().get(0)).getChildren()
+                .get(1)).getChildren().get(3)).getChildren().get(2)).setSelected(true);
         playsoundController.nameField.setText("Final");
         assertTrue(playsoundController.createPlaysound());
     }
@@ -322,8 +319,6 @@ public class ProjectControllerTest {
         controller.showAddPlaysound(myStage);
         ProjectController playsoundController = controller.playsoundControllerReference;
 
-        playsoundController.minDistanceField.setText("3.0");
-        playsoundController.maxDistanceField.setText("2.1");
         playsoundController.nameField.setText("testText");
         ((TextField)((HBox)((VBox)((HBox)playsoundController.soundsVBox.getChildren().get(0)).getChildren()
                 .get(1)).getChildren().get(0)).getChildren().get(2)).setText("testDirectory");
@@ -350,8 +345,6 @@ public class ProjectControllerTest {
         Playsound playsound1 = new Playsound();
         playsound1.setGroup(playsoundGroup);
         playsound1.setName("abc1");
-        playsound1.setMin(2.0);
-        playsound1.setMax(1.2);
         Sound sound1 = new Sound();
         sound1.setDirectory("rada1");
         sound1.setStream(false);

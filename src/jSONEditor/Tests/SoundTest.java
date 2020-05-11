@@ -20,7 +20,6 @@ public class SoundTest {
         assertNull(sound.getPlaysound());
         assertNull(sound.getDirectory());
         assertNull(sound.getStream());
-        assertNull(sound.getPitch());
         assertNull(sound.getVolume());
         assertNull(sound.getLOLM());
         assertEquals(0, sound.getIndex());
@@ -36,12 +35,6 @@ public class SoundTest {
     public void getStream() {
         sound.setStream(true);
         assertTrue(sound.getStream());
-    }
-
-    @Test
-    public void getPitch() {
-        sound.setPitch(3.4);
-        assertEquals(new Double(3.4), sound.getPitch());
     }
 
     @Test

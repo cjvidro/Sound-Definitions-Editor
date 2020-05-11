@@ -56,20 +56,6 @@ public class AddTemplateController {
     	template.setName(templateName.getText());
     	template.setDefaultCategory((Category) catBox.getValue());
 
-    	if(!minField.getText().equals("")) {
-    		template.setDefaultMin(Double.parseDouble(minField.getText()));
-    	}
-    	else {
-    		template.setDefaultMin(null);
-    	}
-
-    	if(!maxField.getText().equals("")) {
-    		template.setDefaultMax(Double.parseDouble(maxField.getText()));
-    	}
-    	else {
-    		template.setDefaultMax(null);
-    	}
-
     	template.setDefaultStream(streamBox.isSelected());
 
     	if(!volumeField.getText().equals("")) {
@@ -77,13 +63,6 @@ public class AddTemplateController {
     	}
     	else {
     		template.setDefaultVolume(null);
-    	}
-
-    	if(!pitchField.getText().equals("")) {
-    		template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
-    	}
-    	else {
-    		template.setDefaultPitch(null);
     	}
 
     	if (LOLMBox.getValue() != null) {

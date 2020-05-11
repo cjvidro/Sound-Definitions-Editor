@@ -71,10 +71,7 @@ public class EditTemplateControllerTest {
     public void testCreateAndValidateTemplate() {
         controller.editTemplate.setText("thing");
         controller.editCategory.setValue(Category.master);
-        controller.editMax.setText("1.0");
-        controller.editMin.setText("1.0");
         controller.editVolume.setText("1.0");
-        controller.editPitch.setText("1.0");
         controller.editStream.setSelected(true);
         controller.editLoad.setValue("All true");
 
@@ -84,10 +81,7 @@ public class EditTemplateControllerTest {
 
         assertEquals(controller.editTemplate.getText(), edit.templates.get(edit.templates.size() - 1).getName());
         assertEquals((Category) controller.editCategory.getValue(), edit.templates.get(edit.templates.size() - 1).getDefaultCategory());
-        assertEquals((Double) Double.parseDouble(controller.editMax.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultMax());
-        assertEquals((Double) Double.parseDouble(controller.editMin.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultMin());
         assertEquals((Double) Double.parseDouble(controller.editVolume.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultVolume());
-        assertEquals((Double) Double.parseDouble(controller.editPitch.getText()), edit.templates.get(edit.templates.size() - 1).getDefaultPitch());
         assertEquals(controller.editStream.isSelected(), edit.templates.get(edit.templates.size() - 1).getDefaultStream());
 
         assertEquals(controller.editLoad.getValue(), "All true");
@@ -115,23 +109,6 @@ public class EditTemplateControllerTest {
         edit.templates.remove(edit.templates.size() - 1);
         edit.serializeTemplateSaves();
 
-        controller.editMin.setText("Yes");
-        assertFalse(controller.validateTemplate());
-        controller.editMin.setText("-2");
-        assertFalse(controller.validateTemplate());
-        controller.editMin.setText("2");
-
-        controller.editMax.setText("Yes");
-        assertFalse(controller.validateTemplate());
-        controller.editMax.setText("-2");
-        assertFalse(controller.validateTemplate());
-        controller.editMax.setText("2");
-
-        controller.editPitch.setText("Yes");
-        assertFalse(controller.validateTemplate());
-        controller.editPitch.setText("-2");
-        assertFalse(controller.validateTemplate());
-        controller.editPitch.setText("2");
 
         controller.editVolume.setText("Yes");
         assertFalse(controller.validateTemplate());

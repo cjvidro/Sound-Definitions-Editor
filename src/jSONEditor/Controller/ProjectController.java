@@ -46,8 +46,6 @@ public class ProjectController {
     @FXML public TextField incrementBox;
     @FXML public ComboBox categoryBox;
     @FXML public ComboBox templateBox;
-    @FXML public TextField minDistanceField;
-    @FXML public TextField maxDistanceField;
 
     // used in the general project view - These are null to sub-code controller methods
     @FXML public VBox soundsVBox;
@@ -332,7 +330,7 @@ public class ProjectController {
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, pitch, and LOLM
      */
     public HBox[] getSoundHBoxes(HBox overlyingBox) {
-        HBox[] soundBoxes = new HBox[5];
+        HBox[] soundBoxes = new HBox[4];
 
         if (overlyingBox != null) {
             VBox containingBox = (VBox) overlyingBox.getChildren().get(1);
@@ -340,8 +338,7 @@ public class ProjectController {
             soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // directory box
             soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // stream box
             soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // volume box
-            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // pitch box
-            soundBoxes[4] = (HBox) containingBox.getChildren().get(4); // LOLM box
+            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // LOLM box
         }
 
         return soundBoxes;
@@ -381,10 +378,9 @@ public class ProjectController {
                 if (!checkDirectory(directory)) return false;
 
                 String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
-                String pitchText = ((TextField) soundBoxes[3].getChildren().get(2)).getText();
 
-                // check if volume or pitch are invalid
-                if (!checkDouble(volumeText) || !checkDouble(pitchText)) return false;
+                // check if volume is invalid
+                if (!checkDouble(volumeText)) return false;
             }
         }
         return false;
@@ -457,10 +453,6 @@ public class ProjectController {
             // check if increment is an integer
             if (incrementBox != null && !checkIncrement(incrementBox.getText())) return false;
 
-            // check min and max distance
-            if (minDistanceField != null && maxDistanceField != null && (!checkDouble(minDistanceField.getText())
-                    || !checkDouble(maxDistanceField.getText()))) return false;
-
             return validateSounds();
         }
         return false;
@@ -530,18 +522,6 @@ public class ProjectController {
                 }
                 playsound.setCategory((Category) categoryBox.getValue());
 
-                /*
-                Playsound Details
-                */
-                // check if min distance is empty
-                if (!minDistanceField.getText().equals("")) {
-                    playsound.setMin(Double.parseDouble(minDistanceField.getText()));
-                }
-
-                // check if max distance is empty
-                if (!maxDistanceField.getText().equals("")) {
-                    playsound.setMax(Double.parseDouble(maxDistanceField.getText()));
-                }
             /*
             Sound details
              */
@@ -576,13 +556,9 @@ public class ProjectController {
                         volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
                     }
 
-                    if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
-                        pitch = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
-                    }
+                    Boolean lolm = ((CheckBox) soundBoxes[3].getChildren().get(2)).isSelected();
 
-                    Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
-
-                    playsound.addSound(directory, stream, pitch, volume, lolm);
+                    playsound.addSound(directory, stream, volume, lolm);
                 }
 
                 // Add the playsound to editorData instance
@@ -628,12 +604,6 @@ public class ProjectController {
             if (categoryBox != null && template.getDefaultCategory() != null) {
                 categoryBox.setValue(template.getDefaultCategory());
             }
-            if (minDistanceField != null && template.getDefaultMin() != null) {
-                minDistanceField.setText(template.getDefaultMin() + "");
-            }
-            if (maxDistanceField != null && template.getDefaultMax() != null) {
-                maxDistanceField.setText(template.getDefaultMax() + "");
-            }
 
             // update values - sound
             for (Node soundNode : soundsVBox.getChildren()) {
@@ -656,11 +626,7 @@ public class ProjectController {
                     ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
                 }
 
-                if (template.getDefaultPitch() != null) {
-                    ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultPitch() + ""); //pitch
-                }
-
-                ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
+                ((CheckBox) soundBoxes[3].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
             }
         }
     }
@@ -894,12 +860,6 @@ public class ProjectController {
 
         // Set playsound details
         controller.nameField.setText(playsound.getName());
-        if (playsound.getMin() != null) {
-        controller.minDistanceField.setText(playsound.getMin() + "");
-        }
-        if (playsound.getMax() != null) {
-            controller.maxDistanceField.setText(playsound.getMax() + "");
-        }
         controller.categoryBox.getSelectionModel().select(playsound.getCategory());
 
         // set the reference detail
@@ -942,12 +902,6 @@ public class ProjectController {
 
         // Set playsound details
         controller.nameField.setText(playsoundGroup.getName());
-        if (playsound.getMin() != null) {
-            controller.minDistanceField.setText(playsound.getMin() + "");
-        }
-        if (playsound.getMax() != null) {
-            controller.maxDistanceField.setText(playsound.getMax() + "");
-        }
         controller.categoryBox.getSelectionModel().select(playsound.getCategory());
 
         // set the reference
@@ -976,9 +930,6 @@ public class ProjectController {
         if (firstSound.getVolume() != null) {
             ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
         }
-        if (firstSound.getPitch() != null) {
-            ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getPitch()  + ""); // set pitch
-        }
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
 
         // populate remaining playsounds
@@ -997,10 +948,7 @@ public class ProjectController {
                 if (sound.getVolume() != null) {
                     ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
                 }
-                if (sound.getPitch() != null) {
-                    ((TextField) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setText(sound.getPitch()  + ""); // set pitch
-                }
-                ((CheckBox) ((HBox) soundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
 
             } catch (IOException e) {
                 e.printStackTrace();

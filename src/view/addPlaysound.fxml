@@ -127,7 +127,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <CheckBox mnemonicParsing="false">
+                                    <CheckBox fx:id="lolmCheckbox" mnemonicParsing="false">
                                        <font>
                                           <Font size="16.0" />
                                        </font>

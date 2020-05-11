@@ -10,7 +10,6 @@ public class Sound {
 	private Playsound playsound;
 	private String directory; // the directory the sounds is located in relative to the sounds folder
 	private Boolean stream; // stream property
-	private Double pitch; // pitch property
 	private Double volume; // volume property
 	private Boolean lolm; // load_on_low_memory property
 	private int index = 0; // the index within the playsound this sounds is. Starts with 0.
@@ -32,14 +31,6 @@ public class Sound {
 
 	public void setStream(Boolean stream) {
 		this.stream = stream; 
-	}
-
-	public Double getPitch() {
-		return pitch; 
-	}
-
-	public void setPitch(Double pitch) {
-		this.pitch = pitch;
 	}
 
 	public Double getVolume() {

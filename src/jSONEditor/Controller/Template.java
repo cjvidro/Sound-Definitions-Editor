@@ -7,13 +7,10 @@ public class Template implements Serializable {
 	private String name;
 	
     // Playsound defaults
-    private Double min_distance; // min_distance property
-    private Double max_distance; // max_distance property
     private Category category; // category of sound
 
     // Sound defaults
     private Boolean stream; // stream property
-    private Double pitch; // pitch property
     private Double volume; // volume property
     private Boolean lolm; // load_on_low_memory property
 
@@ -25,8 +22,6 @@ public class Template implements Serializable {
      * Sets all default playsounds for user.
      */
 	public void setDefaultPlaysound(Playsound playsound) {
-    	playsound.setMin(getDefaultMin());
-    	playsound.setMax(getDefaultMax());
     	playsound.setCategory(getDefaultCategory());
     }
     
@@ -35,7 +30,6 @@ public class Template implements Serializable {
      */
 	public void setDefaultSound(Sound sound) {
     	sound.setStream(getDefaultStream());
-    	sound.setPitch(getDefaultPitch());
     	sound.setVolume(getDefaultVolume());
     	sound.setLOLM(detectLOLMSetting());
     }
@@ -91,36 +85,12 @@ public class Template implements Serializable {
 		this.category = category;
 	}
 
-	public Double getDefaultMin() {
-		return min_distance;
-	}
-
-	public void setDefaultMin(Double min_distance) {
-		this.min_distance = min_distance;
-	}
-
-	public Double getDefaultMax() {
-		return max_distance;
-	}
-
-	public void setDefaultMax(Double max_distance) {
-		this.max_distance = max_distance;
-	}
-
 	public Boolean getDefaultStream() {
 		return stream; 
 	}
 
 	public void setDefaultStream(Boolean stream) {
 		this.stream = stream; 
-	}
-
-	public Double getDefaultPitch() {
-		return pitch; 
-	}
-
-	public void setDefaultPitch(Double pitch) {
-		this.pitch = pitch;
 	}
 
 	public Double getDefaultVolume() {

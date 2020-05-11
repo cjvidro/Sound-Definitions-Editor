@@ -11,8 +11,6 @@ public class Playsound {
 	private PlaysoundGroup group;
 	public ArrayList<Sound> sounds = new ArrayList<>(); // Contains all of the sounds this playsound is related to
 	private String name; // playsound name
-	private Double min_distance; // min_distance property
-	private Double max_distance; // max_distance property
 	private Category category; // category of sound
 
 	/*
@@ -23,17 +21,15 @@ public class Playsound {
 	 * Add a sound to this playsound
 	 * @param directory - directory of this sound
 	 * @param stream - stream property
-	 * @param pitch - pitch property
 	 * @param volume - volume property
 	 * @param lolm - load_on_low_memory property
 	 */
-	public void addSound(String directory, Boolean stream, Double pitch, Double volume, Boolean lolm) {
+	public void addSound(String directory, Boolean stream, Double volume, Boolean lolm) {
 		Sound sound = new Sound();
 
 		sound.setDirectory(directory);
 		sound.setStream(stream);
 		sound.setVolume(volume);
-		sound.setPitch(pitch);
 		sound.setLOLM(lolm);
 		sound.setIndex(numberSounds()); // the index location in the sounds array list
 		sound.setPlaysound(this);
@@ -87,22 +83,6 @@ public class Playsound {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public Double getMin() {
-		return min_distance;
-	}
-
-	public void setMin(Double min_distance) {
-		this.min_distance = min_distance;
-	}
-
-	public Double getMax() {
-		return max_distance;
-	}
-
-	public void setMax(Double max_distance) {
-		this.max_distance = max_distance;
 	}
 
 	public String getName() {
