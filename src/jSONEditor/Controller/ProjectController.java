@@ -548,9 +548,8 @@ public class ProjectController {
                     }
                     Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
 
-                    // check if volume, pitch, lolm are empty
+                    // check if volume, lolm are empty
                     Double volume = null;
-                    Double pitch = null;
 
                     if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
                         volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
@@ -930,7 +929,7 @@ public class ProjectController {
         if (firstSound.getVolume() != null) {
             ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
         }
-        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
 
         // populate remaining playsounds
         for (int i = 1; i < numSounds; i++) {
@@ -1046,12 +1045,12 @@ public class ProjectController {
 
     private TextField getRefBox(Stage stage) {
         return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
-                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(10));
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(8));
     }
 
     private TextField getRefGroup(Stage stage) {
         return ((TextField)((VBox)((AnchorPane)((ScrollPane)((SplitPane)((VBox) stage.getScene().getRoot())
-                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(11));
+                .getChildren().get(2)).getItems().get(1)).getContent()).getChildren().get(0)).getChildren().get(9));
     }
 
     @FXML
