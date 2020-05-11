@@ -127,21 +127,6 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button id="ToolbarButton" mnemonicParsing="false" onAction="#showKey" text="Account" />
-                           </children>
-                        </HBox>
-                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
               </items>
             </ToolBar>
          </children>

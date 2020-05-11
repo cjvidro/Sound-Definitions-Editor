@@ -13,8 +13,6 @@ public class SettingsController {
 
     @FXML private ToggleButton saveOn;
     @FXML private ToggleButton saveOff;
-    @FXML private ToggleButton webOn;
-    @FXML private ToggleButton webOff;
 
     @FXML
     private void initialize() {
@@ -26,14 +24,6 @@ public class SettingsController {
         } else {
             saveOn.setSelected(false);
             saveOff.setSelected(true);
-        }
-
-        if (editorData.webBackup) {
-            webOn.setSelected(true);
-            webOff.setSelected(false);
-        } else {
-            webOn.setSelected(false);
-            webOff.setSelected(true);
         }
     }
 
@@ -48,16 +38,6 @@ public class SettingsController {
             // default
             System.out.println("Autosave enabled");
             editorData.autosave = true;
-        }
-
-        // web backup
-        if (!webOn.isSelected()) {
-            System.out.println("Web backup disabled");
-            editorData.webBackup = false;
-        } else {
-            // default
-            System.out.println("Web backup enabled");
-            editorData.webBackup = true;
         }
 
         editorData.serializeSettings();

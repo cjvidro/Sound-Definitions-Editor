@@ -21,9 +21,6 @@ public class EditorData {
     public File currentDirectory = null;
     public static File[] saves;
     public static Boolean autosave = null;
-    public static Boolean webBackup = null;
-    protected static String key = null;
-    protected static String username = null;
 
     private EditorData() {
         playsounds = new ArrayList<>();
@@ -32,22 +29,6 @@ public class EditorData {
     public static EditorData getInstance() {
         if (single_instance == null) {
             single_instance = new EditorData();
-
-            try {
-                loadKey();
-            } catch (IOException e) {
-                System.out.println("Failed to authenticate user!");
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                System.out.println("Failed to authenticate user!");
-                e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                System.out.println("Failed to authenticate user!");
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                System.out.println("Failed to authenticate user!");
-                e.printStackTrace();
-            }
         }
 
         // setup saves
@@ -76,18 +57,12 @@ public class EditorData {
 
 
         // setup settings
-        if (autosave == null || webBackup == null) {
+        if (autosave == null) {
             // try to load the files
             try {
                 FileInputStream fis = new FileInputStream("./config/autosave.ser");
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 autosave = (Boolean) ois.readObject();
-                ois.close();
-                fis.close();
-
-                fis = new FileInputStream("./config/webBackup.ser");
-                ois = new ObjectInputStream(fis);
-                webBackup = (Boolean) ois.readObject();
                 ois.close();
                 fis.close();
 
@@ -98,7 +73,6 @@ public class EditorData {
 
                 System.out.println("Creating a new settings. . .");
                 autosave = true;
-                webBackup = true;
 
                 serializeSettings();
             } catch (ClassNotFoundException e) {
@@ -179,13 +153,6 @@ public class EditorData {
             oos.close();
             fos.close();
 
-            // web Backup
-            fos = new FileOutputStream("./config/webBackup.ser");
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(webBackup);
-            oos.close();
-            fos.close();
-
             System.out.println("Serialized settings");
             return true;
         } catch (IOException e) {
@@ -193,60 +160,5 @@ public class EditorData {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public static void saveKey() throws IOException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
-        if (MySQLAccess.getUsername() == null) {
-            username = null;
-        }
-
-        // Get AES Key
-        SecretKey myKey = null;
-        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-
-            myKey = (SecretKey) ois.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // generate IV
-        SecureRandom random = new SecureRandom();
-        byte [] iv = new byte [16];
-        random.nextBytes( iv );
-
-        // create cipher
-        Cipher cipher = Cipher.getInstance( myKey.getAlgorithm() + "/CBC/PKCS5Padding" );
-        cipher.init( Cipher.ENCRYPT_MODE, myKey, new IvParameterSpec( iv ) );
-
-        // create sealed object
-        SealedObject sealedEm1 = new SealedObject( key, cipher);
-
-        // Save it
-        FileOutputStream fos = new FileOutputStream("./config/user.aes");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(sealedEm1);
-    }
-
-    public static void loadKey() throws IOException, ClassNotFoundException, InvalidKeyException, NoSuchAlgorithmException {
-        // Get AES Key
-        SecretKey myKey = null;
-        try (FileInputStream fis = new FileInputStream(new File("./config/key.dat"));
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-
-            myKey = (SecretKey) ois.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Read
-        FileInputStream fis = new FileInputStream("./config/user.aes");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        SealedObject sealedObject = (SealedObject) ois.readObject();
-        key = (String) sealedObject.getObject(myKey);
-
-        System.out.println("Loaded user key!");
-
-        username = MySQLAccess.getUsername();
     }
 }

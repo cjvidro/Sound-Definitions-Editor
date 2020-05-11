@@ -191,7 +191,9 @@ public class ProjectController {
      * Change Scenes and Button Functionality
      *****************************************************/
     public boolean quit() throws Exception {
-        saveProject();
+        if (editorData.getInstance().currentDirectory != null) {
+            saveProject();
+        }
 
         class ExpectedQuitException extends Exception {
             public ExpectedQuitException(String message) {
@@ -235,27 +237,6 @@ public class ProjectController {
         exportWindow.show();
 
         return exportWindow;
-    }
-
-    @FXML
-    public Stage showKey() throws IOException {
-        System.out.println("Show account key window");
-
-        // load FXML and set the controller
-        KeyController controller = new KeyController(); // the controller for the account GUI
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/key.fxml")));
-        loader.setController(controller); // key controller
-        Parent root = loader.load();
-
-        // set JavaFX stage details
-        Stage keyWindow = new Stage();
-        keyWindow.setTitle("JSON Sound Definitions Editor - Account");
-        keyWindow.setScene(new Scene(root));
-        keyWindow.initModality(Modality.APPLICATION_MODAL);
-        keyWindow.setResizable(false);
-        keyWindow.show();
-
-        return keyWindow;
     }
 
     @FXML
@@ -1152,12 +1133,14 @@ public class ProjectController {
 
     @FXML
     private void helpButton() {
-        try {
-            Desktop.getDesktop().browse(new URL("https://mhg.scottcorbat.com/help").toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Pressed help button");
+
+//        try {
+//            Desktop.getDesktop().browse(new URL("https://mhg.scottcorbat.com/help").toURI());   // Need to replace w/ a new URL
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
     }
 }
