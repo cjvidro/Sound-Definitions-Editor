@@ -49,14 +49,6 @@ public class ProjectController {
     @FXML private Menu editTemplateDropdown;
 
     // references to be used
-    private static VBox soundsVBoxReference = null;
-    private static VBox playsoundsVBoxReference = null;
-    private static ScrollPane coreScrollpaneReference = null;
-    protected static TextField playsoundName = null;
-    protected static TextField playsoundGroup = null;
-    public static ProjectController playsoundControllerReference = null; // used for testing
-    public static ProjectController soundControllerReference = null; // used for testing
-    public static ProjectController editPlaysoundControllerReference = null; // used for testing
     public static Menu editTemplateDropdownReference = null;
     
     @FXML
@@ -116,6 +108,8 @@ public class ProjectController {
         }
         */
         if(editTemplateDropdown != null) {
+            editTemplateDropdownReference = editTemplateDropdown;
+
         	for(Template template: EditorData.getInstance().templates) {
         		MenuItem item = new MenuItem();
         		

@@ -80,17 +80,6 @@
                         <TextField fx:id="volumeField" promptText="1.0" />
                      </children>
                   </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Pitch">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="pitchField" promptText="1.0" />
-                     </children>
-                  </HBox>
                   <HBox prefHeight="16.0" prefWidth="283.0">
                      <children>
                         <Label text="Low Memory Load">
