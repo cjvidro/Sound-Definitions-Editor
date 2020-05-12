@@ -18,7 +18,7 @@
    <children>
       <VBox id="AddPlaysoundBackground" spacing="10.0" stylesheets="@stylesheet.css">
          <children>
-            <Label stylesheets="@stylesheet.css" text="Add Playsound" underline="true">
+            <Label fx:id="title" stylesheets="@stylesheet.css" text="Add Playsound" underline="true">
                <font>
                   <Font size="18.0" />
                </font>

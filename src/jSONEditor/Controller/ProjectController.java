@@ -70,44 +70,45 @@ public class ProjectController {
     @FXML
     public void initialize() {
 
-        // populate categories
-        if (categoryBox != null) {
-            for (Category category : Category.values()) {
-                categoryBox.getItems().addAll(category);
-            }
-        }
+//        // populate categories
+//        if (categoryBox != null) {
+//            for (Category category : Category.values()) {
+//                categoryBox.getItems().addAll(category);
+//            }
+//        }
 
-        // populate templates
-        if (templateBox != null) {
-            for (Template template : editorData.templates) {
-                templateBox.getItems().addAll(template.getName());
-            }
-        }
+//        // populate templates
+//        if (templateBox != null) {
+//            for (Template template : editorData.templates) {
+//                templateBox.getItems().addAll(template.getName());
+//            }
+//        }
 
-        // Create references if needed
-        if (soundsVBoxReference == null) {
-            soundsVBoxReference = soundsVBox;
-        }
-
-        if (playsoundsVBoxReference == null) {
-            playsoundsVBoxReference = playsoundsVBox;
-        }
-
-        if (coreScrollpaneReference == null) {
-            coreScrollpaneReference = coreScrollPane;
-        }
-
-        if (playsoundName == null || (referenceName != null && referenceName != playsoundName)) {
-            playsoundName = referenceName;
-        }
-
-        if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
-            playsoundGroup = referenceGroup;
-        }
-
-        if(editTemplateDropdownReference == null) {
-        	editTemplateDropdownReference = editTemplateDropdown;
-        }
+//        // Create references if needed
+//        if (soundsVBoxReference == null) {
+//            soundsVBoxReference = soundsVBox;
+//        }
+//
+//        if (playsoundsVBoxReference == null) {
+//            playsoundsVBoxReference = playsoundsVBox;
+//        }
+//
+//        if (coreScrollpaneReference == null) {
+//            coreScrollpaneReference = coreScrollPane;
+//        }
+//
+//        if (playsoundName == null || (referenceName != null && referenceName != playsoundName)) {
+//            playsoundName = referenceName;
+//        }
+//
+//        if (playsoundGroup == null || (referenceGroup != null && referenceGroup != playsoundGroup)) {
+//            playsoundGroup = referenceGroup;
+//        }
+//
+//        if(editTemplateDropdownReference == null) {
+//        	editTemplateDropdownReference = editTemplateDropdown;
+//        }
+//
         // populate recent projects
         if (recentProjects != null) {
             for (File file : EditorData.getInstance().saves) {

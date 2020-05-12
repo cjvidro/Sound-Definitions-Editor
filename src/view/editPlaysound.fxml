@@ -18,7 +18,7 @@
    <children>
       <VBox fx:id="test" spacing="10.0">
          <children>
-            <Label text="Edit Playsound" underline="true">
+            <Label fx:id="title" text="Edit Playsound" underline="true">
                <font>
                   <Font size="18.0" />
                </font>
