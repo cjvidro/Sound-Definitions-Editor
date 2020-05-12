@@ -14,6 +14,7 @@ public class AddTemplateController {
 	EditorData instance = EditorData.getInstance();
 	
 	ProjectController p = new ProjectController();
+	ModifyPlaysoundController m = new ModifyPlaysoundController();
 	/*****************************************************
      * FXML fields
      *****************************************************/
@@ -96,7 +97,7 @@ public class AddTemplateController {
 				}
 			}
     			
-    		if(minField != null &&  !p.checkDouble(minField.getText())) {
+    		if(minField != null &&  !m.checkDouble(minField.getText())) {
     			System.out.println("Min distance was invalid!");
     			return false;
     		} else {
@@ -107,7 +108,7 @@ public class AddTemplateController {
 				}
 			}
     		
-    		if(maxField != null && !p.checkDouble(maxField.getText())) {
+    		if(maxField != null && !m.checkDouble(maxField.getText())) {
     			System.out.println("Max distance was invalid!");
     			return false;
     		} else {
@@ -118,7 +119,7 @@ public class AddTemplateController {
 				}
 			}
     		
-    		if(pitchField != null && !p.checkDouble(pitchField.getText())) {
+    		if(pitchField != null && !m.checkDouble(pitchField.getText())) {
 				System.out.println("Pitch was invalid!");
     			return false;
     		} else {
@@ -129,7 +130,7 @@ public class AddTemplateController {
 				}
 			}
     		
-    		if(volumeField != null && !p.checkDouble(volumeField.getText())) {
+    		if(volumeField != null && !m.checkDouble(volumeField.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
     		} else {

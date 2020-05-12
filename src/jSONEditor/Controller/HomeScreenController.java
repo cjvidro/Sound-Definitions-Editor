@@ -39,7 +39,11 @@ public class HomeScreenController {
             project1Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    loadProject(saves[0], (Stage) project1Button.getScene().getWindow());
+                    try {
+                        loadProject(saves[0], (Stage) project1Button.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
     }
@@ -49,7 +53,11 @@ public class HomeScreenController {
             project2Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    loadProject(saves[1], (Stage) project2Button.getScene().getWindow());
+                    try {
+                        loadProject(saves[1], (Stage) project2Button.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -59,7 +67,11 @@ public class HomeScreenController {
             project3Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    loadProject(saves[2], (Stage) project3Button.getScene().getWindow());
+                    try {
+                        loadProject(saves[2], (Stage) project3Button.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -69,7 +81,11 @@ public class HomeScreenController {
             project4Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    loadProject(saves[3], (Stage) project4Button.getScene().getWindow());
+                    try {
+                        loadProject(saves[3], (Stage) project4Button.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -79,7 +95,11 @@ public class HomeScreenController {
             project5Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    loadProject(saves[4], (Stage) project5Button.getScene().getWindow());
+                    try {
+                        loadProject(saves[4], (Stage) project5Button.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -111,7 +131,7 @@ public class HomeScreenController {
         return viewProject;
     }
 
-    private Stage loadProject(File save, Stage stage){
+    private Stage loadProject(File save, Stage stage) throws IOException {
         // load FXML and set the controllers
         ProjectController controller = new ProjectController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/viewProject.fxml")));

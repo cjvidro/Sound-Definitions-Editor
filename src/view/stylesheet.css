@@ -1,16 +1,15 @@
 /*
 ADD PLAYSOUND
  */
-#AddPlaysoundBackground, #TemplateBackground, #EditBackground {
+#EditBackground {
  -fx-background-color: #515151;
 }
 
-#AddPlaysoundBackground *.label, #TemplateBackground *.label, #EditBackground *.label {
+#EditBackground *.label {
  -fx-text-fill: #ebebeb;
 }
 
-#AddPlaysoundBackground *.button, #TemplateBackground *.button, #EditBackground *.button,
-#EditBackground *.toggle-button {
+#EditBackground *.button, #EditBackground *.toggle-button {
  -fx-text-fill: #ebebeb;
  -fx-border-color: #313131;
  -fx-border-width: 1;
@@ -19,8 +18,7 @@ ADD PLAYSOUND
  -fx-background-color: #797979;
 }
 
-#AddPlaysoundBackground *.button:hover, #TemplateBackground *.button:hover, #EditBackground *.button:hover,
-#EditBackground *.toggle-button:selected{
+#EditBackground *.button:hover, #EditBackground *.toggle-button:selected{
  -fx-background-color: #919191;
 }
 

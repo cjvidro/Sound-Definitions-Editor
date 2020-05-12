@@ -14,6 +14,7 @@ public class EditTemplateController {
 	EditorData instance = EditorData.getInstance();
 	
 	ProjectController p = new ProjectController();
+	ModifyPlaysoundController m = new ModifyPlaysoundController();
 	
 	private static Template template;
 	
@@ -131,7 +132,7 @@ public class EditTemplateController {
 				}
 			}
     		
-    		if(editVolume != null && !p.checkDouble(editVolume.getText())) {
+    		if(editVolume != null && !m.checkDouble(editVolume.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
     		} else {

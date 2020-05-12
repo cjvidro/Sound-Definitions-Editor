@@ -12,20 +12,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ModifyPlaysoundController {
-    @FXML public Label title;
-
     @FXML public TextField nameField;
     @FXML public ComboBox categoryBox;
     @FXML public ComboBox templateBox;
     @FXML public TextField referenceName;
+    @FXML private Button saveButton;
 
     @FXML public VBox soundsVBox;
+    private static VBox soundsVBoxRef;
 
     /*
     Core Functionality -------------------------------------------------------------------------------------------------
      */
     @FXML
     public void initialize() {
+        if (soundsVBox != null) soundsVBoxRef = soundsVBox;
         loadTemplates();
         loadCategories();
     }
@@ -129,8 +130,53 @@ public class ModifyPlaysoundController {
      */
     private void deletePlaysound(Playsound playsound) {
         EditorData.getInstance().playsounds.remove(playsound);
-
         System.out.println("Removed playsound " + playsound.getName());
+    }
+
+    @FXML
+    /**
+     * Called when a template is selected
+     */
+    private void updateTemplate() {
+        if (templateBox != null) {
+            String name = (String)templateBox.getValue();
+            Template template = null;
+            for (Template t : EditorData.getInstance().templates) {
+                if (t.getName().equals(name)) {
+                    template = t;
+                    break;
+                }
+            }
+
+            // update values of playsound
+            if (categoryBox != null && template.getDefaultCategory() != null) {
+                categoryBox.setValue(template.getDefaultCategory());
+            }
+
+            // update values of sounds
+            for (Node soundNode : soundsVBox.getChildren()) {
+                HBox overlyingBox = (HBox) soundNode;
+
+                // check if this is the extra "box" for adding more sounds
+                if (overlyingBox != null) {
+                    try {
+                        overlyingBox.getChildren().get(1);
+                    } catch (IndexOutOfBoundsException e) {
+                        break;
+                    }
+                }
+
+                HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
+
+                ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
+
+                if (template.getDefaultVolume() != null) {
+                    ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+                }
+
+                ((CheckBox) soundBoxes[3].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
+            }
+        }
     }
 
     /*
@@ -144,6 +190,11 @@ public class ModifyPlaysoundController {
     private void showViewProject(ActionEvent event) {
         Stage stage = ((Stage) ((Button) event.getSource()).getScene().getWindow());
         stage.close();
+        try {
+            EditorData.getInstance().projectController.populatePlaysounds();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Exited Modify Playsound");
     }
 
@@ -151,7 +202,12 @@ public class ModifyPlaysoundController {
      * Calls showViewProject when not called from FXML
      */
     private void showViewProject() {
-        showViewProject(new ActionEvent(title, tail -> null));
+        try {
+            EditorData.getInstance().projectController.populatePlaysounds();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        showViewProject(new ActionEvent(saveButton, tail -> null));
     }
 
     /*
@@ -184,17 +240,21 @@ public class ModifyPlaysoundController {
      * Populates values when editing a single playsound
      * @param playsound
      */
-    private void populatePlaysound(Playsound playsound) {
-        if (((Stage) title.getScene().getWindow()).getTitle().equals("JSON Sound Definitions Editor - Edit Playsound")) {
-            // set name and category
-            nameField.setText(playsound.getName());
-            categoryBox.getSelectionModel().select(playsound.getCategory());
+    public void populatePlaysound(Playsound playsound) {
+        try {
+            if (((Stage) saveButton.getScene().getWindow()).getTitle().equals("JSON Sound Definitions Editor - Edit Playsound")) {
+                // set name and category
+                nameField.setText(playsound.getName());
+                categoryBox.getSelectionModel().select(playsound.getCategory());
 
-            // set reference information
-            referenceName.setText(playsound.getName());
+                // set reference information
+                referenceName.setText(playsound.getName());
 
-            // populate sounds
-            populateSounds(playsound);
+                // populate sounds
+                populateSounds(playsound);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -241,11 +301,12 @@ public class ModifyPlaysoundController {
     /**
      * Adds an additional playsound variation display
      */
+    @FXML
     private VBox addSoundVariation() throws IOException {
         int sounds = soundsVBox.getChildren().size();
 
         // load FXML and set the controller
-        ProjectController myController = new ProjectController(); // the controller for the view project GUI
+        ModifyPlaysoundController myController = new ModifyPlaysoundController(); // the controller for the view project GUI
         FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/sound.fxml")));
         loader.setController(myController); // view project controller
         Node sound = loader.load();
@@ -253,6 +314,16 @@ public class ModifyPlaysoundController {
         soundsVBox.getChildren().add(sounds - 1, sound);
 
         return (VBox) ((HBox) sound).getChildren().get(1);
+    }
+
+    @FXML
+    private void removeSound(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        HBox sound = (HBox) button.getParent();
+
+        soundsVBoxRef.getChildren().remove(sound);
+
+        System.out.println("Removed sound");
     }
 
     /**
