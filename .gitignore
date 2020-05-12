@@ -8,4 +8,4 @@ out/
 src/Test/.classpath
 src/Test/.project
 sound_definitions.json
-config/
+*.ser
