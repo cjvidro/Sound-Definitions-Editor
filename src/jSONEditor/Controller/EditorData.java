@@ -21,6 +21,7 @@ public class EditorData {
     public File currentDirectory = null;
     public static File[] saves;
     public static Boolean autosave = null;
+    public ProjectController projectController;
 
     private EditorData() {
         playsounds = new ArrayList<>();
