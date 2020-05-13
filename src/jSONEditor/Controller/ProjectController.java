@@ -157,11 +157,6 @@ public class ProjectController {
     @FXML
     private void quit(ActionEvent event) throws Exception {
         System.out.println("Quit");
-
-        /*
-        INSERT Prompt Save FUNCTIONALITY HERE
-         */
-
         try {
             quit();
         } catch (Exception e) {
@@ -271,6 +266,7 @@ public class ProjectController {
         addPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Add Playsound");
         addPlaysoundWindow.setScene(new Scene(root));
         addPlaysoundWindow.initModality(Modality.APPLICATION_MODAL);
+        addPlaysoundWindow.setResizable(false);
         addPlaysoundWindow.show();
 
         return addPlaysoundWindow;
@@ -294,6 +290,7 @@ public class ProjectController {
         editPlaysoundWindow.setTitle("JSON Sound Definitions Editor - Edit Playsound");
         editPlaysoundWindow.setScene(new Scene(root));
         editPlaysoundWindow.initModality(Modality.APPLICATION_MODAL);
+        editPlaysoundWindow.setResizable(false);
         editPlaysoundWindow.show();
 
         controller.populatePlaysound(playsound); // populate with info
