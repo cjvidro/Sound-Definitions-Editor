@@ -142,7 +142,7 @@
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <Label id="HomeText" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Playsounds" textFill="#b5b5b5" underline="true">
+                              <Label id="HomeText" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="162.0" text="Folders" textFill="#b5b5b5" underline="true">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
