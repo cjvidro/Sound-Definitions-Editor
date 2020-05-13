@@ -13,7 +13,8 @@ import java.io.IOException;
 public class AddTemplateController {
 	EditorData instance = EditorData.getInstance();
 	
-	ProjectController p = new ProjectController();
+	ProjectController p = instance.projectController;
+	ModifyPlaysoundController m = new ModifyPlaysoundController();
 	/*****************************************************
      * FXML fields
      *****************************************************/
@@ -23,13 +24,10 @@ public class AddTemplateController {
 	
 	// Used for playsound defaults
     @FXML private ComboBox catBox;
-    @FXML private TextField minField;
-    @FXML private TextField maxField;
     
     //Used for sound defaults
     @FXML private CheckBox streamBox;
     @FXML private TextField volumeField;
-    @FXML private TextField pitchField;
     @FXML private ComboBox LOLMBox;
 	
     @FXML
@@ -56,20 +54,6 @@ public class AddTemplateController {
     	template.setName(templateName.getText());
     	template.setDefaultCategory((Category) catBox.getValue());
 
-    	if(!minField.getText().equals("")) {
-    		template.setDefaultMin(Double.parseDouble(minField.getText()));
-    	}
-    	else {
-    		template.setDefaultMin(null);
-    	}
-
-    	if(!maxField.getText().equals("")) {
-    		template.setDefaultMax(Double.parseDouble(maxField.getText()));
-    	}
-    	else {
-    		template.setDefaultMax(null);
-    	}
-
     	template.setDefaultStream(streamBox.isSelected());
 
     	if(!volumeField.getText().equals("")) {
@@ -77,13 +61,6 @@ public class AddTemplateController {
     	}
     	else {
     		template.setDefaultVolume(null);
-    	}
-
-    	if(!pitchField.getText().equals("")) {
-    		template.setDefaultPitch(Double.parseDouble(pitchField.getText()));
-    	}
-    	else {
-    		template.setDefaultPitch(null);
     	}
 
     	if (LOLMBox.getValue() != null) {
@@ -116,50 +93,11 @@ public class AddTemplateController {
 					}
 				}
 			}
-    			
-    		if(minField != null &&  !p.checkDouble(minField.getText())) {
-    			System.out.println("Min distance was invalid!");
-    			return false;
-    		} else {
-    			String text = minField.getText();
-				if (!text.equals("") && Double.parseDouble(text) < 0) {
-					System.out.println("Min distance was negative!");
-					return false;
-				}
-			}
     		
-    		if(maxField != null && !p.checkDouble(maxField.getText())) {
-    			System.out.println("Max distance was invalid!");
-    			return false;
-    		} else {
-				String text = maxField.getText();
-				if (!text.equals("") && Double.parseDouble(maxField.getText()) < 0) {
-					System.out.println("Max distance was negative!");
-					return false;
-				}
-			}
-    		
-    		if(pitchField != null && !p.checkDouble(pitchField.getText())) {
-				System.out.println("Pitch was invalid!");
-    			return false;
-    		} else {
-				String text = pitchField.getText();
-				if (!text.equals("") && Double.parseDouble(pitchField.getText()) < 0) {
-					System.out.println("Pitch was negative!");
-					return false;
-				}
-			}
-    		
-    		if(volumeField != null && !p.checkDouble(volumeField.getText())) {
+    		if(volumeField != null && !m.checkDouble(volumeField.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
-    		} else {
-				String text = pitchField.getText();
-				if (!text.equals("") && Double.parseDouble(volumeField.getText()) < 0) {
-					System.out.println("Volume was negative!");
-					return false;
-				}
-			}
+    		}
     		
     		if(LOLMBox.getValue() == null) {
     			System.out.println("Please select a load on low memory setting!");

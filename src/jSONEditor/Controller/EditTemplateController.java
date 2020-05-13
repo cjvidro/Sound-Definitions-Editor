@@ -14,6 +14,7 @@ public class EditTemplateController {
 	EditorData instance = EditorData.getInstance();
 	
 	ProjectController p = new ProjectController();
+	ModifyPlaysoundController m = new ModifyPlaysoundController();
 	
 	private static Template template;
 	
@@ -26,13 +27,10 @@ public class EditTemplateController {
 	
 	// Used for playsound defaults
     @FXML public ComboBox editCategory;
-    @FXML public TextField editMin;
-    @FXML public TextField editMax;
     
     //Used for sound defaults
     @FXML public CheckBox editStream;
     @FXML public TextField editVolume;
-    @FXML public TextField editPitch;
     @FXML public ComboBox editLoad;
     
     @FXML
@@ -66,24 +64,12 @@ public class EditTemplateController {
     		editCategory.setValue(template.getDefaultCategory());
     	}
     	
-    	if(template.getDefaultMin() != null) {
-    		editMin.setText(template.getDefaultMin().toString());
-    	}
-    	
-    	if(template.getDefaultMax() != null) {
-    		editMax.setText(template.getDefaultMax().toString());
-    	}
-    	
     	if(template.getDefaultStream() != null) {
     		editStream.setSelected(template.getDefaultStream());
     	}
     	
     	if(template.getDefaultVolume() != null) {
     		editVolume.setText(template.getDefaultVolume().toString());
-    	}
-    	
-    	if(template.getDefaultPitch() != null) {
-    		editPitch.setText(template.getDefaultPitch().toString());
     	}
     	
     	if(template.getLOLMSetting() == 0) {
@@ -106,20 +92,6 @@ public class EditTemplateController {
     	template.setName(editTemplate.getText());
     	template.setDefaultCategory((Category) editCategory.getValue());
 
-    	if(!editMin.getText().equals("")) {
-    		template.setDefaultMin(Double.parseDouble(editMin.getText()));
-    	}
-    	else {
-    		template.setDefaultMin(null);
-    	}
-
-    	if(!editMax.getText().equals("")) {
-    		template.setDefaultMax(Double.parseDouble(editMax.getText()));
-    	}
-    	else {
-    		template.setDefaultMax(null);
-    	}
-
     	template.setDefaultStream(editStream.isSelected());
 
     	if(!editVolume.getText().equals("")) {
@@ -127,13 +99,6 @@ public class EditTemplateController {
     	}
     	else {
     		template.setDefaultVolume(null);
-    	}
-
-    	if(!editPitch.getText().equals("")) {
-    		template.setDefaultPitch(Double.parseDouble(editPitch.getText()));
-    	}
-    	else {
-    		template.setDefaultPitch(null);
     	}
 
     	if (editLoad.getValue() != null) {
@@ -166,41 +131,8 @@ public class EditTemplateController {
 					}
 				}
 			}
-    			
-    		if(editMin != null &&  !p.checkDouble(editMin.getText())) {
-    			System.out.println("Min distance was invalid!");
-    			return false;
-    		} else {
-    			String text = editMin.getText();
-				if (!text.equals("") && Double.parseDouble(text) < 0) {
-					System.out.println("Min distance was negative!");
-					return false;
-				}
-			}
     		
-    		if(editMax != null && !p.checkDouble(editMax.getText())) {
-    			System.out.println("Max distance was invalid!");
-    			return false;
-    		} else {
-				String text = editMax.getText();
-				if (!text.equals("") && Double.parseDouble(editMax.getText()) < 0) {
-					System.out.println("Max distance was negative!");
-					return false;
-				}
-			}
-    		
-    		if(editPitch != null && !p.checkDouble(editPitch.getText())) {
-				System.out.println("Pitch was invalid!");
-    			return false;
-    		} else {
-				String text = editPitch.getText();
-				if (!text.equals("") && Double.parseDouble(editPitch.getText()) < 0) {
-					System.out.println("Pitch was negative!");
-					return false;
-				}
-			}
-    		
-    		if(editVolume != null && !p.checkDouble(editVolume.getText())) {
+    		if(editVolume != null && !m.checkDouble(editVolume.getText())) {
 				System.out.println("Volume was invalid!");
     			return false;
     		} else {

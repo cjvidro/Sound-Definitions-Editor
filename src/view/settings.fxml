@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox id="EditBackground" alignment="CENTER" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css">
@@ -48,18 +47,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Label text="Web Backups:">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
                               <Region minWidth="50.0" HBox.hgrow="ALWAYS" />
-                              <ToggleButton fx:id="webOn" text="On">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="Web_Backup" />
-                                 </toggleGroup>
-                              </ToggleButton>
-                              <ToggleButton fx:id="webOff" selected="true" text="Off" toggleGroup="$Web_Backup" />
                            </children>
                         </HBox>
                         <Label alignment="TOP_LEFT" text="Restart the program for all changes to take effect" underline="true" />

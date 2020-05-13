@@ -5,20 +5,20 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="EditBackground" minHeight="-1.0" minWidth="-1.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox fx:id="test" spacing="10.0">
+<ScrollPane id="EditBackground" hbarPolicy="NEVER" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox id="EditBackground" fx:id="test" spacing="10.0" stylesheets="@stylesheet.css">
          <children>
-            <Label text="Edit Playsound" underline="true">
+            <Label fx:id="title" text="Edit Playsound" underline="true">
                <font>
                   <Font size="18.0" />
                </font>
@@ -32,17 +32,6 @@
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
                   <ComboBox fx:id="templateBox" onAction="#updateTemplate" prefWidth="150.0" promptText="Select Template" />
-               </children>
-            </HBox>
-            <HBox spacing="10.0">
-               <children>
-                  <Label text="Increment">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="incrementBox" promptText="1" text="1" />
                </children>
             </HBox>
             <HBox spacing="10.0">
@@ -65,28 +54,6 @@
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
                   <ComboBox fx:id="categoryBox" prefWidth="150.0" promptText="Select Category" />
-               </children>
-            </HBox>
-            <HBox spacing="10.0">
-               <children>
-                  <Label text="Min Distance">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="minDistanceField" promptText="1.0" />
-               </children>
-            </HBox>
-            <HBox spacing="10.0">
-               <children>
-                  <Label text="Max Distance">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="maxDistanceField" promptText="1.0" />
                </children>
             </HBox>
             <Label text="Sounds">
@@ -144,17 +111,6 @@
                               </HBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Label text="Pitch">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <TextField promptText="1.0" />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="10.0">
-                                 <children>
                                     <Label text="Low Memory Load">
                                        <font>
                                           <Font size="16.0" />
@@ -181,7 +137,7 @@
                   </HBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSound" prefHeight="25.0" prefWidth="25.0">
+                        <Button fx:id="addSoundButton" mnemonicParsing="false" onAction="#addSoundVariation" prefHeight="25.0" prefWidth="25.0">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -196,12 +152,12 @@
             </VBox>
             <HBox alignment="TOP_CENTER" spacing="15.0">
                <children>
-                  <Button fx:id="saveEditPlaysoundButton" mnemonicParsing="false" onAction="#saveEditPlaysound" text="Save">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#editPlaysound" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#cancelAddPlaysound" text="Cancel">
+                  <Button fx:id="cancelAddPlaysoundButton" mnemonicParsing="false" onAction="#showViewProject" text="Cancel">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -220,5 +176,8 @@
             <Insets left="20.0" />
          </padding>
       </VBox>
-   </children>
-</AnchorPane>
+   </content>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</ScrollPane>

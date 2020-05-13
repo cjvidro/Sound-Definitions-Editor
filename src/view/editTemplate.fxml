@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane minHeight="-1.0" minWidth="-1.0">
          <children>
@@ -52,28 +52,6 @@
                   </HBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Label text="Min Distance">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="editMin" promptText="1.0" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Max Distance">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="editMax" promptText="1.0" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
                         <Label text="Stream">
                            <font>
                               <Font size="16.0" />
@@ -100,17 +78,6 @@
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
                         <TextField fx:id="editVolume" promptText="1.0" />
-                     </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <Label text="Pitch">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="editPitch" promptText="1.0" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">

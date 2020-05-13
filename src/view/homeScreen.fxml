@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="HomeBackground" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="HomeBackground" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="943.0">
       <children>
@@ -51,7 +51,7 @@
                         <Region prefHeight="200.0" />
                         <HBox>
                            <children>
-                              <Label id="HomeText" text="Developed by Scott Corbat, Pablo Delgado, Noah Harris, Adam Kreuger, Charles Vidro" />
+                              <Label id="HomeText" text="Developed by Pablo Delgado, Noah Harris, Charles Vidro" />
                            </children>
                            <padding>
                               <Insets bottom="2.0" left="5.0" />

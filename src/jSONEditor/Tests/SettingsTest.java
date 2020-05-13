@@ -26,13 +26,4 @@ public class SettingsTest {
 		obj.toggleAlternateLoadMem();
 		assertEquals(true, obj.getLOLM());
 	}
-	
-	@Test
-	public void testWeb() {
-		assertEquals(false, obj.getWeb());
-		obj.allowWebBackup();
-		assertEquals(true, obj.getWeb());
-		obj.allowWebBackup();
-		assertEquals(false, obj.getWeb());
-	}
 }

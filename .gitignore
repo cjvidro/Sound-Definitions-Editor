@@ -1,6 +1,6 @@
 .idea/
 out/
-MHT.iml
+SoundDefEditor.iml
 /bin/
 out/
 .classpath
@@ -8,4 +8,4 @@ out/
 src/Test/.classpath
 src/Test/.project
 sound_definitions.json
-config/saves.ser
+*.ser

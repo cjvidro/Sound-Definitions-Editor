@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="CoreBackground" fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="CoreBackground" fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <HBox VBox.vgrow="NEVER">
          <children>
@@ -125,21 +125,6 @@
                               </Text>
                            </children>
                         </HBox>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" />
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="TOP_CENTER" spacing="5.0">
-                           <children>
-                              <Button id="ToolbarButton" mnemonicParsing="false" onAction="#showKey" text="Account" />
-                           </children>
-                        </HBox>
-                        <Text fill="#b5b5b5" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" textAlignment="CENTER">
-                           <font>
-                              <Font size="9.0" />
-                           </font>
-                        </Text>
                      </children>
                   </VBox>
               </items>

@@ -33,8 +33,6 @@ public class SoundIO {
 				
 				//Instantiate playsound with nulls.
 				playsound.setCategory(null);
-				playsound.setMax(null);
-				playsound.setMin(null);
 				playsound.setName(ps.toString());
 				
 				//Add the new playsound
@@ -77,15 +75,6 @@ public class SoundIO {
 							instance.playsounds.get(instance.playsounds.size() - 1).setCategory(Category.hostile);
 						}
 					}
-					else if(ps2.toString().equals("min_distance"))
-					{
-						instance.playsounds.get(instance.playsounds.size() - 1).setMin((Double) next.get(ps2));
-					}
-					else if(ps2.toString().equals("max_distance"))
-					{
-						//Set Min_distance
-						instance.playsounds.get(instance.playsounds.size() - 1).setMax((Double) next.get(ps2));
-					}
 					else if(ps2.toString().equals("sounds"))
 					{
 						// get an array from the JSON sound object
@@ -127,7 +116,7 @@ public class SoundIO {
 							}
 							
 							//setting playsound with all values
-							instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, pitch, volume, lolm);
+							instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, volume, lolm);
 						}	
 					}
 				}
@@ -191,13 +180,6 @@ public class SoundIO {
 		for (Playsound playsound : EditorData.getInstance().playsounds) {
 			// playsound attributes
 			JSONObject playsoundDetails = new JSONObject();
-
-			if (playsound.getMin() != null) {
-				playsoundDetails.put("min_distance", playsound.getMin());
-			}
-			if (playsound.getMax() != null) {
-				playsoundDetails.put("max_distance", playsound.getMax());
-			}
 			if (playsound.getCategory() != null) {
 				playsoundDetails.put("category", playsound.getCategory().name());
 			}
@@ -208,9 +190,6 @@ public class SoundIO {
 				JSONObject soundObject = new JSONObject();
 				soundObject.put("name", "sounds/" + sound.getDirectory());
 				soundObject.put("stream", sound.getStream());
-				if (sound.getPitch() != null) {
-					soundObject.put("pitch", sound.getPitch());
-				}
 				if (sound.getVolume() != null) {
 					soundObject.put("volume", sound.getVolume());
 				}
@@ -352,10 +331,6 @@ public class SoundIO {
 		/*
 		Save changelog
 		 */
-
-		// Backup to server
-		MySQLAccess access = new MySQLAccess();
-		access.uploadSoundDef(lastSave);
 
 		System.out.println("Saved project " + selectedDirectory.getName());
 		return true;
