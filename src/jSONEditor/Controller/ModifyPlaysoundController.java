@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ModifyPlaysoundController {
     @FXML public TextField nameField;
@@ -43,6 +44,16 @@ public class ModifyPlaysoundController {
             Playsound playsound = new Playsound();
             playsound.setName(nameField.getText());
             playsound.setCategory((Category) categoryBox.getValue());
+
+            //*************** TEMP
+            if (EditorData.getInstance().folders.size() == 0 ) {
+                PlaysoundGroup folder = new PlaysoundGroup();
+                folder.setName("Folder");
+                EditorData.getInstance().folders.put("Folder", folder);
+            }
+            PlaysoundGroup folder = EditorData.getInstance().folders.get("Folder");
+            playsound.setGroup(folder);
+            folder.playsounds.add(playsound);
 
             // set sound details
             // Add all of the individual sounds
@@ -190,11 +201,11 @@ public class ModifyPlaysoundController {
     private void showViewProject(ActionEvent event) {
         Stage stage = ((Stage) ((Button) event.getSource()).getScene().getWindow());
         stage.close();
-        try {
-            EditorData.getInstance().projectController.populatePlaysounds();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            EditorData.getInstance().projectController.populatePlaysounds();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("Exited Modify Playsound");
     }
 

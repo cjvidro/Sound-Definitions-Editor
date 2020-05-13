@@ -164,7 +164,10 @@
             </ScrollPane>
         <ScrollPane fx:id="coreScrollPane" prefHeight="-1.0" prefWidth="-1.0">
                <content>
-                  <AnchorPane />
+                  <AnchorPane>
+                     <children>
+                        <VBox fx:id="folderDisplay" />
+                     </children></AnchorPane>
                </content>
         </ScrollPane>
       </items>

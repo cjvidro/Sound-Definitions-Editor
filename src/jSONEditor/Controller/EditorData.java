@@ -10,6 +10,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditorData {
     private static EditorData single_instance = null;
@@ -17,6 +18,7 @@ public class EditorData {
     // "Global" variables that should be accessible by ALL classes in the package
     public ArrayList<Playsound> playsounds;
     public static ArrayList<Template> templates = null;
+    public HashMap<String, PlaysoundGroup> folders = new HashMap<>();
     public TitledPane expandedPane;
     public File currentDirectory = null;
     public static File[] saves;
