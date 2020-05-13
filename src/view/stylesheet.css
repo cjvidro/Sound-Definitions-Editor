@@ -1,6 +1,59 @@
 /*
 ADD PLAYSOUND
  */
+
+#EditBackground .titled-pane
+{
+ -fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";
+ -fx-text-fill: #ebebeb;
+}
+#EditBackground .titled-pane:focused
+{
+ -fx-text-fill: #ebebeb;
+}
+
+#EditBackground .titled-pane > .title {
+ -fx-color: #515151;
+}
+
+#EditBackground .titled-pane:focused > .title
+{
+ -fx-color: #515151;
+}
+
+#EditBackground .titled-pane > .title > .arrow-button
+{
+ -fx-background-color: #515151;
+ -fx-background-insets: 0;
+ -fx-background-radius: 0;
+ -fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+#EditBackground .titled-pane > .title > .arrow-button .arrow
+{
+ -fx-background-color: #919191, #797979;
+ -fx-background-insets: 1 0 -1 0, 0;
+ -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+ -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+#EditBackground .titled-pane:collapsed > .title > .arrow-button .arrow
+{
+ -fx-rotate: -90;
+}
+
+#EditBackground .titled-pane > *.content
+{
+ -fx-background-color: #515151;
+ -fx-border-color: #515151;
+ -fx-background-insets: 0, 0 1 1 1;
+}
+
+#EditBackground .titled-pane:focused > .title > .arrow-button .arrow
+{
+ -fx-background-color: #ebebeb;
+}
+
 #EditBackground {
  -fx-background-color: #515151;
 }
