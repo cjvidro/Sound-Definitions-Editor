@@ -9,7 +9,7 @@ ADD PLAYSOUND
  -fx-text-fill: #ebebeb;
 }
 
-#EditBackground *.button, #EditBackground *.toggle-button {
+#EditBackground *.button, #EditBackground *.toggle-button, #folderButton {
  -fx-text-fill: #ebebeb;
  -fx-border-color: #313131;
  -fx-border-width: 1;
@@ -18,7 +18,7 @@ ADD PLAYSOUND
  -fx-background-color: #797979;
 }
 
-#EditBackground *.button:hover, #EditBackground *.toggle-button:selected{
+#EditBackground *.button:hover, #EditBackground *.toggle-button:selected, #folderButton:hover {
  -fx-background-color: #919191;
 }
 

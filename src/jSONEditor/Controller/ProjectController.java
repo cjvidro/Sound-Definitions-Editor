@@ -469,4 +469,9 @@ public class ProjectController {
 //            e.printStackTrace();
 //        }
     }
+
+    @FXML
+    private void newFolder() {
+        System.out.println("New folder");
+    }
 }
