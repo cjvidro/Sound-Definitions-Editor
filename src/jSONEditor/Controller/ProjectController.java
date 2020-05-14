@@ -351,6 +351,7 @@ public class ProjectController {
                 }
 
                 soundController.soundNodeName.setText(s.getDirectory());
+                soundController.soundProperties.setText(getSoundDescription(s));
                 playsoundController.soundBoxContainer.getChildren().add(sound);
             }
 
@@ -436,5 +437,26 @@ public class ProjectController {
     @FXML
     private void newFolder() {
         System.out.println("New folder");
+    }
+
+    /**
+     * Creates a string with the description of a sound
+     * @param sound
+     * @return A string of the description of the properties of the sound
+     */
+    private String getSoundDescription(Sound sound) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (sound.getStream() != null) {
+            stringBuilder.append("stream: " + sound.getStream().toString().toLowerCase() + "; ");
+        }
+        if (sound.getLOLM() != null) {
+            stringBuilder.append("load_on_low_memory: " + sound.getLOLM().toString().toLowerCase() + "; ");
+        }
+        if (sound.getVolume() != null) {
+            stringBuilder.append("volume: " + sound.getVolume() + "; ");
+        }
+
+        return stringBuilder.toString();
     }
 }

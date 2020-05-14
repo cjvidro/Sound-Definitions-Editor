@@ -9,6 +9,7 @@ public class DisplayController {
     @FXML protected TitledPane playsoundNode;
     @FXML protected VBox soundBoxContainer;
     @FXML protected Label soundNodeName;
+    @FXML protected Label soundProperties;
 
     @FXML
     public void initialize() {

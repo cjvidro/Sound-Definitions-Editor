@@ -16,7 +16,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label id="properties" prefWidth="300.0" stylesheets="@stylesheet.css" text="Label" />
+      <Label id="properties" fx:id="soundProperties" prefWidth="300.0" stylesheets="@stylesheet.css" text="properties" />
       <Region HBox.hgrow="ALWAYS" />
       <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
          <graphic>
