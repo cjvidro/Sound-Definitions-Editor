@@ -49,9 +49,9 @@
                         <Insets top="3.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="deletePlaysound" mnemonicParsing="false" onAction="#deletePlaysound">
                      <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="delet3e" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@trash.png" />
                            </image>

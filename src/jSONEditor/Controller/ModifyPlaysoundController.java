@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oracle.jrockit.jfr.StringConstantPool;
 
 import java.io.IOException;
 
