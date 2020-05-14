@@ -29,10 +29,13 @@ public class ModifyPlaysoundController {
     @FXML
     public void initialize() {
         if (soundsVBox != null) soundsVBoxRef = soundsVBox;
-        if (referenceName == null) {
-            referenceName = new TextField();
+
+        if (nameField != null) {
+            if (referenceName == null) {
+                referenceName = new TextField();
+            }
+            referenceName.setText(nameField.getText());
         }
-        referenceName.setText(nameField.getText());
         loadTemplates();
         loadCategories();
     }
