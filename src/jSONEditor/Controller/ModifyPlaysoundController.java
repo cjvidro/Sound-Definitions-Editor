@@ -209,13 +209,7 @@ public class ModifyPlaysoundController {
     private void showViewProject(ActionEvent event) {
         Stage stage = ((Stage) ((Button) event.getSource()).getScene().getWindow());
         stage.close();
-        try {
-            editorData.projectController.populateFolders();
-            String curFolder = editorData.projectController.getCurrentFolder();
-            editorData.projectController.showFolder(curFolder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        editorData.projectController.refresh();
         System.out.println("Exited Modify Playsound");
     }
 

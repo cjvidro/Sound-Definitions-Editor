@@ -57,11 +57,7 @@ public class ProjectController {
                         @Override
                         public void handle(ActionEvent event) {
                             SoundIO.loadSoundDefinitions(file);
-                            try {
-                                populateFolders();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            populateTemplate();
                             EditorData.getInstance().currentDirectory = file;
                         }
                     });
@@ -289,7 +285,7 @@ public class ProjectController {
     }
 
 
-    protected void populateFolders() throws IOException {
+    private void populateFolders() {
         playsoundsVBox.getChildren().clear();
 
         Set<String> folderNames = editorData.folders.keySet();
@@ -315,7 +311,7 @@ public class ProjectController {
      * Populates the view project with the contents of a folder
      * @param folderName
      */
-    protected void showFolder(String folderName) {
+    private void showFolder(String folderName) {
         if (editorData.folders.get(folderName) == null) {
             return;
         }
@@ -339,6 +335,15 @@ public class ProjectController {
             }
 
             playsoundController.playsoundNode.setText(p.getName());
+            playsoundController.deletePlaysoundButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    editorData.playsounds.remove(p);
+                    p.getGroup().playsounds.remove(p);
+                    refresh();
+                }
+            });
+
             for (Sound s : p.sounds) {
                 DisplayController soundController = new DisplayController();
                 FXMLLoader loader2 = new FXMLLoader((getClass().getResource("../../view/soundDisplay.fxml")));
@@ -352,6 +357,16 @@ public class ProjectController {
 
                 soundController.soundNodeName.setText(s.getDirectory());
                 soundController.soundProperties.setText(getSoundDescription(s));
+
+                // delete functionality
+                soundController.deleteSoundButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        p.removeSound(s);
+                        refresh();
+                    }
+                });
+
                 playsoundController.soundBoxContainer.getChildren().add(sound);
             }
 
@@ -360,7 +375,7 @@ public class ProjectController {
         }
     }
 
-    protected String getCurrentFolder() {
+    private String getCurrentFolder() {
         String curFolder;
         try {
             curFolder = ((ToggleButton) folders.getSelectedToggle()).getText();
@@ -437,6 +452,14 @@ public class ProjectController {
     @FXML
     private void newFolder() {
         System.out.println("New folder");
+    }
+
+    /**
+     * Refreshes the folders for project view
+     */
+    public void refresh() {
+        populateFolders();
+        showFolder(getCurrentFolder());
     }
 
     /**

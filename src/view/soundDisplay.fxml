@@ -27,7 +27,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button mnemonicParsing="false">
+      <Button fx:id="deleteSoundButton" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
