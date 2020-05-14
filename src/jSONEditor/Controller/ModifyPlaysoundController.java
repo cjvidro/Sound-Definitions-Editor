@@ -10,9 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class ModifyPlaysoundController {
+    private static EditorData editorData = EditorData.getInstance();
+
     @FXML public TextField nameField;
     @FXML public ComboBox categoryBox;
     @FXML public ComboBox templateBox;
@@ -28,6 +29,10 @@ public class ModifyPlaysoundController {
     @FXML
     public void initialize() {
         if (soundsVBox != null) soundsVBoxRef = soundsVBox;
+        if (referenceName == null) {
+            referenceName = new TextField();
+        }
+        referenceName.setText(nameField.getText());
         loadTemplates();
         loadCategories();
     }
@@ -46,12 +51,12 @@ public class ModifyPlaysoundController {
             playsound.setCategory((Category) categoryBox.getValue());
 
             //*************** TEMP
-            if (EditorData.getInstance().folders.size() == 0 ) {
+            if (editorData.folders.size() == 0 ) {
                 PlaysoundGroup folder = new PlaysoundGroup();
                 folder.setName("Folder");
-                EditorData.getInstance().folders.put("Folder", folder);
+                editorData.folders.put("Folder", folder);
             }
-            PlaysoundGroup folder = EditorData.getInstance().folders.get("Folder");
+            PlaysoundGroup folder = editorData.folders.get("Folder");
             playsound.setGroup(folder);
             folder.playsounds.add(playsound);
 
@@ -87,7 +92,7 @@ public class ModifyPlaysoundController {
             }
 
             // Add the playsound to editorData instance
-            EditorData.getInstance().playsounds.add(playsound);
+            editorData.playsounds.add(playsound);
 
             System.out.println("Added playsound " + playsound.getName());
 
@@ -105,7 +110,7 @@ public class ModifyPlaysoundController {
 
             // Find the playsound
             Playsound playsound = null;
-            for (Playsound p : EditorData.getInstance().playsounds) {
+            for (Playsound p : editorData.playsounds) {
                 if (p.getName().equals(referenceName.getText())) {
                     playsound = p;
                     break;
@@ -124,7 +129,7 @@ public class ModifyPlaysoundController {
     public void deletePlaysound() {
         // Find the playsound
         Playsound playsound = null;
-        for (Playsound p : EditorData.getInstance().playsounds) {
+        for (Playsound p : editorData.playsounds) {
             if (p.getName().equals(referenceName.getText())) {
                 playsound = p;
                 break;
@@ -140,7 +145,7 @@ public class ModifyPlaysoundController {
      * @param playsound to be deleted
      */
     private void deletePlaysound(Playsound playsound) {
-        EditorData.getInstance().playsounds.remove(playsound);
+        editorData.playsounds.remove(playsound);
         System.out.println("Removed playsound " + playsound.getName());
     }
 
@@ -152,7 +157,7 @@ public class ModifyPlaysoundController {
         if (templateBox != null) {
             String name = (String)templateBox.getValue();
             Template template = null;
-            for (Template t : EditorData.getInstance().templates) {
+            for (Template t : editorData.templates) {
                 if (t.getName().equals(name)) {
                     template = t;
                     break;
@@ -201,11 +206,13 @@ public class ModifyPlaysoundController {
     private void showViewProject(ActionEvent event) {
         Stage stage = ((Stage) ((Button) event.getSource()).getScene().getWindow());
         stage.close();
-//        try {
-//            EditorData.getInstance().projectController.populatePlaysounds();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            editorData.projectController.populateFolders();
+            String curFolder = editorData.projectController.getCurrentFolder();
+            editorData.projectController.showFolder(curFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Exited Modify Playsound");
     }
 
@@ -213,11 +220,6 @@ public class ModifyPlaysoundController {
      * Calls showViewProject when not called from FXML
      */
     private void showViewProject() {
-        try {
-            EditorData.getInstance().projectController.populatePlaysounds();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         showViewProject(new ActionEvent(saveButton, tail -> null));
     }
 
@@ -230,7 +232,7 @@ public class ModifyPlaysoundController {
      */
     private void loadTemplates() {
         if (templateBox != null) {
-            for (Template template : EditorData.getInstance().templates) {
+            for (Template template : editorData.templates) {
                 templateBox.getItems().addAll(template.getName());
             }
         }
@@ -357,7 +359,7 @@ public class ModifyPlaysoundController {
         }
 
         // check if name already exists
-        for (Playsound p : EditorData.getInstance().playsounds) {
+        for (Playsound p : editorData.playsounds) {
             if (p.getName().equals(nameField.getText())) {
                 // found a playsound with the name, check if it is the same playsound
                 if (!p.getName().equals(referenceName.getText())) {

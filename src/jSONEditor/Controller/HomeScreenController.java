@@ -145,7 +145,7 @@ public class HomeScreenController {
         }
 
         SoundIO.loadSoundDefinitions(save);
-        controller.populatePlaysounds();
+        controller.populateFolders();
         EditorData.getInstance().currentDirectory = save;
 
         // set JavaFX stage details

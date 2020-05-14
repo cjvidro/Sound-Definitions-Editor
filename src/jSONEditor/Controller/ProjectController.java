@@ -4,34 +4,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -39,6 +26,7 @@ import java.util.Set;
  */
 public class ProjectController {
     EditorData editorData = EditorData.getInstance();
+    private static final ToggleGroup folders = new ToggleGroup();
 
     /*****************************************************
      * FXML fields
@@ -50,7 +38,6 @@ public class ProjectController {
     @FXML private Menu recentProjects;
     @FXML private Menu editTemplateDropdown;
     @FXML private VBox folderDisplay;
-    private static final ToggleGroup folders = new ToggleGroup();
 
     // references to be used
     public static Menu editTemplateDropdownReference = null;
@@ -71,7 +58,7 @@ public class ProjectController {
                         public void handle(ActionEvent event) {
                             SoundIO.loadSoundDefinitions(file);
                             try {
-                                populatePlaysounds();
+                                populateFolders();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -114,13 +101,12 @@ public class ProjectController {
         if(editTemplateDropdown != null) {
             editTemplateDropdownReference = editTemplateDropdown;
 
-        	for(Template template: EditorData.getInstance().templates) {
+        	for(Template template: editorData.templates) {
         		MenuItem item = new MenuItem();
         		
         		item.setText(template.getName());
         		
         		item.setOnAction(new EventHandler<ActionEvent>() {
-        			
                     @Override
                     public void handle(ActionEvent event) {
                     	EditTemplateController edit = new EditTemplateController();
@@ -137,8 +123,8 @@ public class ProjectController {
         	}
         }
         
-        // Populate the playsounds on the LHS
-        populatePlaysounds();
+        // Populate the folders on the LHS
+        populateFolders();
     }
 
 
@@ -303,7 +289,7 @@ public class ProjectController {
     }
 
 
-    protected void populatePlaysounds() throws IOException {
+    protected void populateFolders() throws IOException {
         playsoundsVBox.getChildren().clear();
 
         Set<String> folderNames = editorData.folders.keySet();
@@ -323,119 +309,17 @@ public class ProjectController {
 
             playsoundsVBox.getChildren().add(folder);
         }
-
-//        String expandedPaneName = "";
-//        if (editorData.expandedPane != null) {
-//            expandedPaneName = editorData.expandedPane.getText();
-//        }
-//
-//        if (playsoundsVBox != null) {
-//            // remove any current mention of playsounds
-//            playsoundsVBox.getChildren().clear();
-//
-//            // Create new nodes to populate
-//            Accordion accordion = new Accordion();
-//
-//            TitledPane playsounds = new TitledPane();
-//            playsounds.setText("Playsounds");
-//            playsounds.setFont(new Font(15));
-//            accordion.getPanes().add(playsounds);
-//
-//            if (expandedPaneName.equals("Playsounds")) {
-//                playsounds.setExpanded(true);
-//                accordion.setExpandedPane(playsounds);
-//            }
-//
-//            VBox box = new VBox();
-//            playsounds.setContent(box);
-//
-//            playsoundsVBox.getChildren().add(accordion);
-//
-//            HashMap<String, VBox> groupMap = new HashMap<>();
-//
-//            // load each of the playsounds
-//            for (Playsound playsound : editorData.playsounds) {
-//                if (playsound.getGroup() == null) {
-//                    // single playsound case
-//                    Label label = new Label(playsound.getName());
-//                    label.setFont(new Font(15));
-//                    box.getChildren().add(label);
-//
-//                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                        @Override
-//                        public void handle(MouseEvent event) {
-//                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
-//                                // double clicked
-//                                try {
-//                                    showEditPlaysound(playsound);
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//                    });
-//                } else {
-//                    // multiple playsounds case
-//
-//                    String groupName = playsound.getGroup().getName();
-//
-//                    VBox group;
-//                    // check if there is already a group with this name
-//                    if (groupMap.get(groupName) == null) {
-//                        // create a new group
-//                        Accordion groupAccordian = new Accordion();
-//                        TitledPane groupPane = new TitledPane();
-//                        groupPane.setText(groupName);
-//                        groupPane.setFont(new Font(15));
-//                        groupAccordian.getPanes().add(groupPane);
-//                        VBox groupBox = new VBox();
-//                        groupPane.setContent(groupBox);
-//
-//                        groupMap.put(groupName, groupBox);
-//                        group = groupBox;
-//                        box.getChildren().add(groupAccordian);
-//
-//                        groupPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                            @Override
-//                            public void handle(MouseEvent event) {
-//                                if(event.getButton().equals(MouseButton.SECONDARY) && event.getClickCount() == 1) {
-//                                    // double clicked
-////                                    showEditPlaysound(playsound.getGroup(), (Stage) groupPane.getScene().getWindow());  //************* WILL HAVE TO REVIST
-//                                }
-//                            }
-//                        });
-//                    } else {
-//                        group = groupMap.get(groupName);
-//                    }
-//
-//                    // add the playsound
-//                    Label label = new Label(playsound.getName());
-//                    label.setFont(new Font(15));
-//                    group.getChildren().add(label);
-//
-//                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                        @Override
-//                        public void handle(MouseEvent event) {
-//                            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
-//                                // double clicked
-//                                try {
-//                                    showEditPlaysound(playsound);
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        }
     }
 
     /**
      * Populates the view project with the contents of a folder
      * @param folderName
      */
-    private void showFolder(String folderName) {
+    protected void showFolder(String folderName) {
+        if (editorData.folders.get(folderName) == null) {
+            return;
+        }
+
         System.out.println("Showing folder " + folderName);
 
         folderDisplay.getChildren().clear();
@@ -473,6 +357,17 @@ public class ProjectController {
 
             folderDisplay.getChildren().add(playsound);
         }
+    }
+
+    protected String getCurrentFolder() {
+        String curFolder;
+        try {
+            curFolder = ((ToggleButton) folders.getSelectedToggle()).getText();
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+        return curFolder;
     }
     
     @FXML
@@ -513,14 +408,14 @@ public class ProjectController {
     @FXML
     protected void importSoundDefinitions() throws IOException {
         SoundIO.importSoundDefinitions();
-        populatePlaysounds();
+        populateFolders();
     }
 
     @FXML
     private void newProject() throws IOException {
         editorData.currentDirectory = null;
         editorData.playsounds = new ArrayList<>();
-        populatePlaysounds();
+        populateFolders();
 
         System.out.println("New Project!");
     }
