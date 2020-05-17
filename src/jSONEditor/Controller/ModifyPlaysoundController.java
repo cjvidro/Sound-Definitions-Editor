@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ModifyPlaysoundController {
@@ -19,6 +21,8 @@ public class ModifyPlaysoundController {
     @FXML public ComboBox templateBox;
     @FXML public TextField referenceName;
     @FXML private Button saveButton;
+    @FXML private TextField fileDirectoryField;
+    @FXML private TextField soundName;
 
     @FXML public VBox soundsVBox;
     private static VBox soundsVBoxRef;
@@ -79,19 +83,20 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
-                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
+                String name = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+                File file = new File(((TextField) soundBoxes[1].getChildren().get(2)).getText());
+                Boolean stream = ((CheckBox) soundBoxes[2].getChildren().get(2)).isSelected();
 
                 // check if volume, lolm are empty
                 Double volume = null;
 
-                if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
-                    volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
+                if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
+                    volume = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
                 }
 
-                Boolean lolm = ((CheckBox) soundBoxes[3].getChildren().get(2)).isSelected();
+                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
 
-                playsound.addSound(directory, stream, volume, lolm);
+                playsound.addSound(name, file, stream, volume, lolm);
             }
 
             // Add the playsound to editorData instance
@@ -190,10 +195,10 @@ public class ModifyPlaysoundController {
                 ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
 
                 if (template.getDefaultVolume() != null) {
-                    ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+                    ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
                 }
 
-                ((CheckBox) soundBoxes[3].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
+                ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
             }
         }
     }
@@ -279,7 +284,7 @@ public class ModifyPlaysoundController {
         VBox firstSoundVBox = ((VBox) ((HBox) soundsVBox.getChildren().get(0)).getChildren().get(1));
         Sound firstSound = playsound.sounds.get(0);
 
-        String firstDirectory = firstSound.getDirectory();
+        String firstDirectory = firstSound.getName();
         ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set directory
         ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
         if (firstSound.getVolume() != null) {
@@ -294,7 +299,7 @@ public class ModifyPlaysoundController {
                 Sound sound = playsound.getSound(i);
 
                 // populate the sound
-                String directory = sound.getDirectory();
+                String directory = sound.getName();
                 ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set directory
                 ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
                 if (sound.getVolume() != null) {
@@ -389,13 +394,16 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+                // check if name is invalid
+                String name = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
+                if (!checkName(name)) return false;
 
-                if (!checkDirectory(directory)) return false;
-
-                String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
+                // check if directory is invalid
+                String directory = ((TextField) soundBoxes[1].getChildren().get(2)).getText();
+                if(!checkDirectory(directory)) return false;
 
                 // check if volume is invalid
+                String volumeText =((TextField) soundBoxes[3].getChildren().get(2)).getText();
                 if (!checkDouble(volumeText)) return false;
             }
         }
@@ -407,32 +415,55 @@ public class ModifyPlaysoundController {
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, and LOLM
      */
     public HBox[] getSoundHBoxes(HBox overlyingBox) {
-        HBox[] soundBoxes = new HBox[4];
+        HBox[] soundBoxes = new HBox[5];
 
         if (overlyingBox != null) {
             VBox containingBox = (VBox) overlyingBox.getChildren().get(1);
 
-            soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // directory box
-            soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // stream box
-            soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // volume box
-            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // LOLM box
+            soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // name box
+            soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // sound directory box
+            soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // stream box
+            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // volume box
+            soundBoxes[4] = (HBox) containingBox.getChildren().get(4); // LOLM box
         }
 
         return soundBoxes;
     }
 
     /**
-     * Determines if a directory is valid
-     * @param string the directory
-     * @return true if the directory is not empty
+     * Determines if a name is valid
+     * @param string the name
+     * @return true if the name is not empty
      */
-    public boolean checkDirectory(String string) {
+    public boolean checkName(String string) {
         if (string.equals("")) {
-            System.out.println("Directory is invalid");
+            System.out.println("Sound name is blank!");
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Determines if a directory is valid
+     * @param string the absolute directory as a string
+     * @return true if the directory is a valid file
+     */
+    public boolean checkDirectory(String string) {
+        File file = new File(string);
+        if (!file.exists()) {
+            System.out.println("Sound file does not exist!");
+            return false;
+        }
+
+        String ending = file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4);
+
+        if (ending.equals(".ogg") || ending.equals(".wav") || ending.equals(".fsb")) {
+            return true;
+        }
+
+        System.out.println("This is not a valid sound file!");
+        return false;
     }
 
     /**
@@ -462,5 +493,28 @@ public class ModifyPlaysoundController {
         }
 
         return true;
+    }
+
+    /**
+     * Prompts the user to select a sound file
+     * And then autofills the sound file directory label
+     */
+    @FXML
+    private void selectSoundFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sound File","*.ogg", "*.wav", "*.fsb"));
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+
+            // update the file directory
+            fileDirectoryField.setText(filePath);
+
+            if (soundName != null && soundName.getText().equals("")) {
+                // update the sound name if blank
+                soundName.setText(file.getName().substring(0, file.getName().length() - 4));
+            }
+        }
     }
 }

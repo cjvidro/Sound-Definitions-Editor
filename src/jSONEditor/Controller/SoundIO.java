@@ -84,39 +84,40 @@ public class SoundIO {
 						String directory = null;
 						Boolean stream = null;
 						Double volume = null;
-						Double pitch = null;
 						Boolean lolm = null;
 						
 						for(int i = 0; i < newSound.size(); i++) 
 						{
-							JSONObject obj = (JSONObject) jsonParser.parse(newSound.get(i).toString());
+							JSONObject sounds = (JSONObject) jsonParser.parse(newSound.get(i).toString());
 							
-							for(Object s: obj.keySet())
+							for(Object s: sounds.keySet())
 							{
 								if(s.toString().equals("name"))
 								{
-									directory = obj.get(s).toString();
+									directory = sounds.get(s).toString();
 								}
 								else if(s.toString().equals("stream"))
 								{
-									stream = (Boolean) obj.get(s);
+									stream = (Boolean) sounds.get(s);
 								}
 								else if(s.toString().equals("volume"))
 								{
-									volume = (Double) obj.get(s);
-								}
-								else if(s.toString().equals("pitch"))
-								{
-									pitch = (Double) obj.get(s);
+									volume = (Double) sounds.get(s);
 								}
 								else if(s.toString().equals("load_on_low_memory"))
 								{
-									lolm = (Boolean) obj.get(s);
+									lolm = (Boolean) sounds.get(s);
 								}
 							}
+
+							/*
+							********************************************************
+							* Come back to figuring out how to load_sound definitions. Should be load resource pack.
+							********************************************************
+							 */
 							
 							//setting playsound with all values
-							instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, stream, volume, lolm);
+							instance.playsounds.get(instance.playsounds.size() - 1).addSound(directory, new File(""), stream, volume, lolm);
 						}	
 					}
 				}
@@ -188,7 +189,7 @@ public class SoundIO {
 			JSONArray playsoundSoundsArray = new JSONArray();
 			for (Sound sound : playsound.sounds) {
 				JSONObject soundObject = new JSONObject();
-				soundObject.put("name", "sounds/" + sound.getDirectory());
+				soundObject.put("name", "sounds/" + sound.getName());
 				soundObject.put("stream", sound.getStream());
 				if (sound.getVolume() != null) {
 					soundObject.put("volume", sound.getVolume());

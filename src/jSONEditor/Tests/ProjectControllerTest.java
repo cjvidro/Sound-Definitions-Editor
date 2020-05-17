@@ -186,8 +186,8 @@ public class ProjectControllerTest {
 //
 //    @Test
 //    public void testCheckDirectory() {
-//        assertFalse(controller.checkDirectory(""));
-//        assertTrue(controller.checkDirectory("abc"));
+//        assertFalse(controller.checkName(""));
+//        assertTrue(controller.checkName("abc"));
 //    }
 //
 //    @Test
@@ -346,7 +346,7 @@ public class ProjectControllerTest {
 //        playsound1.setGroup(playsoundGroup);
 //        playsound1.setName("abc1");
 //        Sound sound1 = new Sound();
-//        sound1.setDirectory("rada1");
+//        sound1.setName("rada1");
 //        sound1.setStream(false);
 //        sound1.setLOLM(true);
 //        playsound1.sounds.add(sound1);
@@ -356,7 +356,7 @@ public class ProjectControllerTest {
 //        Playsound playsound2 = new Playsound();
 //        playsound2.setName("abc2");
 //        Sound sound2 = new Sound();
-//        sound2.setDirectory("rada2");
+//        sound2.setName("rada2");
 //        playsound2.sounds.add(sound2);
 //        playsoundGroup.playsounds.add(playsound2);
 //

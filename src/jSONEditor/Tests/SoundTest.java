@@ -18,7 +18,7 @@ public class SoundTest {
     @Test
     public void initial() {
         assertNull(sound.getPlaysound());
-        assertNull(sound.getDirectory());
+        assertNull(sound.getName());
         assertNull(sound.getStream());
         assertNull(sound.getVolume());
         assertNull(sound.getLOLM());
@@ -27,8 +27,8 @@ public class SoundTest {
 
     @Test
     public void getDirectory() {
-        sound.setDirectory("cow/moo");
-        assertEquals("cow/moo", sound.getDirectory());
+        sound.setName("cow/moo");
+        assertEquals("cow/moo", sound.getName());
     }
 
     @Test

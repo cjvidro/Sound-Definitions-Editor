@@ -23,7 +23,7 @@ public class SoundIOTest {
 
         Sound sound = new Sound();
         sound.setPlaysound(playsound);
-        sound.setDirectory("testDirectory/testSound");
+        sound.setName("testDirectory/testSound");
         sound.setStream(true);
         sound.setVolume(new Double(1.2));
         sound.setLOLM(false);
@@ -78,7 +78,7 @@ public class SoundIOTest {
     	assertEquals((Double) 1.2, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getVolume());
     	assertEquals((Boolean) true, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getStream());
     	assertEquals((Boolean) false, instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getLOLM());
-    	assertEquals("sounds/testDirectory/testSound", instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getDirectory());
+    	assertEquals("sounds/testDirectory/testSound", instance.playsounds.get(instance.playsounds.size() - 1).sounds.get(instance.playsounds.get(instance.playsounds.size() - 1).sounds.size() - 1).getName());
     	
     	instance.playsounds.remove(instance.playsounds.size() - 1);
     	
@@ -98,13 +98,13 @@ public class SoundIOTest {
     	assertEquals((Double) 55.0, instance.playsounds.get(0).sounds.get(0).getVolume());
     	assertEquals((Boolean) true, instance.playsounds.get(0).sounds.get(0).getStream());
     	assertEquals((Boolean) false, instance.playsounds.get(0).sounds.get(0).getLOLM());
-    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(0).getDirectory());
+    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(0).getName());
     	
     	
     	assertEquals((Double) 78.0, instance.playsounds.get(0).sounds.get(1).getVolume());
     	assertEquals((Boolean) false, instance.playsounds.get(0).sounds.get(1).getStream());
     	assertEquals((Boolean) true, instance.playsounds.get(0).sounds.get(1).getLOLM());
-    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(1).getDirectory());
+    	assertEquals("sounds/thing/", instance.playsounds.get(0).sounds.get(1).getName());
     
 
     	instance.playsounds.remove(0);
@@ -146,14 +146,14 @@ public class SoundIOTest {
     		assertEquals((Double) 1.0, instance.playsounds.get(i).sounds.get(0).getVolume());
         	assertEquals((Boolean) false, instance.playsounds.get(i).sounds.get(0).getStream());
         	assertEquals((Boolean) false, instance.playsounds.get(i).sounds.get(0).getLOLM());
-        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getDirectory());
+        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getName());
     	}
     	for(int i = 5; i < 7; i++)
     	{
     		assertEquals((Double) 1.0, instance.playsounds.get(i).sounds.get(0).getVolume());
         	assertEquals((Boolean) true, instance.playsounds.get(i).sounds.get(0).getStream());
         	assertEquals((Boolean) true, instance.playsounds.get(i).sounds.get(0).getLOLM());
-        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getDirectory());
+        	assertEquals("sounds/sounds/sound", instance.playsounds.get(i).sounds.get(0).getName());
     	}
     	
     	for(int i = 6; i >= 0; i--)

@@ -7,6 +7,8 @@ import jSONEditor.Controller.Sound;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 public class PlaysoundTest {
@@ -26,11 +28,11 @@ public class PlaysoundTest {
 
     @Test
     public void addSound() {
-        playsound.addSound("/animals/cow", true, null, false);
+        playsound.addSound("/animals/cow", new File(""),true, null, false);
         assertEquals(1, playsound.numberSounds());
 
         Sound sound = playsound.getSound(0);
-        assertEquals("/animals/cow", sound.getDirectory());
+        assertEquals("/animals/cow", sound.getName());
         assertTrue(sound.getStream());
         assertNull(sound.getVolume());
         assertFalse(sound.getLOLM());
@@ -38,7 +40,7 @@ public class PlaysoundTest {
 
     @Test
     public void removeSound() {
-        playsound.addSound("/animals/cow", true, null, false);
+        playsound.addSound("/animals/cow", new File(""), true, null, false);
         assertEquals(1, playsound.numberSounds());
         playsound.removeSound(playsound.getSound(0));
         assertEquals(0, playsound.numberSounds());
@@ -48,7 +50,7 @@ public class PlaysoundTest {
     public void numberSounds() {
         assertEquals(0, playsound.numberSounds());
         for (int i = 1; i < 11; i++) {
-            playsound.addSound("/animals/cow" + i, true, null, false);
+            playsound.addSound("/animals/cow" + i, new File(""), true, null, false);
             assertEquals(i, playsound.numberSounds());
         }
     }

@@ -1,5 +1,7 @@
 package jSONEditor.Controller;
 
+import java.io.File;
+
 /**
  * This class is correlated with the sound_definitions "sounds" array for each playsound
  */
@@ -8,7 +10,8 @@ public class Sound {
 	Sound variables
 	 */
 	private Playsound playsound;
-	private String directory; // the directory the sounds is located in relative to the sounds folder
+	private File file; // The *original* file
+	private String name; // the name of the sound
 	private Boolean stream; // stream property
 	private Double volume; // volume property
 	private Boolean lolm; // load_on_low_memory property
@@ -17,12 +20,12 @@ public class Sound {
 	/*
 	Getters and Setters
 	 */
-	public String getDirectory() {
-		return directory;
+	public String getName() {
+		return name;
 	}
 
-	public void setDirectory(String directory) {
-		this.directory = directory; 
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Boolean getStream() {
@@ -63,5 +66,13 @@ public class Sound {
 
 	public void setPlaysound(Playsound playsound) {
 		this.playsound = playsound;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 }

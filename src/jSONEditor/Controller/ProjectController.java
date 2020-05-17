@@ -355,7 +355,7 @@ public class ProjectController {
                     e.printStackTrace();
                 }
 
-                soundController.soundNodeName.setText(s.getDirectory());
+                soundController.soundNodeName.setText(s.getName());
                 soundController.soundProperties.setText(getSoundDescription(s));
 
                 // delete functionality

@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane id="EditBackground" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox id="EditBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" stylesheets="@stylesheet.css">
@@ -74,13 +73,24 @@
                            <children>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Label text="Directory">
+                                    <Label text="Name">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <TextField promptText="sounds/" />
+                                    <TextField fx:id="soundName" promptText="Name the sound file" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#selectSoundFile" text="File" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="fileDirectoryField" promptText="Sound file directory">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </TextField>
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">

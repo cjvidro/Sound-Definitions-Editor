@@ -1,4 +1,5 @@
 package jSONEditor.Controller;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -24,12 +25,12 @@ public class Playsound {
 	 * @param volume - volume property
 	 * @param lolm - load_on_low_memory property
 	 */
-	public void addSound(String directory, Boolean stream, Double volume, Boolean lolm) {
+	public void addSound(String directory, File file, Boolean stream, Double volume, Boolean lolm) {
 		Sound sound = new Sound();
 
-		sound.setDirectory(directory);
+		sound.setName(directory);
 		sound.setStream(stream);
-		sound.setVolume(volume);
+		sound.setFile(file);
 		sound.setLOLM(lolm);
 		sound.setIndex(numberSounds()); // the index location in the sounds array list
 		sound.setPlaysound(this);
