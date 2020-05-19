@@ -51,7 +51,7 @@
                         <Region prefHeight="200.0" />
                         <HBox>
                            <children>
-                              <Label id="HomeText" text="Developed by Pablo Delgado, Noah Harris, Charles Vidro" />
+                              <Label id="HomeText" text="Developed by Charles Vidro with contibutions from Pablo Delgado and Noah Harris" />
                            </children>
                            <padding>
                               <Insets bottom="2.0" left="5.0" />
