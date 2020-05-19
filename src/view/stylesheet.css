@@ -1,3 +1,15 @@
+#addPlaysoundButton {
+ -fx-opacity: 0.4;
+ -fx-text-fill: #ebebeb;
+ -fx-font-size: 20;
+ -fx-background-color: transparent;
+ -fx-border-color: #ebebeb;
+ -fx-border-style: dashed;
+ -fx-border-color: #959595;
+ -fx-border-width: 3;
+ -fx-border-radius: 1;
+}
+
 /*
 ADD PLAYSOUND
  */

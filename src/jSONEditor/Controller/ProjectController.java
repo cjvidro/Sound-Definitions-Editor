@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -38,6 +40,7 @@ public class ProjectController {
     @FXML private Menu recentProjects;
     @FXML private Menu editTemplateDropdown;
     @FXML private VBox folderDisplay;
+    @FXML private StackPane addPlaysoundDisplay;
 
     // references to be used
     public static Menu editTemplateDropdownReference = null;
@@ -121,6 +124,10 @@ public class ProjectController {
         
         // Populate the folders on the LHS
         populateFolders();
+
+        // Center addPlaysoundDisplay
+        addPlaysoundDisplay.minWidthProperty().bind(coreScrollPane.widthProperty());
+        addPlaysoundDisplay.minHeightProperty().bind(coreScrollPane.heightProperty());
     }
 
 
