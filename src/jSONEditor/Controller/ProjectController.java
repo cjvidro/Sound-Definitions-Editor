@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -119,15 +119,27 @@ public class ProjectController {
                 });
         		
         		editTemplateDropdown.getItems().add(item);
+
+        		// Make the toggle between folder and add view toggle
+        		folders.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+        		    if (newVal == null) {
+        		        if (folderDisplay.isVisible()) {
+        		            toggleView();
+                        }
+                    }
+                });
         	}
         }
         
         // Populate the folders on the LHS
         populateFolders();
 
-        // Center addPlaysoundDisplay
+        // Center addPlaysoundDisplay button
         addPlaysoundDisplay.minWidthProperty().bind(coreScrollPane.widthProperty());
         addPlaysoundDisplay.minHeightProperty().bind(coreScrollPane.heightProperty());
+
+        folderDisplay.setVisible(false);
+        addPlaysoundDisplay.setVisible(true);
     }
 
 
@@ -292,7 +304,12 @@ public class ProjectController {
     }
 
 
+    /**
+     * Populates the folders list
+     */
     private void populateFolders() {
+        String currentToggle = getCurrentFolder();
+
         playsoundsVBox.getChildren().clear();
 
         Set<String> folderNames = editorData.folders.keySet();
@@ -311,6 +328,12 @@ public class ProjectController {
             });
 
             playsoundsVBox.getChildren().add(folder);
+
+            // set it to be selected if it was selected before
+            if (currentToggle != null && currentToggle.equals(s)) {
+                folder.setSelected(true);
+                currentToggle = null;
+            }
         }
     }
 
@@ -319,8 +342,13 @@ public class ProjectController {
      * @param folderName
      */
     private void showFolder(String folderName) {
-        if (editorData.folders.get(folderName) == null) {
+        if (editorData.folders.get(folderName) == null || folders.getSelectedToggle() == null) {
             return;
+        }
+
+        // show the folder display if not shown already
+        if (!folderDisplay.isVisible()) {
+            toggleView();
         }
 
         System.out.println("Showing folder " + folderName);
@@ -382,17 +410,34 @@ public class ProjectController {
         }
     }
 
+    /**
+     * @return The string name of the currently selected folder
+     */
     private String getCurrentFolder() {
         String curFolder;
         try {
-            curFolder = ((ToggleButton) folders.getSelectedToggle()).getText();
+            curFolder = getCurrentToggle().getText();
         } catch (NullPointerException e) {
             return null;
         }
 
         return curFolder;
     }
-    
+
+    /**
+     *
+     */
+    private ToggleButton getCurrentToggle() {
+        ToggleButton curButton;
+        try {
+            curButton = ((ToggleButton) folders.getSelectedToggle());
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+        return curButton;
+    }
+
     @FXML
     protected void populateTemplate() {
     	editTemplateDropdownReference.getItems().clear();
@@ -488,5 +533,13 @@ public class ProjectController {
         }
 
         return stringBuilder.toString();
+    }
+
+    /**
+     * Toggles between the folder view and the addPlaysound button view
+     */
+    private void toggleView() {
+        addPlaysoundDisplay.setVisible(!addPlaysoundDisplay.isVisible());
+        folderDisplay.setVisible(!folderDisplay.isVisible());
     }
 }

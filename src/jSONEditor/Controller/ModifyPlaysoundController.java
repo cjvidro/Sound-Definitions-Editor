@@ -450,20 +450,22 @@ public class ModifyPlaysoundController {
      * @return true if the directory is a valid file
      */
     public boolean checkDirectory(String string) {
-        File file = new File(string);
-        if (!file.exists()) {
-            System.out.println("Sound file does not exist!");
-            return false;
-        }
+        return true;
 
-        String ending = file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4);
-
-        if (ending.equals(".ogg") || ending.equals(".wav") || ending.equals(".fsb")) {
-            return true;
-        }
-
-        System.out.println("This is not a valid sound file!");
-        return false;
+//        File file = new File(string);
+//        if (!file.exists()) {
+//            System.out.println("Sound file does not exist!");
+//            return false;
+//        }
+//
+//        String ending = file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4);
+//
+//        if (ending.equals(".ogg") || ending.equals(".wav") || ending.equals(".fsb")) {
+//            return true;
+//        }
+//
+//        System.out.println("This is not a valid sound file!");
+//        return false;
     }
 
     /**
