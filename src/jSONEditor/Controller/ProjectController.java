@@ -502,8 +502,25 @@ public class ProjectController {
     }
 
     @FXML
-    private void newFolder() {
-        System.out.println("New folder");
+    /**
+     * Shows the new folder popup
+     */
+    private void newFolder() throws IOException{
+        System.out.println("Show New Folder");
+
+        // load FXML and set the controller
+        FolderController controller = new FolderController();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../../view/addFolder.fxml")));
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        // set JavaFX stage details
+        Stage addFolderWindow = new Stage();
+        addFolderWindow.setTitle("JSON Sound Definitions Editor - Add Folder");
+        addFolderWindow.setScene(new Scene(root));
+        addFolderWindow.initModality(Modality.APPLICATION_MODAL);
+        addFolderWindow.setResizable(false);
+        addFolderWindow.show();
     }
 
     /**
