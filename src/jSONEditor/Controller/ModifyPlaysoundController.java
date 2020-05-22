@@ -192,7 +192,7 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
+                ((CheckBox) soundBoxes[2].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
 
                 if (template.getDefaultVolume() != null) {
                     ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
