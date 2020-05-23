@@ -154,6 +154,7 @@ public class ModifyPlaysoundController {
      */
     private void deletePlaysound(Playsound playsound) {
         editorData.playsounds.remove(playsound);
+        playsound.getGroup().playsounds.remove(playsound);
         System.out.println("Removed playsound " + playsound.getName());
     }
 
@@ -285,12 +286,13 @@ public class ModifyPlaysoundController {
         Sound firstSound = playsound.sounds.get(0);
 
         String firstDirectory = firstSound.getName();
-        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set directory
-        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set name
+        ((TextField) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setText(firstSound.getFile().getAbsolutePath()); // set directory
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
         if (firstSound.getVolume() != null) {
-            ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
         }
-        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
+        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
 
         // populate remaining playsounds
         for (int i = 1; i < numOfSounds; i++) {
@@ -300,12 +302,13 @@ public class ModifyPlaysoundController {
 
                 // populate the sound
                 String directory = sound.getName();
-                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set directory
-                ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set name
+                ((TextField) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setText(sound.getFile().getAbsolutePath()); // set name
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
                 if (sound.getVolume() != null) {
-                    ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
+                    ((TextField) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
                 }
-                ((CheckBox) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
 
             } catch (IOException e) {
                 e.printStackTrace();

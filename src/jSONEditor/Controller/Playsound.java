@@ -32,6 +32,7 @@ public class Playsound {
 		sound.setStream(stream);
 		sound.setFile(file);
 		sound.setLOLM(lolm);
+		sound.setVolume(volume);
 		sound.setIndex(numberSounds()); // the index location in the sounds array list
 		sound.setPlaysound(this);
 

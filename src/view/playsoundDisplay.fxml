@@ -37,7 +37,7 @@
                         </VBox>
                      </content>
                   </TitledPane>
-                  <Button mnemonicParsing="false">
+                  <Button mnemonicParsing="false" onAction="#editPlaysound">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
