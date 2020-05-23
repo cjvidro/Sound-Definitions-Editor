@@ -130,6 +130,13 @@ public class ProjectController {
                 });
         	}
         }
+
+        // add default folder
+        if (editorData.folders.size() == 0) {
+            PlaysoundGroup defaultGroup = new PlaysoundGroup();
+            defaultGroup.setName("Default");
+            editorData.folders.put("Default", defaultGroup);
+        }
         
         // Populate the folders on the LHS
         populateFolders();

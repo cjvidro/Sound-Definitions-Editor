@@ -19,6 +19,7 @@ public class ModifyPlaysoundController {
     @FXML public TextField nameField;
     @FXML public ComboBox categoryBox;
     @FXML public ComboBox templateBox;
+    @FXML public ComboBox folderBox;
     @FXML public TextField referenceName;
     @FXML private Button saveButton;
     @FXML private TextField fileDirectoryField;
@@ -42,6 +43,7 @@ public class ModifyPlaysoundController {
         }
         loadTemplates();
         loadCategories();
+        loadFolders();
     }
 
     @FXML
@@ -57,13 +59,7 @@ public class ModifyPlaysoundController {
             playsound.setName(nameField.getText());
             playsound.setCategory((Category) categoryBox.getValue());
 
-            //*************** TEMP
-            if (editorData.folders.size() == 0 ) {
-                PlaysoundGroup folder = new PlaysoundGroup();
-                folder.setName("Folder");
-                editorData.folders.put("Folder", folder);
-            }
-            PlaysoundGroup folder = editorData.folders.get("Folder");
+            PlaysoundGroup folder = editorData.folders.get(folderBox.getSelectionModel().getSelectedItem());
             playsound.setGroup(folder);
             folder.playsounds.add(playsound);
 
@@ -248,6 +244,21 @@ public class ModifyPlaysoundController {
         if (categoryBox != null) {
             for (Category category : Category.values()) {
                 categoryBox.getItems().addAll(category);
+            }
+        }
+    }
+
+    /**
+     * Loads the folders into the folders box
+     */
+    private void loadFolders() {
+        if (folderBox != null) {
+            for (String s : editorData.folders.keySet()) {
+                folderBox.getItems().addAll(s);
+
+                if (s.equals("Default")) {
+                    folderBox.getSelectionModel().select(s);
+                }
             }
         }
     }
