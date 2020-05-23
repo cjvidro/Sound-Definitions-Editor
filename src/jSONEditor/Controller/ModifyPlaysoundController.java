@@ -295,17 +295,19 @@ public class ModifyPlaysoundController {
 
         // populate first playsound
         VBox firstSoundVBox = ((VBox) ((HBox) soundsVBox.getChildren().get(0)).getChildren().get(1));
-        Sound firstSound = playsound.sounds.get(0);
 
-        String firstDirectory = firstSound.getName();
-        ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set name
-        ((TextField) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setText(firstSound.getFile().getAbsolutePath()); // set directory
-        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
-        if (firstSound.getVolume() != null) {
-            ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getVolume()  + ""); // set volume
+        if (numOfSounds >= 1) {
+            Sound firstSound = playsound.sounds.get(0);
+
+            String firstDirectory = firstSound.getName();
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set name
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setText(firstSound.getFile().getAbsolutePath()); // set directory
+            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
+            if (firstSound.getVolume() != null) {
+                ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getVolume() + ""); // set volume
+            }
+            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
         }
-        ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
-
         // populate remaining playsounds
         for (int i = 1; i < numOfSounds; i++) {
             try {
