@@ -273,6 +273,7 @@ public class ModifyPlaysoundController {
                 // set name and category
                 nameField.setText(playsound.getName());
                 categoryBox.getSelectionModel().select(playsound.getCategory());
+                folderBox.getSelectionModel().select(playsound.getGroup().getName());
 
                 // set reference information
                 referenceName.setText(playsound.getName());

@@ -36,6 +36,17 @@
             </HBox>
             <HBox spacing="10.0">
                <children>
+                  <Label text="Folder">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="folderBox" prefWidth="150.0" promptText="Select Folder" stylesheets="@stylesheet.css" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
                   <Label text="Name">
                      <font>
                         <Font size="16.0" />
