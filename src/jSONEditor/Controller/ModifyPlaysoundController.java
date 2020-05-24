@@ -23,7 +23,6 @@ public class ModifyPlaysoundController {
     @FXML public TextField referenceName;
     @FXML private Button saveButton;
     @FXML private TextField fileDirectoryField;
-    @FXML private TextField soundName;
 
     @FXML public VBox soundsVBox;
     private static VBox soundsVBoxRef;
@@ -79,18 +78,18 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                String name = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
-                File file = new File(((TextField) soundBoxes[1].getChildren().get(2)).getText());
-                Boolean stream = ((CheckBox) soundBoxes[2].getChildren().get(2)).isSelected();
+                File file = new File(((TextField) soundBoxes[0].getChildren().get(2)).getText());
+                String name = getSoundName(file);
+                Boolean stream = ((CheckBox) soundBoxes[1].getChildren().get(2)).isSelected();
 
                 // check if volume, lolm are empty
                 Double volume = null;
 
-                if (!((TextField) soundBoxes[3].getChildren().get(2)).getText().equals("")) {
-                    volume = Double.parseDouble(((TextField) soundBoxes[3].getChildren().get(2)).getText());
+                if (!((TextField) soundBoxes[2].getChildren().get(2)).getText().equals("")) {
+                    volume = Double.parseDouble(((TextField) soundBoxes[2].getChildren().get(2)).getText());
                 }
 
-                Boolean lolm = ((CheckBox) soundBoxes[4].getChildren().get(2)).isSelected();
+                Boolean lolm = ((CheckBox) soundBoxes[3].getChildren().get(2)).isSelected();
 
                 playsound.addSound(name, file, stream, volume, lolm);
             }
@@ -189,13 +188,13 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                ((CheckBox) soundBoxes[2].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
+                ((CheckBox) soundBoxes[1].getChildren().get(2)).setSelected(template.getDefaultStream()); // stream
 
                 if (template.getDefaultVolume() != null) {
-                    ((TextField) soundBoxes[3].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
+                    ((TextField) soundBoxes[2].getChildren().get(2)).setText(template.getDefaultVolume() + ""); // volume
                 }
 
-                ((CheckBox) soundBoxes[4].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
+                ((CheckBox) soundBoxes[3].getChildren().get(2)).setSelected(template.detectLOLMSetting()); // LOLM
             }
         }
     }
@@ -299,14 +298,13 @@ public class ModifyPlaysoundController {
         if (numOfSounds >= 1) {
             Sound firstSound = playsound.sounds.get(0);
 
-            String firstDirectory = firstSound.getName();
-            ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstDirectory); // set name
-            ((TextField) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setText(firstSound.getFile().getAbsolutePath()); // set directory
-            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
+
+            ((TextField) ((HBox) firstSoundVBox.getChildren().get(0)).getChildren().get(2)).setText(firstSound.getFile().getAbsolutePath()); // set directory
+            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(firstSound.getStream()); // set stream
             if (firstSound.getVolume() != null) {
-                ((TextField) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setText(firstSound.getVolume() + ""); // set volume
+                ((TextField) ((HBox) firstSoundVBox.getChildren().get(2)).getChildren().get(2)).setText(firstSound.getVolume() + ""); // set volume
             }
-            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
+            ((CheckBox) ((HBox) firstSoundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(firstSound.getLOLM()); // set LOLM
         }
         // populate remaining playsounds
         for (int i = 1; i < numOfSounds; i++) {
@@ -315,14 +313,12 @@ public class ModifyPlaysoundController {
                 Sound sound = playsound.getSound(i);
 
                 // populate the sound
-                String directory = sound.getName();
-                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(directory); // set name
-                ((TextField) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setText(sound.getFile().getAbsolutePath()); // set name
-                ((CheckBox) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
+                ((TextField) ((HBox) soundVBox.getChildren().get(0)).getChildren().get(2)).setText(sound.getFile().getAbsolutePath()); // set directory
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(1)).getChildren().get(2)).setSelected(sound.getStream()); // set stream
                 if (sound.getVolume() != null) {
-                    ((TextField) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
+                    ((TextField) ((HBox) soundVBox.getChildren().get(2)).getChildren().get(2)).setText(sound.getVolume()  + ""); // set volume
                 }
-                ((CheckBox) ((HBox) soundVBox.getChildren().get(4)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
+                ((CheckBox) ((HBox) soundVBox.getChildren().get(3)).getChildren().get(2)).setSelected(sound.getLOLM()); // set LOLM
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -411,16 +407,12 @@ public class ModifyPlaysoundController {
 
                 HBox[] soundBoxes = getSoundHBoxes(overlyingBox);
 
-                // check if name is invalid
-                String name = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
-                if (!checkName(name)) return false;
-
                 // check if directory is invalid
-                String directory = ((TextField) soundBoxes[1].getChildren().get(2)).getText();
+                String directory = ((TextField) soundBoxes[0].getChildren().get(2)).getText();
                 if(!checkDirectory(directory)) return false;
 
                 // check if volume is invalid
-                String volumeText =((TextField) soundBoxes[3].getChildren().get(2)).getText();
+                String volumeText =((TextField) soundBoxes[2].getChildren().get(2)).getText();
                 if (!checkDouble(volumeText)) return false;
             }
         }
@@ -432,33 +424,18 @@ public class ModifyPlaysoundController {
      * @return an array of HBoxes corresponding to a sounds directory, stream, volume, and LOLM
      */
     public HBox[] getSoundHBoxes(HBox overlyingBox) {
-        HBox[] soundBoxes = new HBox[5];
+        HBox[] soundBoxes = new HBox[4];
 
         if (overlyingBox != null) {
             VBox containingBox = (VBox) overlyingBox.getChildren().get(1);
 
-            soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // name box
-            soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // sound directory box
-            soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // stream box
-            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // volume box
-            soundBoxes[4] = (HBox) containingBox.getChildren().get(4); // LOLM box
+            soundBoxes[0] = (HBox) containingBox.getChildren().get(0); // sound directory box
+            soundBoxes[1] = (HBox) containingBox.getChildren().get(1); // stream box
+            soundBoxes[2] = (HBox) containingBox.getChildren().get(2); // volume box
+            soundBoxes[3] = (HBox) containingBox.getChildren().get(3); // LOLM box
         }
 
         return soundBoxes;
-    }
-
-    /**
-     * Determines if a name is valid
-     * @param string the name
-     * @return true if the name is not empty
-     */
-    public boolean checkName(String string) {
-        if (string.equals("")) {
-            System.out.println("Sound name is blank!");
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -467,22 +444,20 @@ public class ModifyPlaysoundController {
      * @return true if the directory is a valid file
      */
     public boolean checkDirectory(String string) {
-        return true;
+        File file = new File(string);
+        if (!file.exists()) {
+            System.out.println("Sound file does not exist!");
+            return false;
+        }
 
-//        File file = new File(string);
-//        if (!file.exists()) {
-//            System.out.println("Sound file does not exist!");
-//            return false;
-//        }
-//
-//        String ending = file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4);
-//
-//        if (ending.equals(".ogg") || ending.equals(".wav") || ending.equals(".fsb")) {
-//            return true;
-//        }
-//
-//        System.out.println("This is not a valid sound file!");
-//        return false;
+        String ending = file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4);
+
+        if (ending.equals(".ogg") || ending.equals(".wav") || ending.equals(".fsb")) {
+            return true;
+        }
+
+        System.out.println("This is not a valid sound file!");
+        return false;
     }
 
     /**
@@ -522,6 +497,7 @@ public class ModifyPlaysoundController {
     private void selectSoundFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sound File","*.ogg", "*.wav", "*.fsb"));
+        fileChooser.setInitialDirectory(new File("D:\\0Projects\\Sound Design Projects\\Quality Test"));
         File file = fileChooser.showOpenDialog(new Stage());
 
         if (file != null) {
@@ -529,11 +505,12 @@ public class ModifyPlaysoundController {
 
             // update the file directory
             fileDirectoryField.setText(filePath);
-
-            if (soundName != null && soundName.getText().equals("")) {
-                // update the sound name if blank
-                soundName.setText(file.getName().substring(0, file.getName().length() - 4));
-            }
         }
+    }
+
+    private String getSoundName(File file) {
+        System.out.println("Ran");
+        System.out.println(file.getName().substring(0, file.getName().length() - 4));
+        return(file.getName().substring(0, file.getName().length() - 4));
     }
 }

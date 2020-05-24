@@ -27,17 +27,6 @@
          <children>
             <HBox spacing="10.0">
                <children>
-                  <Label text="Name">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="soundName" promptText="Name the sound file" />
-               </children>
-            </HBox>
-            <HBox spacing="10.0">
-               <children>
                   <Button mnemonicParsing="false" onAction="#selectSoundFile" text="File" />
                   <Region HBox.hgrow="ALWAYS" />
                   <TextField fx:id="fileDirectoryField" promptText="Sound file directory">
