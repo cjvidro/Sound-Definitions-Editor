@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,6 +39,7 @@ public class ProjectController {
     @FXML private Menu recentProjects;
     @FXML private Menu editTemplateDropdown;
     @FXML private VBox folderDisplay;
+    @FXML private VBox folderDisplayWrapper;
     @FXML private StackPane addPlaysoundDisplay;
 
     // references to be used
@@ -69,34 +69,7 @@ public class ProjectController {
                 }
             }
         }
-        /*
-        if(EditorData.getInstance().templates.size() == 0)
-        {
-        	Template template = new Template();
-        	template.setName("Template 1");
-        	template.setDefaultCategory(Category.master);
-        	template.setDefaultMin(10.0);
-        	template.setDefaultMax(10.0);
-        	template.setDefaultStream(true);
-        	template.setDefaultVolume(10.0);
-        	template.setDefaultPitch(10.0);
-        	template.setLOLMSetting(0);
-        	
-        	EditorData.getInstance().templates.add(template);
-        	
-        	Template template2 = new Template();
-        	template2.setName("Template 2");
-        	template2.setDefaultCategory(Category.master);
-        	template2.setDefaultMin(10.0);
-        	template2.setDefaultMax(10.0);
-        	template2.setDefaultStream(true);
-        	template2.setDefaultVolume(10.0);
-        	template2.setDefaultPitch(10.0);
-        	template2.setLOLMSetting(0);
-        	
-        	EditorData.getInstance().templates.add(template2);
-        }
-        */
+
         if(editTemplateDropdown != null) {
             editTemplateDropdownReference = editTemplateDropdown;
 
@@ -123,7 +96,7 @@ public class ProjectController {
         		// Make the toggle between folder and add view toggle
         		folders.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
         		    if (newVal == null) {
-        		        if (folderDisplay.isVisible()) {
+        		        if (folderDisplayWrapper.isVisible()) {
         		            toggleView();
                         }
                     }
@@ -145,7 +118,7 @@ public class ProjectController {
         addPlaysoundDisplay.minWidthProperty().bind(coreScrollPane.widthProperty());
         addPlaysoundDisplay.minHeightProperty().bind(coreScrollPane.heightProperty());
 
-        folderDisplay.setVisible(false);
+        folderDisplayWrapper.setVisible(false);
         addPlaysoundDisplay.setVisible(true);
     }
 
@@ -264,7 +237,7 @@ public class ProjectController {
     /**
      * Displays the add playsound window
      */
-    public Stage showAddPlaysound() throws IOException {
+    public ModifyPlaysoundController showAddPlaysound() throws IOException {
         System.out.println("Show Add Playsound");
 
         // load FXML and set the controller
@@ -281,7 +254,12 @@ public class ProjectController {
         addPlaysoundWindow.setResizable(false);
         addPlaysoundWindow.show();
 
-        return addPlaysoundWindow;
+        return controller;
+    }
+
+    @FXML public void addPlaysoundToFolder() throws IOException {
+        ModifyPlaysoundController controller = showAddPlaysound();
+        controller.folderBox.getSelectionModel().select(getCurrentFolder());
     }
 
     @FXML
@@ -354,7 +332,7 @@ public class ProjectController {
         }
 
         // show the folder display if not shown already
-        if (!folderDisplay.isVisible()) {
+        if (!folderDisplayWrapper.isVisible()) {
             toggleView();
         }
 
@@ -564,6 +542,6 @@ public class ProjectController {
      */
     private void toggleView() {
         addPlaysoundDisplay.setVisible(!addPlaysoundDisplay.isVisible());
-        folderDisplay.setVisible(!folderDisplay.isVisible());
+        folderDisplayWrapper.setVisible(!folderDisplayWrapper.isVisible());
     }
 }

@@ -167,10 +167,22 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <VBox fx:id="folderDisplay" />
+                        <VBox id="EditBackground" fx:id="folderDisplayWrapper" spacing="10.0" stylesheets="@stylesheet.css">
+                           <children>
+                              <VBox fx:id="folderDisplay" />
+                              <Button mnemonicParsing="false" onAction="#addPlaysoundToFolder" text="Add Playsound">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                         <StackPane fx:id="addPlaysoundDisplay">
                            <children>
-                              <Button id="addPlaysoundButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAddPlaysound" prefHeight="300.0" prefWidth="300.0" stylesheets="@stylesheet.css" text="Add Playsound" />
+                              <Button id="addPlaysoundButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAddPlaysound" prefHeight="300.0" prefWidth="300.0" stylesheets="@stylesheet.css" text="Add Playsound">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin></Button>
                            </children>
                         </StackPane>
                      </children></AnchorPane>
